@@ -5,8 +5,8 @@ import java.awt.event.*;
 public class Bunraku extends JFrame {
 	public static int fontSize = 22;
 	public static JPanel panel1 = new JPanel();
-	public static JLabel header1 = new JLabel(Data.playerLocation);
-	public static JLabel header2 = new JLabel("Score: ");
+	public static JLabel header1 = new JLabel(Room.gardenPatio.title);
+	//public static JLabel header2 = new JLabel("Score: ");
 	public static JTextArea body = new JTextArea(Room.intro);
 	public static JTextField inputBox = new JTextField("");
 	public static JScrollPane scroll = new JScrollPane(body);

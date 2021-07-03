@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class Room {
+	public static ArrayList<Room> location = new ArrayList<Room>();
+	
 	public static ArrayList<Room> rooms = new ArrayList<Room>();
 	
 	public static ArrayList<String> gardenPatioObjects = new ArrayList<String>();
@@ -84,7 +86,8 @@ public class Room {
 	public static String intro = "You bought a ticket to the Adachi Museum of Art.\n\nThis is the introduction.\n\nBUNRAKU\n\nCopyright (C) 2021 by Benjamin, Inc. All rights reserved.\n\nBUNRAKU is a trademark of Benjamin, Inc.\n\nRelease 1\n\n";
 	public static String gardenPatioDesc = "The celebrated White Gravel and Pine Tree Garden of the Adachi Bigutsukan expands before you. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the south is the Adachi Museum of Art.";
 	public static String cobbleSquareDesc = "Your sandles clack on the cobblestone tiles. The garden expands to the north. There are doorways to the east and west of you. To the south is a hut.";
-	public static String teaRoomDesc = "You are standing in a room designed for drinking tea. There are a few benches here. There may or may not be a book on a bench. There is an exit to the east.";
+	public static String teaRoomDesc = "You are standing in a room designed for drinking tea. There are a few benches here. There is an exit to the east.";
+	public static String acBookDesc = "There is a large blue book here, titled: \"MAGICK Liber ABA, by Aleister Crowley.\"";
 	public static String sandExhibitDesc = "This room displays a sand exhibit. To the south lies a door. Mounted on the door is a plaque. Beside the door is a sign.";
 	public static String thatchedHutDesc = "You are in a thatched hut. There is a Chippendale mirror standing here. To the southeast is a lovely hallway. The cobble square is to the north.";
 	public static String gardenOverlookDesc = "The White Gravel and Pine Tree Garden of the Adachi Bigutsukan expands to the south. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the west is a room. To the east is a jungle path. The thatched hut is to the northwest.";
@@ -121,44 +124,52 @@ public class Room {
 	public static String creakyDeckDesc = "The deck creaks beneath your feet. There is a wooden box here with a button and a plaque. There are walkways to the west and south.";
 	public static String overlookDesc = "There is a mirror here, and paper cranes. There is a way to the east.";
 	
-	public static Room gardenPatio = new Room();
-	public static Room cobbleSquare = new Room();
-	public static Room teaRoom = new Room(); 
-	public static Room sandExhibit = new Room(); 
-	public static Room thatchedHut = new Room(); 
-	public static Room gardenOverlook = new Room(); 
-	public static Room lounge = new Room(); 
-	public static Room cafe = new Room(); 
-	public static Room outsideGallery = new Room(); 
-	public static Room shrineRoom1 = new Room(); 
-	public static Room insideGallery = new Room(); 
-	public static Room assemblyRoom = new Room(); 
-	public static Room shrineRoom2 = new Room(); 
-	public static Room livingRoom = new Room(); 
-	public static Room pond = new Room(); 
-	public static Room courtyard = new Room(); 
-	public static Room landing = new Room(); 
-	public static Room hallway = new Room(); 
-	public static Room sittingRoom = new Room(); 
-	public static Room masterBedroom = new Room(); 
-	public static Room library = new Room(); 
-	public static Room closet = new Room(); 
-	public static Room darkPassageway = new Room();
-	public static Room mannequinRoom = new Room(); 
-	public static Room theater = new Room(); 
-	public static Room outsideGate = new Room();
-	public static Room insideGate = new Room(); 
-	public static Room island = new Room(); 
-	public static Room bottomOfStairs = new Room(); 
-	public static Room topOfStairs = new Room(); 
-	public static Room hamlet = new Room(); 
-	public static Room hisachiIchirosHouse = new Room(); 
-	public static Room hondo = new Room(); 
-	public static Room balcony = new Room(); 
-	public static Room shrineRoom3 = new Room();
-	public static Room trinketShop = new Room(); 
-	public static Room creakyDeck = new Room(); 
-	public static Room overlook = new Room(); 
+	public String title;
+	public String desc;
+	
+	public Room(String title, String desc) {
+		this.title = title;
+		this.desc = desc;
+	}
+	
+	public static Room gardenPatio = new Room("Garden Patio", gardenPatioDesc);
+	public static Room cobbleSquare = new Room("Cobble Square", cobbleSquareDesc);
+	public static Room teaRoom = new Room("Tea Room", teaRoomDesc); 
+	public static Room sandExhibit = new Room("Sand Exhibit", sandExhibitDesc); 
+	public static Room thatchedHut = new Room("Thatched Hut", thatchedHutDesc); 
+	public static Room gardenOverlook = new Room("Garden Overlook", gardenOverlookDesc); 
+	public static Room lounge = new Room("Lounge", loungeDesc); 
+	public static Room cafe = new Room("Cafe", cafeDesc); 
+	public static Room outsideGallery = new Room("Outside Gallery", outsideGalleryDesc); 
+	public static Room shrineRoom1 = new Room("Shrine Room 1", shrineRoom1Desc); 
+	public static Room insideGallery = new Room("Inside Gallery", insideGalleryDesc); 
+	public static Room assemblyRoom = new Room("Assembly Room", assemblyRoomDesc); 
+	public static Room shrineRoom2 = new Room("Shrine Room 2", shrineRoom2Desc); 
+	public static Room livingRoom = new Room("Living Room", livingRoomDesc); 
+	public static Room pond = new Room("Pond", pondDesc); 
+	public static Room courtyard = new Room("Courtyard", courtyardDesc); 
+	public static Room landing = new Room("Landing", landingDesc); 
+	public static Room hallway = new Room("Hallway", hallwayDesc); 
+	public static Room sittingRoom = new Room("Sitting Room", sittingRoomDesc); 
+	public static Room masterBedroom = new Room("Master Bedroom", masterBedroomDesc); 
+	public static Room library = new Room("Library", libraryDesc); 
+	public static Room closet = new Room("Closet", closetDesc); 
+	public static Room darkPassageway = new Room("Dark Passageway", darkPassagewayDesc);
+	public static Room mannequinRoom = new Room("Mannequin Room", mannequinRoomDesc); 
+	public static Room theater = new Room("Theater", theaterDesc); 
+	public static Room outsideGate = new Room("Outside Gate", outsideGateDesc);
+	public static Room insideGate = new Room("Inside Gate", insideGateDesc); 
+	public static Room island = new Room("Island", islandDesc); 
+	public static Room bottomOfStairs = new Room("Bottom of Stairs", bottomOfStairsDesc); 
+	public static Room topOfStairs = new Room("Top of Stairs", topOfStairsDesc); 
+	public static Room hamlet = new Room("Hamlet", hamletDesc); 
+	public static Room hisachiIchirosHouse = new Room("Hisachi Ichiro's House", hisachiIchirosHouseDesc); 
+	public static Room hondo = new Room("Hondo", hondoDesc); 
+	public static Room balcony = new Room("Balcony", balconyDesc); 
+	public static Room shrineRoom3 = new Room("Shrine Room 3", shrineRoom3Desc);
+	public static Room trinketShop = new Room("Trinket Shop", trinketShopDesc); 
+	public static Room creakyDeck = new Room("Creaky Deck", creakyDeckDesc); 
+	public static Room overlook = new Room("Overlook", overlookDesc); 
 
 	public static void setRooms() {
 		rooms.add(gardenPatio); 
@@ -295,212 +306,21 @@ public class Room {
 		creakyDeckObjects.add(Item.go); 
 	}
 	
-	private static void setDesc(String s) {
-		Story.print(s);
+	public static Room getLocation() {
+		return location.get(0);
+	}
+	
+	public static void setLocation(Room r) {
+		location.clear();
+		location.add(r);
 	}
 	
 	public static void printDesc() {
-		switch (Data.playerLocation) {
-			case "Garden Patio":
-				setDesc(gardenPatioDesc);
-				break;
-			case "Cobble Square":
-				setDesc(cobbleSquareDesc);
-				break;
-			case "Tea Room":
-				setDesc(teaRoomDesc);
-				break;
-			case "Sand Exhibit":
-				setDesc(sandExhibitDesc);
-				break;
-			case "Thatched Hut":
-				setDesc(thatchedHutDesc);
-				break;
-			case "Garden Overlook":
-				setDesc(gardenOverlookDesc);
-				break;
-			case "Lounge":
-				setDesc(loungeDesc);
-				break;
-			case "Cafe":
-				setDesc(cafeDesc);
-				break;
-			case "Outside Gallery":
-				setDesc(outsideGalleryDesc);
-				break;
-			case "Shrine Room 1":
-				setDesc(shrineRoom1Desc);
-				break;
-			case "Inside Gallery":
-				setDesc(insideGalleryDesc);
-				break;
-			case "Assembly Room":
-				setDesc(assemblyRoomDesc);
-				break;
-			case "Shrine Room 2":
-				setDesc(shrineRoom2Desc);
-				break;
-			case "Living Room":
-				setDesc(livingRoomDesc);
-				break;
-			case "Pond":
-				setDesc(pondDesc);
-				break;
-			case "Courtyard":
-				setDesc(courtyardDesc);
-				break;
-			case "Landing":
-				setDesc(landingDesc);
-				break;
-			case "Hallway":
-				setDesc(hallwayDesc);
-				break;
-			case "Sitting Room":
-				setDesc(sittingRoomDesc);
-				break;
-			case "Master Bedroom":
-				setDesc(masterBedroomDesc);
-				break;
-			case "Library":
-				setDesc(libraryDesc);
-				break;
-			case "Closet":
-				setDesc(closetDesc);
-				break;
-			case "Dark Passageway":
-				setDesc(darkPassagewayDesc);
-				break;
-			case "Mannequin Room":
-				setDesc(mannequinRoomDesc);
-				break;
-			case "Theater":
-				setDesc(theaterDesc);
-				break;
-			case "Outside Gate":
-				setDesc(outsideGateDesc);
-				break;
-			case "Inside Gate":
-				setDesc(insideGateDesc);
-				break;
-			case "Island":
-				setDesc(islandDesc);
-				break;
-			case "Bottom of Stairs":
-				setDesc(bottomOfStairsDesc);
-				break;
-			case "Top of Stairs":
-				setDesc(topOfStairsDesc);
-				break;
-			case "Hamlet":
-				setDesc(hamletDesc);
-				break;
-			case "Hisachi Ichiro's House":
-				setDesc(hisachiIchirosHouseDesc);
-				break;
-			case "Hondo":
-				setDesc(hondoDesc);
-				break;
-			case "Balcony":
-				setDesc(balconyDesc);
-				break;
-			case "Shrine Room 3":
-				setDesc(shrineRoom3Desc);
-				break;
-			case "Trinket Shop":
-				setDesc(trinketShopDesc);
-				break;
-			case "Creaky Deck":
-				setDesc(creakyDeckDesc);
-				break;
-			case "Overlook":
-				setDesc(overlookDesc);
-				break;
-			default:
-				System.out.println("Room.setDesc() error");
-				break;
-			
-		}
-	}
-	
-	public static void printObject() {
-		if (getObjects().contains(Item.om)) {
-			Story.newLine();
-			Story.print(There is  + Item.om +  here.);
-		}
-		
-		if (getObjects().contains(Item.ni)) {
-			Story.newLine();
-			Story.print(There is  + Item.ni +  here.);
-		}
-		
-		if (getObjects().contains(Item.go)) {
-			Story.newLine();
-			Story.print(There is  + Item.go +  here.);
-		}
-		
-		if (getObjects().contains(Item.yu)) {
-			Story.newLine();
-			Story.print(There is  + Item.yu +  here.);
-		}
-		
-		if (getObjects().contains(Item.ji)) {
-			Story.newLine();
-			Story.print(There is  + Item.ji +  here.);
-		}
-		
-		if (getObjects().contains(Item.ra)) {
-			Story.newLine();
-			Story.print(There is  + Item.ra +  here.);
-		}
-		
-		if (getObjects().contains(Item.shi)) {
-			Story.newLine();
-			Story.print(There is  + Item.shi +  here.);
-		}
-		
-		if (getObjects().contains(Item.book)) {
-			Story.newLine();
-			Story.print(There is  + Item.book +  here.);
-		}
-		
-		if (getObjects().contains(Item.rod)) {
-			Story.newLine();
-			Story.print(There is  + Item.rod +  here.);
-		}
-		
-		if (getObjects().contains(Item.booklet)) {
-			Story.newLine();
-			Story.print(There is  + Item.booklet +  here.);
-		}
-		
-		if (getObjects().contains(Item.handbook)) {
-			Story.newLine();
-			Story.print(There is  + Item.handbook +  here.);
-		}
-		
-		if (getObjects().contains(Item.pamphlet)) {
-			Story.newLine();
-			Story.print(There is  + Item.pamphlet +  here.);
-		}
-		
-		if (getObjects().contains(Item.corn)) {
-			Story.newLine();
-			Story.print(There is  + Item.corn +  here.);
-		}
-		
-		if (getObjects().contains(Item.parchment)) {
-			Story.newLine();
-			Story.print(There is  + Item.parchment +  here.);
-		}
-		
-		if (getObjects().contains(Item.card)) {
-			Story.newLine();
-			Story.print(There is  + Item.card +  here.);
-		}
+		Story.print(getLocation().desc);
 	}
 	
 	public static ArrayList getObjects() {
-		switch (Data.playerLocation) {
+		switch (getLocation().title) {
 			case "Garden Patio":
 				return gardenPatioObjects;
 			case "Cobble Square":

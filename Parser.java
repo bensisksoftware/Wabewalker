@@ -62,33 +62,22 @@ public class Parser {
 				count++;
 		}
 		
-		
 		if (count == 0) {
 			// one word
 			simplifyVerb(input.toString());
-			
 		} else if (count == 1) {
 			// two words
-			//simplify();
-			
 			verb.append(input.substring(0 , spaceIndex)); // get verb
 			noun.append(input.substring(input.lastIndexOf(" ") + 1)); // get noun
-			
-			//String v = verb.toString();
-			//String n = noun.toString();
 			
 			simplifyVerb(verb.toString());
 		} else {
 			// too many words
 			Story.tooManySpaces();
 		}
-		
-		System.out.println("verb: \"" + verb + "\"");
-		System.out.println("noun: \"" + noun + "\"");
 	}
 	
-	
-	public static void process(String s) {
+	public static void processInput(String s) {
 		switch (s) {
 			case "NORTH":
 				Action.goNorth();
@@ -126,12 +115,15 @@ public class Parser {
 			case "TAKE":
 				Action.take(noun.toString());
 				break;
+			case "DROP":
+				Action.drop(noun.toString());
+				break;
+			case "LOOK":
+				Action.look();
 			default:
 				Story.invalid();
 				break;
 		}
-		
-		
 	}
 	
 	private static void simplifyVerb(String s) {
@@ -192,15 +184,20 @@ public class Parser {
 			s = "EXAMINE";
 		}
 		
+		if (s.equals("L")){
+			s = "LOOK";
+		}
+		
 		if (s.equals("GET")
 		|| s.equals("OBTAIN")
 		|| s.equals("GRAB")) {
 			s = "TAKE";
 		}
 		
-		process(s);
+		processInput(s);
 	}
 	
+	// unused
 	private static void simplify() {
 		String s = input.toString();
 		
@@ -312,7 +309,7 @@ public class Parser {
 			s = "DOWN";
 		}
 		
-		process(s);
+		processInput(s);
 	}
 }
 

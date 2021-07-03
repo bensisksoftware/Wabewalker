@@ -1,11 +1,11 @@
 public class Update {
 	
-	public static void location(String l) {
-		Data.playerLocation = l;
-		Bunraku.header1.setText(Data.playerLocation);
-		Story.print(Data.playerLocation);
+	public static void location(Room r) {
+		Room.setLocation(r);
+		Bunraku.header1.setText(Room.getLocation().title);
+		Story.printLocation();
 		Story.newLine();
 		Room.printDesc();
-		Room.printObject();
+		Story.printObjects();
 	}
 }

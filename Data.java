@@ -1,8 +1,6 @@
 public class Data {
-	public static String playerLocation = "";
-	
 	public static void setUp() {
-		playerLocation = "Garden Patio";
+		Room.location.add(Room.gardenPatio);
 		Room.setRooms();
 		Room.setExits();
 		Room.setObjects();

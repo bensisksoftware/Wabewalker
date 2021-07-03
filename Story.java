@@ -1,7 +1,8 @@
+import java.util.ArrayList;
+
 public class Story {
 	private static String invalid = "That is a sentence I don't understand."; // Frotz copyright?
 	private static String tooManySpaces = "There are too many words and/or spaces in that sentence. Try to pair a verb with a noun.";
-	public static String taken = "Taken.";
 	public static String inventory = "Your inventory contains: ";
 	public static String inventoryEmpty = "Your inventory is empty.";
 	public static String missingNoun = "You are missing a noun in that sentence.";
@@ -28,6 +29,10 @@ public class Story {
 		newParagraph();
 	}
 	
+	public static void printLocation() {
+		print(Room.getLocation().title);
+	}
+	
 	public static void printMissingNoun() {
 		print(missingNoun);
 	}
@@ -37,8 +42,11 @@ public class Story {
 	}
 	
 	public static void printTakeItem() {
-		newParagraph();
-		print(taken);
+		print("Taken.");
+	}
+	
+	public static void printNotInInventory() {
+		print("You are not carrying that.");
 	}
 	
 	public static void printInventory() {
@@ -52,5 +60,17 @@ public class Story {
 	
 	public static void printNotHere() {
 		print(notHere);
+	}
+	
+	public static void printObjects() {
+		if ((Room.getLocation().equals(Room.teaRoom.title)) && !Item.tookACBook) { 
+			// normal Story.printDesc handles this exception
+		} else {
+			// print all objects in room
+			for (int i = 0; i < Room.getObjects().size(); i++) {
+				newLine();
+				print("There is " + Room.getObjects().get(i) + " here.");
+			}
+		}
 	}
 }
