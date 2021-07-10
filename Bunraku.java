@@ -24,7 +24,7 @@ public class Bunraku extends JFrame {
 		//header1.setForeground(Color.BLACK);
 		
 		body.setForeground(Color.WHITE);
-		body.setBackground(Color.BLUE);
+		body.setBackground(Color.BLACK);
 		body.setEditable(false);
 		body.setLineWrap(true);
 		body.setWrapStyleWord(true);
@@ -65,6 +65,8 @@ public class Bunraku extends JFrame {
 		});
 		
 		Data.setUp();
-		Room.printDesc();
+		Story.printLocation();
+		Story.newLine();
+		Story.printDesc();
 	}
 }

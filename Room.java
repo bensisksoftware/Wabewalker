@@ -1,9 +1,17 @@
 import java.util.ArrayList;
 
 public class Room {
-	public static ArrayList<Room> location = new ArrayList<Room>();
+	public static boolean shrineRoom1DoorOpen;
+	public static boolean loungeSafeOpen;
+	public static boolean shrineRoom1SafeOpen;
+	public static boolean darkPassagewayDoorOpen;
+	public static boolean closetDoorOpen;
+	public static boolean masterBedroomSafeOpen;
+	public static boolean creakyDeckOpen;
 	
 	public static ArrayList<Room> rooms = new ArrayList<Room>();
+	public static ArrayList<Room> location = new ArrayList<Room>();
+	public static ArrayList<Room> visited = new ArrayList<Room>();
 	
 	public static ArrayList<String> gardenPatioObjects = new ArrayList<String>();
 	public static ArrayList<String> cobbleSquareObjects = new ArrayList<String>();
@@ -80,8 +88,6 @@ public class Room {
 	public static ArrayList<String> trinketShopExits = new ArrayList<String>(); 
 	public static ArrayList<String> creakyDeckExits = new ArrayList<String>(); 
 	public static ArrayList<String> overlookExits = new ArrayList<String>(); 
-	
-	//public static boolean playerHere;
 	
 	public static String intro = "You bought a ticket to the Adachi Museum of Art.\n\nThis is the introduction.\n\nBUNRAKU\n\nCopyright (C) 2021 by Benjamin, Inc. All rights reserved.\n\nBUNRAKU is a trademark of Benjamin, Inc.\n\nRelease 1\n\n";
 	public static String gardenPatioDesc = "The celebrated White Gravel and Pine Tree Garden of the Adachi Bigutsukan expands before you. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the south is the Adachi Museum of Art.";
@@ -315,10 +321,6 @@ public class Room {
 		location.add(r);
 	}
 	
-	public static void printDesc() {
-		Story.print(getLocation().desc);
-	}
-	
 	public static ArrayList getObjects() {
 		switch (getLocation().title) {
 			case "Garden Patio":
@@ -397,6 +399,88 @@ public class Room {
 				return overlookObjects;
 			default:
 				System.out.println("Room.getObjects() error");
+				return null;
+		}
+	}
+	
+	public static ArrayList getExits() {
+		switch (getLocation().title) {
+			case "Garden Patio":
+				return gardenPatioExits;
+			case "Cobble Square":
+				return cobbleSquareExits;
+			case "Tea Room":
+				return teaRoomExits;
+			case "Sand Exhibit":
+				return sandExhibitExits;
+			case "Thatched Hut":
+				return thatchedHutExits;
+			case "Garden Overlook":
+				return gardenOverlookExits;
+			case "Lounge":
+				return loungeExits;
+			case "Cafe":
+				return cafeExits;
+			case "Outside Gallery":
+				return outsideGalleryExits;
+			case "Shrine Room 1":
+				return shrineRoom1Exits;
+			case "Inside Gallery":
+				return insideGalleryExits;
+			case "Assembly Room":
+				return assemblyRoomExits;
+			case "Shrine Room 2":
+				return shrineRoom2Exits;
+			case "Living Room":
+				return livingRoomExits;
+			case "Pond":
+				return pondExits;
+			case "Courtyard":
+				return courtyardExits;
+			case "Landing":
+				return landingExits;
+			case "Hallway":
+				return hallwayExits;
+			case "Sitting Room":
+				return sittingRoomExits;
+			case "Master Bedroom":
+				return masterBedroomExits;
+			case "Library":
+				return libraryExits;
+			case "Closet":
+				return closetExits;
+			case "Dark Passageway":
+				return darkPassagewayExits;
+			case "Mannequin Room":
+				return mannequinRoomExits;
+			case "Theater":
+				return theaterExits;
+			case "Outside Gate":
+				return outsideGateExits;
+			case "Inside Gate":
+				return insideGateExits;
+			case "Island":
+				return islandExits;
+			case "Bottom of Stairs":
+				return bottomOfStairsExits;
+			case "Top of Stairs":
+				return topOfStairsExits;
+			case "Hamlet":
+				return hamletExits;
+			case "Hondo":
+				return hondoExits;
+			case "Balcony":
+				return balconyExits;
+			case "Shrine Room 3":
+				return shrineRoom3Exits;
+			case "Trinket Shop":
+				return trinketShopExits;
+			case "Creaky Deck":
+				return creakyDeckExits;
+			case "Overlook":
+				return overlookExits;
+			default:
+				System.out.println("Room.getExits() error");
 				return null;
 		}
 	}

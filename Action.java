@@ -1,6 +1,7 @@
 public class Action {
 	public static void look() {
-		
+		Story.printDesc();
+		Story.printObjects();
 	}
 	
 	public static void goNorth() {
@@ -68,7 +69,11 @@ public class Action {
 				Update.location(Room.thatchedHut);
 				break;
 			case "Sand Exhibit":
-				Update.location(Room.shrineRoom1);
+				if (Room.shrineRoom1DoorOpen) {
+					Update.location(Room.shrineRoom1);
+				} else {
+					Story.printDoorBlocking();
+				}
 				break;
 			case "Outside Gallery":
 				Update.location(Room.cafe);
@@ -136,7 +141,11 @@ public class Action {
 				Update.location(Room.pond);
 				break;
 			case "Courtyard":
-				Update.location(Room.closet);
+				if (Room.closetDoorOpen) {
+					Update.location(Room.closet);
+				} else {
+					Story.printDoorBlocking();
+				}
 				break;
 			case "Sitting Room":
 				Update.location(Room.library);
@@ -184,13 +193,21 @@ public class Action {
 				Update.location(Room.outsideGallery);
 				break;
 			case "Shrine Room 2":
-				Update.location(Room.darkPassageway);
+				if (Room.darkPassagewayDoorOpen) {
+					Update.location(Room.darkPassageway);
+				} else {
+					Story.printDoorBlocking();
+				}
 				break;
 			case "Pond":
 				Update.location(Room.livingRoom);
 				break;
 			case "Closet":
-				Update.location(Room.courtyard);
+				if (Room.closetDoorOpen) {
+					Update.location(Room.courtyard);
+				} else {
+					Story.printDoorBlocking();
+				}
 				break;
 			case "Sitting Room":
 				Update.location(Room.masterBedroom);
@@ -315,6 +332,87 @@ public class Action {
 		}
 	}
 	
+	public static void go(String n) {
+		switch (n) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "NORTH":
+				if (Room.getExits().contains("N")) {
+					goNorth();
+				} else {
+					Story.printNoExit();
+				}
+				break;
+			case "SOUTH":
+				if (Room.getExits().contains("S")) {
+					goSouth();
+				} else {
+					Story.printNoExit();
+				}
+				break;
+			case "EAST":
+				if (Room.getExits().contains("E")) {
+					goEast();
+				} else {
+					Story.printNoExit();
+				}	
+				break;
+			case "WEST":
+				if (Room.getExits().contains("W")) {
+					goWest();
+				} else {
+					Story.printNoExit();
+				}
+				break;
+			case "NORTHEAST":
+				if (Room.getExits().contains("NE")) {
+					goNorthEast();
+				} else {
+					Story.printNoExit();
+				}
+				break;
+			case "SOUTHEAST":
+				if (Room.getExits().contains("SE")) {
+					goSouthEast();
+				} else {
+					Story.printNoExit();
+				}
+				break;
+			case "NORTHWEST":
+				if (Room.getExits().contains("NW")) {
+					goNorthWest();
+				} else {
+					Story.printNoExit();
+				}
+				break;
+			case "SOUTHWEST":
+				if (Room.getExits().contains("SW")) {
+					goSouthWest();
+				} else {
+					Story.printNoExit();
+				}
+				break;
+			case "UP":
+				if (Room.getExits().contains("U")) {
+					goUp();
+				} else {
+					Story.printNoExit();
+				}
+				break;
+			case "DOWN":
+				if (Room.getExits().contains("D")) {
+					goDown();
+				} else {
+					Story.printNoExit();
+				}
+				break;
+			default:
+				System.out.println("Action.go() error");
+				break;
+		}
+	}
+	
 	public static void checkInventory() {
 		if (Item.inventory.isEmpty()) {
 			Story.print(Story.inventoryEmpty);
@@ -332,6 +430,8 @@ public class Action {
 				if (Room.getObjects().contains(Item.book)) {
 					Item.getBook();
 					Item.tookACBook = true;
+				} else if (Item.inventory.contains(Item.book)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -339,6 +439,8 @@ public class Action {
 			case "OM":
 				if (Room.getObjects().contains(Item.om)) {
 					Item.getOm();
+				} else if (Item.inventory.contains(Item.om)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -346,6 +448,8 @@ public class Action {
 			case "NI":
 				if (Room.getObjects().contains(Item.ni)) {
 					Item.getNi();
+				} else if (Item.inventory.contains(Item.ni)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -353,6 +457,8 @@ public class Action {
 			case "GO":
 				if (Room.getObjects().contains(Item.go)) {
 					Item.getGo();
+				} else if (Item.inventory.contains(Item.go)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -360,6 +466,8 @@ public class Action {
 			case "YU":
 				if (Room.getObjects().contains(Item.yu)) {
 					Item.getYu();
+				} else if (Item.inventory.contains(Item.yu)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -367,6 +475,8 @@ public class Action {
 			case "JI":
 				if (Room.getObjects().contains(Item.ji)) {
 					Item.getJi();
+				} else if (Item.inventory.contains(Item.ji)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -374,6 +484,8 @@ public class Action {
 			case "RA":
 				if (Room.getObjects().contains(Item.ra)) {
 					Item.getRa();
+				} else if (Item.inventory.contains(Item.ra)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -381,6 +493,8 @@ public class Action {
 			case "SHI":
 				if (Room.getObjects().contains(Item.shi)) {
 					Item.getShi();
+				} else if (Item.inventory.contains(Item.shi)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -388,6 +502,8 @@ public class Action {
 			case "ROD":
 				if (Room.getObjects().contains(Item.rod)) {
 					Item.getRod();
+				} else if (Item.inventory.contains(Item.rod)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -395,6 +511,8 @@ public class Action {
 			case "BOOKLET":
 				if (Room.getObjects().contains(Item.booklet)) {
 					Item.getBooklet();
+				} else if (Item.inventory.contains(Item.booklet)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -402,6 +520,8 @@ public class Action {
 			case "HANDBOOK":
 				if (Room.getObjects().contains(Item.handbook)) {
 					Item.getHandbook();
+				} else if (Item.inventory.contains(Item.handbook)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -409,6 +529,8 @@ public class Action {
 			case "PAMPHLET":
 				if (Room.getObjects().contains(Item.pamphlet)) {
 					Item.getPamphlet();
+				} else if (Item.inventory.contains(Item.pamphlet)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -416,6 +538,8 @@ public class Action {
 			case "CORN":
 				if (Room.getObjects().contains(Item.corn)) {
 					Item.getCorn();
+				} else if (Item.inventory.contains(Item.corn)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -423,6 +547,8 @@ public class Action {
 			case "PARCHMENT":
 				if (Room.getObjects().contains(Item.parchment)) {
 					Item.getParchment();
+				} else if (Item.inventory.contains(Item.parchment)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
@@ -430,12 +556,14 @@ public class Action {
 			case "CARD":
 				if (Room.getObjects().contains(Item.card)) {
 					Item.getCard();
+				} else if (Item.inventory.contains(Item.card)) {
+					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
 				break;
 			default:
-			
+				System.out.println("Action.take() error");
 				break;
 		}
 		
@@ -582,8 +710,322 @@ public class Action {
 				}
 				break;
 			default:
-			
+				System.out.println("Action.drop() error");
 				break;
 		}
+	}
+	
+	public static void read(String n) {
+		switch (n) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "BOOK":
+				if (Item.inventory.contains(Item.book) || Room.getObjects().contains(Item.book)) {
+					Item.examineBook();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "BOOKLET":
+				if (Item.inventory.contains(Item.booklet) || Room.getObjects().contains(Item.booklet)) {
+					Item.examineBooklet();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "HANDBOOK":
+				if (Item.inventory.contains(Item.handbook) || Room.getObjects().contains(Item.handbook)) {
+					Item.examineHandbook();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "PAMPHLET":
+				if (Item.inventory.contains(Item.pamphlet) || Room.getObjects().contains(Item.pamphlet)) {
+					Item.examinePamphlet();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				System.out.println("Action.read() error");
+				break;
+		}
+	}
+	
+	public static void examine(String n) {
+		switch (n) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "BOOK":
+				Item.examineBook();
+				break;
+			case "BOOKLET":
+				Item.examineBooklet();
+				break;
+			case "HANDBOOK":
+				Item.examineHandbook();
+				break;
+			case "PAMPHLET":
+				Item.examinePamphlet();
+				break;
+			case "FADED":
+				Item.examineOm();
+			case "FANCY":
+				Item.examineNi();
+				break;
+			case "FROSTY":
+				Item.examineGo();
+				break;
+			case "CRUMPLED":
+				Item.examineYu();
+				break;
+			case "SMOOTH":
+				Item.examineJi();
+				break;
+			case "DUSTY":
+				Item.examineRa();
+				break;
+			case "STAINED":
+				Item.examineShi();
+				break;
+			case "ROD":
+				Item.examineRod();
+				break;
+			case "CORN":
+				Item.examineCorn();
+				break;
+			case "PARCHMENT":
+				Item.examineParchment();
+				break;
+			case "CARD":
+				Item.examineCard();
+				break;
+			default:
+				System.out.println("Action.read() error");
+				break;
+		}
+	}
+	
+	public static void open(String n) {
+		switch (n) {
+			case "":
+				Story.print("What do you want to open?");
+				break;
+			case "DOOR":
+				openDoor();
+				break;
+			case "SAFE":
+				openSafe();
+				break;
+			case "CASE":
+				openCase();
+				break;
+			default:
+				Story.print("That is not something you can open.");
+				break;
+		}
+	}
+	
+	public static void shut(String n) {
+		switch (n) {
+			case "":
+				Story.print("What do you want to shut?");
+				break;
+			case "DOOR":
+				shutDoor();
+				break;
+			case "SAFE":
+				shutSafe();
+				break;
+			case "CASE":
+				shutCase();
+				break;
+			default:
+				Story.print("That is not something you can shut.");
+				break;
+		}
+	}
+	
+	public static void openDoor() {
+		switch (Room.getLocation().title) {
+			case "Sand Exhibit":
+				if (Room.shrineRoom1DoorOpen) {
+					Story.printAlreadyOpen();
+				} else {
+					if (World.OOX) {
+						Story.print("The door opens, revealing a shrine room.");
+						Room.shrineRoom1DoorOpen = true;
+					} else {
+						Story.printLocked();
+					}
+				}
+				break;
+			case "Shrine Room 1":
+				if (Room.shrineRoom1DoorOpen) {
+					Story.printAlreadyOpen();
+				} else {
+					Story.print("The door opens, revealing a sand exhibit.");
+					Room.shrineRoom1DoorOpen = true;
+				}
+				break;
+			case "Shrine Room 2":
+				if (Room.darkPassagewayDoorOpen) {
+					Story.printAlreadyOpen();
+				} else {
+					if (World.OOX) {
+						Story.print("With some effort, the door slides opens, revealing a dark passageway.");
+						Room.darkPassagewayDoorOpen = true;
+					} else {
+						Story.printLocked();
+					}
+				}
+				break;
+			case "Dark Passageway":
+				if (Room.darkPassagewayDoorOpen) {
+					Story.printAlreadyOpen();
+				} else {
+					Story.print("The door opens, revealing a shrine room.");
+					Room.darkPassagewayDoorOpen = true;
+				}
+				break;
+			case "Courtyard":
+				if (Room.closetDoorOpen) {
+					Story.printAlreadyOpen();
+				} else {
+					if (World.XOO) {
+						Story.print("The door opens, revealing a small closet.");
+						Room.closetDoorOpen = true;
+					} else {
+						Story.printLocked();
+					}
+				}
+				break;
+			case "Closet":
+				if (Room.closetDoorOpen) {
+					Story.printAlreadyOpen();
+				} else {
+					Story.print("The door opens, revealing a courtyard.");
+					Room.closetDoorOpen = true;
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void shutDoor() {
+		switch (Room.getLocation().title) {
+			case "Sand Exhibit":
+				if (!Room.shrineRoom1DoorOpen) {
+					Story.printAlreadyShut();
+				} else {
+					Story.printShutDoor();
+					Room.shrineRoom1DoorOpen = false;
+				}
+				break;
+			case "Shrine Room 1":
+				if (!Room.shrineRoom1DoorOpen) {
+					Story.printAlreadyShut();
+				} else {
+					Story.printShutDoor();
+					Room.shrineRoom1DoorOpen = false;
+				}
+				break;
+			case "Shrine Room 2":
+				if (!Room.darkPassagewayDoorOpen) {
+					Story.printAlreadyShut();
+				} else {
+					Story.printShutDoor();
+					Room.darkPassagewayDoorOpen = false;
+				}
+				break;
+			case "Dark Passageway":
+				if (!Room.darkPassagewayDoorOpen) {
+					Story.printAlreadyShut();
+				} else {
+					Story.printShutDoor();
+					Room.darkPassagewayDoorOpen = false;
+				}
+				break;
+			case "Courtyard":
+				if (!Room.closetDoorOpen) {
+					Story.printAlreadyShut();
+				} else {
+					Story.printShutDoor();
+					Room.closetDoorOpen = false;
+				}
+				break;
+			case "Closet":
+				if (!Room.closetDoorOpen) {
+					Story.printAlreadyShut();
+				} else {
+					Story.printShutDoor();
+					Room.closetDoorOpen = false;
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void openSafe() {
+		switch (Room.getLocation().title) {
+			case "Lounge":
+				if (Room.loungeSafeOpen) {
+					Story.printAlreadyOpen();
+				} else {
+					if (World.OOX) {
+						Story.print("The safe swings open, revealing a faded scroll.");
+						Room.loungeSafeOpen = true;
+					} else {
+						Story.printLocked();
+					}
+				}
+				break;
+			case "Shrine Room 1":
+				if (Room.shrineRoom1SafeOpen) {
+					Story.printAlreadyOpen();
+				} else {
+					if (World.OXO) {
+						Story.print("The safe swings open, revealing a smooth scroll.");
+						Room.loungeSafeOpen = true;
+					} else {
+						Story.printLocked();
+					}
+				}
+				break;
+			case "Master Bedroom":
+				if (Room.masterBedroomSafeOpen) {
+					Story.printAlreadyOpen();
+				} else {
+					if (World.XOX) {
+						Story.print("The safe swings open, revealing a fancy scroll.");
+						Room.masterBedroomSafeOpen = true;
+					} else {
+						Story.printLocked();
+					}
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void shutSafe() {
+		
+	}
+	
+	public static void openCase() {
+		
+	}
+	
+	public static void shutCase() {
+		
 	}
 }
