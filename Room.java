@@ -13,44 +13,6 @@ public class Room {
 	public static ArrayList<Room> location = new ArrayList<Room>();
 	public static ArrayList<Room> visited = new ArrayList<Room>();
 	
-	public static ArrayList<String> gardenPatioObjects = new ArrayList<String>();
-	public static ArrayList<String> cobbleSquareObjects = new ArrayList<String>();
-	public static ArrayList<String> teaRoomObjects = new ArrayList<String>(); 
-	public static ArrayList<String> sandExhibitObjects = new ArrayList<String>(); 
-	public static ArrayList<String> thatchedHutObjects = new ArrayList<String>(); 
-	public static ArrayList<String> gardenOverlookObjects = new ArrayList<String>(); 
-	public static ArrayList<String> loungeObjects = new ArrayList<String>(); 
-	public static ArrayList<String> cafeObjects = new ArrayList<String>(); 
-	public static ArrayList<String> outsideGalleryObjects = new ArrayList<String>(); 
-	public static ArrayList<String> shrineRoom1Objects = new ArrayList<String>(); 
-	public static ArrayList<String> insideGalleryObjects = new ArrayList<String>(); 
-	public static ArrayList<String> assemblyRoomObjects = new ArrayList<String>(); 
-	public static ArrayList<String> shrineRoom2Objects = new ArrayList<String>(); 
-	public static ArrayList<String> livingRoomObjects = new ArrayList<String>(); 
-	public static ArrayList<String> pondObjects = new ArrayList<String>(); 
-	public static ArrayList<String> courtyardObjects = new ArrayList<String>(); 
-	public static ArrayList<String> landingObjects = new ArrayList<String>(); 
-	public static ArrayList<String> hallwayObjects = new ArrayList<String>(); 
-	public static ArrayList<String> sittingRoomObjects = new ArrayList<String>(); 
-	public static ArrayList<String> masterBedroomObjects = new ArrayList<String>(); 
-	public static ArrayList<String> libraryObjects = new ArrayList<String>(); 
-	public static ArrayList<String> closetObjects = new ArrayList<String>(); 
-	public static ArrayList<String> darkPassagewayObjects = new ArrayList<String>();
-	public static ArrayList<String> mannequinRoomObjects = new ArrayList<String>(); 
-	public static ArrayList<String> theaterObjects = new ArrayList<String>(); 
-	public static ArrayList<String> outsideGateObjects = new ArrayList<String>();
-	public static ArrayList<String> insideGateObjects = new ArrayList<String>(); 
-	public static ArrayList<String> islandObjects = new ArrayList<String>(); 
-	public static ArrayList<String> bottomOfStairsObjects = new ArrayList<String>(); 
-	public static ArrayList<String> topOfStairsObjects = new ArrayList<String>(); 
-	public static ArrayList<String> hamletObjects = new ArrayList<String>(); 
-	public static ArrayList<String> hondoObjects = new ArrayList<String>(); 
-	public static ArrayList<String> balconyObjects = new ArrayList<String>(); 
-	public static ArrayList<String> shrineRoom3Objects = new ArrayList<String>();
-	public static ArrayList<String> trinketShopObjects = new ArrayList<String>(); 
-	public static ArrayList<String> creakyDeckObjects = new ArrayList<String>(); 
-	public static ArrayList<String> overlookObjects = new ArrayList<String>(); 
-	
 	public static ArrayList<String> gardenPatioExits = new ArrayList<String>();
 	public static ArrayList<String> cobbleSquareExits = new ArrayList<String>();
 	public static ArrayList<String> teaRoomExits = new ArrayList<String>(); 
@@ -89,27 +51,67 @@ public class Room {
 	public static ArrayList<String> creakyDeckExits = new ArrayList<String>(); 
 	public static ArrayList<String> overlookExits = new ArrayList<String>(); 
 	
+	public static ArrayList<Item> gardenPatioObjects = new ArrayList<Item>();
+	public static ArrayList<Item> cobbleSquareObjects = new ArrayList<Item>();
+	public static ArrayList<Item> teaRoomObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> sandExhibitObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> thatchedHutObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> gardenOverlookObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> loungeObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> cafeObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> outsideGalleryObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> shrineRoom1Objects = new ArrayList<Item>(); 
+	public static ArrayList<Item> insideGalleryObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> assemblyRoomObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> shrineRoom2Objects = new ArrayList<Item>(); 
+	public static ArrayList<Item> livingRoomObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> pondObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> courtyardObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> landingObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> hallwayObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> sittingRoomObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> masterBedroomObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> libraryObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> closetObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> darkPassagewayObjects = new ArrayList<Item>();
+	public static ArrayList<Item> mannequinRoomObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> theaterObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> outsideGateObjects = new ArrayList<Item>();
+	public static ArrayList<Item> insideGateObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> islandObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> bottomOfStairsObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> topOfStairsObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> hamletObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> hondoObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> balconyObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> shrineRoom3Objects = new ArrayList<Item>();
+	public static ArrayList<Item> trinketShopObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> creakyDeckObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> overlookObjects = new ArrayList<Item>();
+	
+	public static ArrayList<Room> roomsWithPlaques = new ArrayList<Room>(); 
+	
 	public static String intro = "You bought a ticket to the Adachi Museum of Art.\n\nThis is the introduction.\n\nBUNRAKU\n\nCopyright (C) 2021 by Benjamin, Inc. All rights reserved.\n\nBUNRAKU is a trademark of Benjamin, Inc.\n\nRelease 1\n\n";
 	public static String gardenPatioDesc = "The celebrated White Gravel and Pine Tree Garden of the Adachi Bigutsukan expands before you. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the south is the Adachi Museum of Art.";
-	public static String cobbleSquareDesc = "Your sandles clack on the cobblestone tiles. The garden expands to the north. There are doorways to the east and west of you. To the south is a hut.";
+	public static String cobbleSquareDesc = "Your sandles clack on the cobblestone tiles. The garden expands to the north. There are rooms to the east and west of you. To the south is a hut.";
 	public static String teaRoomDesc = "You are standing in a room designed for drinking tea. There are a few benches here. There is an exit to the east.";
 	public static String acBookDesc = "There is a large blue book here, titled: \"MAGICK Liber ABA, by Aleister Crowley.\"";
 	public static String sandExhibitDesc = "This room displays a sand exhibit. To the south lies a door. Mounted on the door is a plaque. Beside the door is a sign.";
 	public static String thatchedHutDesc = "You are in a thatched hut. There is a Chippendale mirror standing here. To the southeast is a lovely hallway. The cobble square is to the north.";
 	public static String gardenOverlookDesc = "The White Gravel and Pine Tree Garden of the Adachi Bigutsukan expands to the south. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the west is a room. To the east is a jungle path. The thatched hut is to the northwest.";
 	public static String loungeDesc = "A comfy red sofa lines the wall. Above it, built into the wall, is a metal safe. On the safe is a plaque. There is an exit to the east.";
-	public static String cafeDesc = "The cafe is empty. There's a woman staring at you from behind the glass. There are paths to the west and to the north.";
+	public static String cafeDesc = "The cafe is empty. There's a masked woman in a blue kimono staring at you from behind the glass. There are paths to the west and to the north.";
 	public static String outsideGalleryDesc = "The entrance to the gallery is here to the east. The cafe is to the south.";
 	public static String shrineRoom1Desc = "Beautiful shrine. There's a TV here. There's a safe with a plaque here.";
 	public static String insideGalleryDesc = "Beautiful gallery. There is a room to the south. The exit is west of here.";
 	public static String assemblyRoomDesc = "Three hooded figures stand behind a gold chest. There is an exit to the north.";
-	public static String shrineRoom2Desc = "Beautiful shrine. There is a door on the west wall with a plaque beside it. You see a living room to the south.";
-	public static String livingRoomDesc = "A woman is standing outside the window. You see the shrine room north of here. To the east, a gentle breeze flows in, and you see a deck area.";
+	public static String shrineRoom2Desc = "Beautiful shrine. Banner above shrine. There is a door on the west wall with a plaque beside it. You see a living room to the south.";
+	public static String livingRoomDesc = "A masked woman in a blue kimono is standing outside the window. You see the shrine room north of here. To the east, a gentle breeze flows in, and you see a deck area.";
 	public static String pondDesc = "The trickling of water sounds nice. You see some fish swimming. There are hallways to the west and north.";
 	public static String courtyardDesc = "Sunny courtyard. A door is to the east. There's a plaque next to it. A winding stone staircase leads to the northeast. A hallway extends south.";
-	public static String landingDesc = "You are halfway up the stairs. It ascends to the southeast, and Roomends to the southwest.";
+	public static String landingDesc = "You are halfway up the stairs. It ascends to the southeast, and descends to the southwest.";
 	public static String hallwayDesc = "There's a laundry chute here with a button. Through a glass pane you see a scroll sitting atop a shelf. There is a plaque here.";
-	public static String sittingRoomDesc = "A quaint room. A landline phone sits on a table here. There are rooms to the east and west, as well as a hallway to the north.";
+	public static String sittingRoomDesc = "A quaint room. Sign here. There are rooms to the east and west, as well as a hallway to the north.";
 	public static String masterBedroomDesc = "A gentle breeze flows in through the window. The room is quite bare. There is a safe with a plaque on the wall.";
 	public static String libraryDesc = "This is a small library. A red book, a blue book, and a black book stand on the shelf. Hung on the wall is a fishing pole. There's a TV here.";
 	public static String closetDesc = "This small closet contains a trashcan. In the trashcan is a small pile of corn, and a scroll. Above the trashcan is a chute that comes out from the ceiling. There is an exit to the west.";
@@ -119,13 +121,13 @@ public class Room {
 	public static String outsideGateDesc = "A huge mountain looms above you. You see a path through the gate to the north.";
 	public static String insideGateDesc = "The path up the mountain leads north. Beside the path is a stone monument with an inscription carved into it. To the east is a bridge extending over a frozen pond. In the middle of the pond is a small man-made island. There is also a path leading south.";
 	public static String islandDesc = "There is a thing here with a gate. Through the gate you see a TV. There is a tassel here. The bridge extends west over the frozen pond.";
-	public static String bottomOfStairsDesc = "You are at the bottom of a large stair. To the north, you can just make out a temple. There is a path to the south.";
+	public static String bottomOfStairsDesc = "You are at the bottom of a large stair. Stone carving here. To the north, you can just make out a temple. There is a path to the south.";
 	public static String topOfStairsDesc = "You are at the top of the stairs. There is a wooden sign here. To the north is a large temple. To the west you can see residents' quarters.";
 	public static String hamletDesc = "There is a house here. In the front, is a wooden post with a plaque on it. There is a path to the east.";
 	public static String hisachiIchirosHouseDesc = "You are sitting on a cushion in a warm house.";
-	public static String hondoDesc = "This is the main area of the temple. To the northeast you see a balcony. To the north you can see a magnificent golden shrine. A trinket shop is to the northwest.";
+	public static String hondoDesc = "This is the main area of the temple. Basin here. To the northeast you see a balcony. To the north you can see a magnificent golden shrine. A trinket shop is to the northwest.";
 	public static String balconyDesc = "The balcony extends along the edge of the temple. There are paper slips here. The deck continues to the north and southeast.";
-	public static String shrineRoom3Desc = "This is a magnificent golden shrine. There is an exit to the south.";
+	public static String shrineRoom3Desc = "This is a magnificent golden shrine. Banner above. There is an exit to the south.";
 	public static String trinketShopDesc = "A shopkeeper is here behind the counter. There is an exit to the southwest.";
 	public static String creakyDeckDesc = "The deck creaks beneath your feet. There is a wooden box here with a button and a plaque. There are walkways to the west and south.";
 	public static String overlookDesc = "There is a mirror here, and paper cranes. There is a way to the east.";
@@ -297,114 +299,31 @@ public class Room {
 	
 	public static void setObjects() {
 		teaRoomObjects.add(Item.book); 
-		loungeObjects.add(Item.om); 
-		shrineRoom1Objects.add(Item.ji); 
-		masterBedroomObjects.add(Item.ni); 
 		libraryObjects.add(Item.rod); 
 		libraryObjects.add(Item.booklet); 
-		libraryObjects.add(Item.handbook); 
-		libraryObjects.add(Item.pamphlet); 
-		closetObjects.add(Item.ra); 
+		sittingRoomObjects.add(Item.phone); 
+		sittingRoomObjects.add(Item.handbook); 
+		masterBedroomObjects.add(Item.pamphlet); 
 		closetObjects.add(Item.corn); 
 		mannequinRoomObjects.add(Item.parchment); 
 		balconyObjects.add(Item.card); 
-		trinketShopObjects.add(Item.yu); 
-		creakyDeckObjects.add(Item.go); 
 	}
 	
-	public static Room getLocation() {
-		return location.get(0);
-	}
-	
-	public static void setLocation(Room r) {
-		location.clear();
-		location.add(r);
-	}
-	
-	public static ArrayList getObjects() {
-		switch (getLocation().title) {
-			case "Garden Patio":
-				return gardenPatioObjects;
-			case "Cobble Square":
-				return cobbleSquareObjects;
-			case "Tea Room":
-				return teaRoomObjects;
-			case "Sand Exhibit":
-				return sandExhibitObjects;
-			case "Thatched Hut":
-				return thatchedHutObjects;
-			case "Garden Overlook":
-				return gardenOverlookObjects;
-			case "Lounge":
-				return loungeObjects;
-			case "Cafe":
-				return cafeObjects;
-			case "Outside Gallery":
-				return outsideGalleryObjects;
-			case "Shrine Room 1":
-				return shrineRoom1Objects;
-			case "Inside Gallery":
-				return insideGalleryObjects;
-			case "Assembly Room":
-				return assemblyRoomObjects;
-			case "Shrine Room 2":
-				return shrineRoom2Objects;
-			case "Living Room":
-				return livingRoomObjects;
-			case "Pond":
-				return pondObjects;
-			case "Courtyard":
-				return courtyardObjects;
-			case "Landing":
-				return landingObjects;
-			case "Hallway":
-				return hallwayObjects;
-			case "Sitting Room":
-				return sittingRoomObjects;
-			case "Master Bedroom":
-				return masterBedroomObjects;
-			case "Library":
-				return libraryObjects;
-			case "Closet":
-				return closetObjects;
-			case "Dark Passageway":
-				return darkPassagewayObjects;
-			case "Mannequin Room":
-				return mannequinRoomObjects;
-			case "Theater":
-				return theaterObjects;
-			case "Outside Gate":
-				return outsideGateObjects;
-			case "Inside Gate":
-				return insideGateObjects;
-			case "Island":
-				return islandObjects;
-			case "Bottom of Stairs":
-				return bottomOfStairsObjects;
-			case "Top of Stairs":
-				return topOfStairsObjects;
-			case "Hamlet":
-				return hamletObjects;
-			case "Hondo":
-				return hondoObjects;
-			case "Balcony":
-				return balconyObjects;
-			case "Shrine Room 3":
-				return shrineRoom3Objects;
-			case "Trinket Shop":
-				return trinketShopObjects;
-			case "Creaky Deck":
-				return creakyDeckObjects;
-			case "Overlook":
-				return overlookObjects;
-			default:
-				System.out.println("Room.getObjects() error");
-				return null;
-		}
+	public static void setRoomsWithPlaques() {
+		roomsWithPlaques.add(sandExhibit);
+		roomsWithPlaques.add(lounge);
+		roomsWithPlaques.add(shrineRoom1);
+		roomsWithPlaques.add(shrineRoom2);
+		roomsWithPlaques.add(courtyard);
+		roomsWithPlaques.add(hallway);
+		roomsWithPlaques.add(masterBedroom);
+		roomsWithPlaques.add(hondo);
+		roomsWithPlaques.add(trinketShop);
+		roomsWithPlaques.add(creakyDeck);
 	}
 	
 	public static ArrayList getExits() {
-		switch (getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Garden Patio":
 				return gardenPatioExits;
 			case "Cobble Square":
@@ -481,6 +400,90 @@ public class Room {
 				return overlookExits;
 			default:
 				System.out.println("Room.getExits() error");
+				return null;
+		}
+	}
+	
+	
+	
+	public static ArrayList getObjects() {
+		switch (Player.getLocation().title) {
+			case "Garden Patio":
+				return gardenPatioObjects;
+			case "Cobble Square":
+				return cobbleSquareObjects;
+			case "Tea Room":
+				return teaRoomObjects;
+			case "Sand Exhibit":
+				return sandExhibitObjects;
+			case "Thatched Hut":
+				return thatchedHutObjects;
+			case "Garden Overlook":
+				return gardenOverlookObjects;
+			case "Lounge":
+				return loungeObjects;
+			case "Cafe":
+				return cafeObjects;
+			case "Outside Gallery":
+				return outsideGalleryObjects;
+			case "Shrine Room 1":
+				return shrineRoom1Objects;
+			case "Inside Gallery":
+				return insideGalleryObjects;
+			case "Assembly Room":
+				return assemblyRoomObjects;
+			case "Shrine Room 2":
+				return shrineRoom2Objects;
+			case "Living Room":
+				return livingRoomObjects;
+			case "Pond":
+				return pondObjects;
+			case "Courtyard":
+				return courtyardObjects;
+			case "Landing":
+				return landingObjects;
+			case "Hallway":
+				return hallwayObjects;
+			case "Sitting Room":
+				return sittingRoomObjects;
+			case "Master Bedroom":
+				return masterBedroomObjects;
+			case "Library":
+				return libraryObjects;
+			case "Closet":
+				return closetObjects;
+			case "Dark Passageway":
+				return darkPassagewayObjects;
+			case "Mannequin Room":
+				return mannequinRoomObjects;
+			case "Theater":
+				return theaterObjects;
+			case "Outside Gate":
+				return outsideGateObjects;
+			case "Inside Gate":
+				return insideGateObjects;
+			case "Island":
+				return islandObjects;
+			case "Bottom of Stairs":
+				return bottomOfStairsObjects;
+			case "Top of Stairs":
+				return topOfStairsObjects;
+			case "Hamlet":
+				return hamletObjects;
+			case "Hondo":
+				return hondoObjects;
+			case "Balcony":
+				return balconyObjects;
+			case "Shrine Room 3":
+				return shrineRoom3Objects;
+			case "Trinket Shop":
+				return trinketShopObjects;
+			case "Creaky Deck":
+				return creakyDeckObjects;
+			case "Overlook":
+				return overlookObjects;
+			default:
+				System.out.println("Room.getObjects() error");
 				return null;
 		}
 	}

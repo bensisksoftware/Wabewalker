@@ -4,55 +4,66 @@ public class Action {
 		Story.printObjects();
 	}
 	
+	public static void meditate() {
+		Player.meditating = true;
+		Story.printNowMeditating();
+	}
+	
 	public static void goNorth() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Cobble Square":
-				Update.location(Room.gardenPatio);
+				Player.updateLocation(Room.gardenPatio);
 				break;
 			case "Thatched Hut":
-				Update.location(Room.cobbleSquare);
+				Player.updateLocation(Room.cobbleSquare);
 				break;
 			case "Shrine Room 1":
-				Update.location(Room.sandExhibit);
+				Player.updateLocation(Room.sandExhibit);
 				break;
 			case "Cafe":
-				Update.location(Room.outsideGallery);
+				Player.updateLocation(Room.outsideGallery);
 				break;
 			case "Assembly Room":
-				Update.location(Room.insideGallery);
+				Player.updateLocation(Room.insideGallery);
 				break;
 			case "Living Room":
-				Update.location(Room.shrineRoom2);
+				Player.updateLocation(Room.shrineRoom2);
 				break;
 			case "Pond":
-				Update.location(Room.courtyard);
+				Player.updateLocation(Room.courtyard);
 				break;
 			case "Sitting Room":
-				Update.location(Room.hallway);
+				if (Player.inventory.contains(Item.phone)) {
+					Player.inventory.remove(Item.phone);
+					Room.getObjects().add(Item.phone);
+					Story.print("You can't take the corded phone with you, so you leave it.");
+					Story.newParagraph();
+				}
+				Player.updateLocation(Room.hallway);
 				break;
 			case "Dark Passageway":
-				Update.location(Room.mannequinRoom);
+				Player.updateLocation(Room.mannequinRoom);
 				break;
 			case "Library":
-				Update.location(Room.outsideGate);
+				Player.updateLocation(Room.outsideGate);
 				break;
 			case "Outside Gate":
-				Update.location(Room.insideGate);
+				Player.updateLocation(Room.insideGate);
 				break;
 			case "Inside Gate":
-				Update.location(Room.bottomOfStairs);
+				Player.updateLocation(Room.bottomOfStairs);
 				break;
 			case "Bottom of Stairs":
-				Update.location(Room.topOfStairs);
+				Player.updateLocation(Room.topOfStairs);
 				break;
 			case "Top of Stairs":
-				Update.location(Room.hondo);
+				Player.updateLocation(Room.hondo);
 				break;
 			case "Hondo":
-				Update.location(Room.shrineRoom3);
+				Player.updateLocation(Room.shrineRoom3);
 				break;
 			case "Balcony":
-				Update.location(Room.creakyDeck);
+				Player.updateLocation(Room.creakyDeck);
 				break;
 			default:
 				System.out.println("Action.goNorth() error");
@@ -61,58 +72,66 @@ public class Action {
 	}
 	
 	public static void goSouth() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Garden Patio":
-				Update.location(Room.cobbleSquare);
+				Player.updateLocation(Room.cobbleSquare);
 				break;
 			case "Cobble Square":
-				Update.location(Room.thatchedHut);
+				Player.updateLocation(Room.thatchedHut);
 				break;
 			case "Sand Exhibit":
 				if (Room.shrineRoom1DoorOpen) {
-					Update.location(Room.shrineRoom1);
+					Player.updateLocation(Room.shrineRoom1);
 				} else {
 					Story.printDoorBlocking();
 				}
 				break;
 			case "Outside Gallery":
-				Update.location(Room.cafe);
+				Player.updateLocation(Room.cafe);
 				break;
 			case "Inside Gallery":
-				Update.location(Room.assemblyRoom);
+				Player.updateLocation(Room.assemblyRoom);
 				break;
 			case "Assembly Room":
-				Update.location(Room.shrineRoom2);
+				Player.updateLocation(Room.shrineRoom2);
 				break;
 			case "Shrine Room 2":
-				Update.location(Room.livingRoom);
+				Player.updateLocation(Room.livingRoom);
+
+				if (World.tripwire) {
+					Story.newLine();
+					Player.facingReaper = true;
+					Story.printReaperEncounter1();
+				} else {
+					World.tripwire = true;
+				}
 				break;
 			case "Courtyard":
-				Update.location(Room.pond);
+				Player.updateLocation(Room.pond);
 				break;
 			case "Hallway":
-				Update.location(Room.sittingRoom);
+				Player.updateLocation(Room.sittingRoom);
 				break;
 			case "Mannequin Room":
-				Update.location(Room.darkPassageway);
+				Player.updateLocation(Room.darkPassageway);
 				break;
 			case "Inside Gate":
-				Update.location(Room.outsideGate);
+				Player.updateLocation(Room.outsideGate);
 				break;
 			case "Bottom of Stairs":
-				Update.location(Room.insideGate);
+				Player.updateLocation(Room.insideGate);
 				break;
 			case "Top of Stairs":
-				Update.location(Room.bottomOfStairs);
+				Player.updateLocation(Room.bottomOfStairs);
 				break;
 			case "Hondo":
-				Update.location(Room.topOfStairs);
+				Player.updateLocation(Room.topOfStairs);
 				break;
 			case "Shrine Room 3":
-				Update.location(Room.hondo);
+				Player.updateLocation(Room.hondo);
 				break;
 			case "Creaky Deck":
-				Update.location(Room.balcony);
+				Player.updateLocation(Room.balcony);
 				break;
 			default:
 				System.out.println("Action.goSouth() error");
@@ -121,52 +140,67 @@ public class Action {
 	}
 	
 	public static void goEast() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Tea Room":
-				Update.location(Room.cobbleSquare);
+				Player.updateLocation(Room.cobbleSquare);
 				break;
 			case "Cobble Square":
-				Update.location(Room.sandExhibit);
+				Player.updateLocation(Room.sandExhibit);
 				break;
 			case "Lounge":
-				Update.location(Room.gardenOverlook);
+				Player.updateLocation(Room.gardenOverlook);
 				break;
 			case "Garden Overlook":
-				Update.location(Room.cafe);
+				Player.updateLocation(Room.cafe);
+				if (!Player.sawReaper1) {
+					Player.sawReaper1 = true;
+					Story.printSeeReaper1();
+				}
 				break;
 			case "Outside Gallery":
-				Update.location(Room.insideGallery);
+				if (Player.dreaming) {
+					Player.updateLocation(Room.insideGallery);
+				} else {
+					Player.facingReaper = true;
+					Story.printReaperEncounter1();
+				}
 				break;
 			case "Living Room":
-				Update.location(Room.pond);
+				Player.updateLocation(Room.pond);
 				break;
 			case "Courtyard":
 				if (Room.closetDoorOpen) {
-					Update.location(Room.closet);
+					Player.updateLocation(Room.closet);
 				} else {
 					Story.printDoorBlocking();
 				}
 				break;
 			case "Sitting Room":
-				Update.location(Room.library);
+				if (Player.inventory.contains(Item.phone)) {
+					Player.inventory.remove(Item.phone);
+					Room.getObjects().add(Item.phone);
+					Story.print("You can't take the corded phone with you, so you leave it.");
+					Story.newParagraph();
+				}
+				Player.updateLocation(Room.library);
 				break;
 			case "Master Bedroom":
-				Update.location(Room.sittingRoom);
+				Player.updateLocation(Room.sittingRoom);
 				break;
 			case "Dark Passageway":
-				Update.location(Room.shrineRoom2);
+				Player.updateLocation(Room.shrineRoom2);
 				break;
 			case "Mannequin Room":
-				Update.location(Room.theater);
+				Player.updateLocation(Room.theater);
 				break;
 			case "Inside Gate":
-				Update.location(Room.island);
+				Player.updateLocation(Room.island);
 				break;
 			case "Hamlet":
-				Update.location(Room.topOfStairs);
+				Player.updateLocation(Room.topOfStairs);
 				break;
 			case "Overlook":
-				Update.location(Room.creakyDeck);
+				Player.updateLocation(Room.creakyDeck);
 				break;
 			default:
 				System.out.println("Action.goEast() error");
@@ -176,59 +210,65 @@ public class Action {
 	}
 	
 	public static void goWest() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Cobble Square":
-				Update.location(Room.teaRoom);
+				Player.updateLocation(Room.teaRoom);
 				break;
 			case "Sand Exhibit":
-				Update.location(Room.cobbleSquare);
+				Player.updateLocation(Room.cobbleSquare);
 				break;
 			case "Garden Overlook":
-				Update.location(Room.lounge);
+				Player.updateLocation(Room.lounge);
 				break;
 			case "Cafe":
-				Update.location(Room.gardenOverlook);
+				Player.updateLocation(Room.gardenOverlook);
 				break;
 			case "Inside Gallery":
-				Update.location(Room.outsideGallery);
+				Player.updateLocation(Room.outsideGallery);
 				break;
 			case "Shrine Room 2":
 				if (Room.darkPassagewayDoorOpen) {
-					Update.location(Room.darkPassageway);
+					Player.updateLocation(Room.darkPassageway);
 				} else {
 					Story.printDoorBlocking();
 				}
 				break;
 			case "Pond":
-				Update.location(Room.livingRoom);
+				Player.updateLocation(Room.livingRoom);
 				break;
 			case "Closet":
 				if (Room.closetDoorOpen) {
-					Update.location(Room.courtyard);
+					Player.updateLocation(Room.courtyard);
 				} else {
 					Story.printDoorBlocking();
 				}
 				break;
 			case "Sitting Room":
-				Update.location(Room.masterBedroom);
+				if (Player.inventory.contains(Item.phone)) {
+					Player.inventory.remove(Item.phone);
+					Room.getObjects().add(Item.phone);
+					Story.print("You can't take the corded phone with you, so you leave it.");
+					Story.newParagraph();
+				}
+				Player.updateLocation(Room.masterBedroom);
 				break;
 			case "Library":
-				Update.location(Room.sittingRoom);
+				Player.updateLocation(Room.sittingRoom);
 				break;
 			case "Theater":
-				Update.location(Room.mannequinRoom);
+				Player.updateLocation(Room.mannequinRoom);
 				break;
 			case "Island":
-				Update.location(Room.insideGate);
+				Player.updateLocation(Room.insideGate);
 				break;
 			case "Top of Stairs":
-				Update.location(Room.hamlet);
+				Player.updateLocation(Room.hamlet);
 				break;
 			case "Creaky Deck":
-				Update.location(Room.overlook);
+				Player.updateLocation(Room.overlook);
 				break;
 			case "Overlook":
-				Update.location(Room.gardenPatio);
+				Player.updateLocation(Room.gardenPatio);
 				break;
 			default:
 				System.out.println("Action.goWest() error");
@@ -237,12 +277,12 @@ public class Action {
 	}
 	
 	public static void goNorthEast() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Hondo":
-				Update.location(Room.trinketShop);
+				Player.updateLocation(Room.trinketShop);
 				break;
 			case "Courtyard":
-				Update.location(Room.landing);
+				Player.updateLocation(Room.landing);
 				break;
 			default:
 				System.out.println("Action.goNorthEast() error");
@@ -251,15 +291,15 @@ public class Action {
 	}
 	
 	public static void goNorthWest() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Garden Overlook":
-				Update.location(Room.thatchedHut);
+				Player.updateLocation(Room.thatchedHut);
 				break;
 			case "Hallway":
-				Update.location(Room.landing);
+				Player.updateLocation(Room.landing);
 				break;
 			case "Hondo":
-				Update.location(Room.balcony);
+				Player.updateLocation(Room.balcony);
 				break;
 			default:
 				System.out.println("Action.goNorthWest() error");
@@ -268,15 +308,15 @@ public class Action {
 	}
 	
 	public static void goSouthEast() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Thatched Hut":
-				Update.location(Room.gardenOverlook);
+				Player.updateLocation(Room.gardenOverlook);
 				break;
 			case "Landing":
-				Update.location(Room.hallway);
+				Player.updateLocation(Room.hallway);
 				break;
 			case "Balcony":
-				Update.location(Room.hondo);
+				Player.updateLocation(Room.hondo);
 				break;
 			default:
 				System.out.println("Action.goSouthEast() error");
@@ -285,12 +325,12 @@ public class Action {
 	}
 	
 	public static void goSouthWest() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Landing":
-				Update.location(Room.courtyard);
+				Player.updateLocation(Room.courtyard);
 				break;
 			case "Trinket Shop":
-				Update.location(Room.hondo);
+				Player.updateLocation(Room.hondo);
 				break;
 			default:
 				System.out.println("Action.goSouthWest() error");
@@ -299,15 +339,15 @@ public class Action {
 	}
 	
 	public static void goUp() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Courtyard":
-				Update.location(Room.landing);
+				Player.updateLocation(Room.landing);
 				break;
 			case "Landing":
-				Update.location(Room.hallway);
+				Player.updateLocation(Room.hallway);
 				break;
 			case "Bottom of Stairs":
-				Update.location(Room.topOfStairs);
+				Player.updateLocation(Room.topOfStairs);
 				break;
 			default:
 				System.out.println("Action.goUp() error");
@@ -316,15 +356,15 @@ public class Action {
 	}
 	
 	public static void goDown() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Landing":
-				Update.location(Room.courtyard);
+				Player.updateLocation(Room.courtyard);
 				break;
 			case "Hallway":
-				Update.location(Room.landing);
+				Player.updateLocation(Room.landing);
 				break;
 			case "Top of Stairs":
-				Update.location(Room.bottomOfStairs);
+				Player.updateLocation(Room.bottomOfStairs);
 				break;
 			default:
 				System.out.println("Action.goDown() error");
@@ -414,10 +454,82 @@ public class Action {
 	}
 	
 	public static void checkInventory() {
-		if (Item.inventory.isEmpty()) {
-			Story.print(Story.inventoryEmpty);
+		if (Player.inventory.isEmpty()) {
+			Story.printInventoryEmpty();
 		} else {
 			Story.printInventory();
+		}
+	}
+	
+	public static void visualize(String n) {
+		switch (n) {
+			case "":
+				Story.print("What do you want to visualize?");
+				break;
+			case "LOTUS":
+				if (Player.memory.contains("Lotus")) {
+					if (!Player.visualizingLotus) {
+						Player.visualizingFish = false;						
+						Player.visualizingKnot = false;						
+						Player.visualizingLotus = true;	
+						Story.printVisualize("lotus");
+					} else {
+						Story.printAlreadyVisualizing();
+					}
+				} else {
+					Story.printNotMemorized();
+				}
+				break;
+			case "FISH":
+				if (Player.memory.contains("Fish")) {
+					if (!Player.visualizingFish) {
+						Player.visualizingLotus = false;						
+						Player.visualizingKnot = false;						
+						Player.visualizingFish = true;	
+						Story.printVisualize("fish");						
+					} else {
+						Story.printAlreadyVisualizing();
+					}
+				} else {
+					Story.printNotMemorized();
+				}
+				break;
+			case "KNOT":
+				if (Player.memory.contains("Knot")) {
+					if (!Player.visualizingKnot) {
+						Player.visualizingLotus = false;						
+						Player.visualizingFish = false;						
+						Player.visualizingKnot = true;
+						Story.printVisualize("knot");
+					} else {
+						Story.printAlreadyVisualizing();
+					}
+				} else {
+					Story.printNotMemorized();
+				}
+				break;
+			default:
+				Story.printNotMemorized();
+				break;
+		}
+	}
+	
+	public static void chant(String n) {
+		switch (n) {
+			case "":
+				Story.print("What do you want to chant?");
+				break;
+			case "BOOK":
+				if (Player.memory.contains(Item.book)) {
+					Item.examineBook();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			
+			default:
+				Story.printNotMemorized();
+				break;
 		}
 	}
 	
@@ -429,8 +541,8 @@ public class Action {
 			case "BOOK":
 				if (Room.getObjects().contains(Item.book)) {
 					Item.getBook();
-					Item.tookACBook = true;
-				} else if (Item.inventory.contains(Item.book)) {
+					Player.tookACBook = true;
+				} else if (Player.inventory.contains(Item.book)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -439,7 +551,7 @@ public class Action {
 			case "OM":
 				if (Room.getObjects().contains(Item.om)) {
 					Item.getOm();
-				} else if (Item.inventory.contains(Item.om)) {
+				} else if (Player.inventory.contains(Item.om)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -448,7 +560,7 @@ public class Action {
 			case "NI":
 				if (Room.getObjects().contains(Item.ni)) {
 					Item.getNi();
-				} else if (Item.inventory.contains(Item.ni)) {
+				} else if (Player.inventory.contains(Item.ni)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -457,7 +569,7 @@ public class Action {
 			case "GO":
 				if (Room.getObjects().contains(Item.go)) {
 					Item.getGo();
-				} else if (Item.inventory.contains(Item.go)) {
+				} else if (Player.inventory.contains(Item.go)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -466,7 +578,7 @@ public class Action {
 			case "YU":
 				if (Room.getObjects().contains(Item.yu)) {
 					Item.getYu();
-				} else if (Item.inventory.contains(Item.yu)) {
+				} else if (Player.inventory.contains(Item.yu)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -475,7 +587,7 @@ public class Action {
 			case "JI":
 				if (Room.getObjects().contains(Item.ji)) {
 					Item.getJi();
-				} else if (Item.inventory.contains(Item.ji)) {
+				} else if (Player.inventory.contains(Item.ji)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -484,7 +596,7 @@ public class Action {
 			case "RA":
 				if (Room.getObjects().contains(Item.ra)) {
 					Item.getRa();
-				} else if (Item.inventory.contains(Item.ra)) {
+				} else if (Player.inventory.contains(Item.ra)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -493,7 +605,7 @@ public class Action {
 			case "SHI":
 				if (Room.getObjects().contains(Item.shi)) {
 					Item.getShi();
-				} else if (Item.inventory.contains(Item.shi)) {
+				} else if (Player.inventory.contains(Item.shi)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -502,7 +614,7 @@ public class Action {
 			case "ROD":
 				if (Room.getObjects().contains(Item.rod)) {
 					Item.getRod();
-				} else if (Item.inventory.contains(Item.rod)) {
+				} else if (Player.inventory.contains(Item.rod)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -511,7 +623,7 @@ public class Action {
 			case "BOOKLET":
 				if (Room.getObjects().contains(Item.booklet)) {
 					Item.getBooklet();
-				} else if (Item.inventory.contains(Item.booklet)) {
+				} else if (Player.inventory.contains(Item.booklet)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -520,7 +632,7 @@ public class Action {
 			case "HANDBOOK":
 				if (Room.getObjects().contains(Item.handbook)) {
 					Item.getHandbook();
-				} else if (Item.inventory.contains(Item.handbook)) {
+				} else if (Player.inventory.contains(Item.handbook)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -529,7 +641,7 @@ public class Action {
 			case "PAMPHLET":
 				if (Room.getObjects().contains(Item.pamphlet)) {
 					Item.getPamphlet();
-				} else if (Item.inventory.contains(Item.pamphlet)) {
+				} else if (Player.inventory.contains(Item.pamphlet)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -538,7 +650,7 @@ public class Action {
 			case "CORN":
 				if (Room.getObjects().contains(Item.corn)) {
 					Item.getCorn();
-				} else if (Item.inventory.contains(Item.corn)) {
+				} else if (Player.inventory.contains(Item.corn)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -547,7 +659,7 @@ public class Action {
 			case "PARCHMENT":
 				if (Room.getObjects().contains(Item.parchment)) {
 					Item.getParchment();
-				} else if (Item.inventory.contains(Item.parchment)) {
+				} else if (Player.inventory.contains(Item.parchment)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -556,16 +668,35 @@ public class Action {
 			case "CARD":
 				if (Room.getObjects().contains(Item.card)) {
 					Item.getCard();
-				} else if (Item.inventory.contains(Item.card)) {
+				} else if (Player.inventory.contains(Item.card)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
 				}
 				break;
+			case "FISH":
+				if (Player.getLocation().title.equals("Pond")) {
+					catchFish();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "PHONE":
+				if (Room.getObjects().contains(Item.phone)) {
+					Item.getPhone();
+				} else if (Player.inventory.contains(Item.phone)) {
+					Story.printAlreadyHave();
+				} else {
+					Story.printNotHere();
+				}
 			default:
 				System.out.println("Action.take() error");
 				break;
 		}
+		
+	}
+	
+	private static void catchFish() {
 		
 	}
 	
@@ -575,8 +706,8 @@ public class Action {
 				Story.printMissingNoun();
 				break;
 			case "BOOK":
-				if (Item.inventory.contains(Item.book)) {
-					Item.inventory.remove(Item.book);
+				if (Player.inventory.contains(Item.book)) {
+					Player.inventory.remove(Item.book);
 					Room.getObjects().add(Item.book);
 					Story.print("Dropped.");
 				} else {
@@ -584,8 +715,8 @@ public class Action {
 				}
 				break;
 			case "OM":
-				if (Item.inventory.contains(Item.om)) {
-					Item.inventory.remove(Item.om);
+				if (Player.inventory.contains(Item.om)) {
+					Player.inventory.remove(Item.om);
 					Room.getObjects().add(Item.om);
 					Story.print("Dropped.");
 				} else {
@@ -593,8 +724,8 @@ public class Action {
 				}
 				break;
 			case "NI":
-				if (Item.inventory.contains(Item.ni)) {
-					Item.inventory.remove(Item.ni);
+				if (Player.inventory.contains(Item.ni)) {
+					Player.inventory.remove(Item.ni);
 					Room.getObjects().add(Item.ni);
 					Story.print("Dropped.");
 				} else {
@@ -602,8 +733,8 @@ public class Action {
 				}
 				break;
 			case "GO":
-				if (Item.inventory.contains(Item.go)) {
-					Item.inventory.remove(Item.go);
+				if (Player.inventory.contains(Item.go)) {
+					Player.inventory.remove(Item.go);
 					Room.getObjects().add(Item.go);
 					Story.print("Dropped.");
 				} else {
@@ -611,8 +742,8 @@ public class Action {
 				}
 				break;
 			case "YU":
-				if (Item.inventory.contains(Item.yu)) {
-					Item.inventory.remove(Item.yu);
+				if (Player.inventory.contains(Item.yu)) {
+					Player.inventory.remove(Item.yu);
 					Room.getObjects().add(Item.yu);
 					Story.print("Dropped.");
 				} else {
@@ -620,8 +751,8 @@ public class Action {
 				}
 				break;
 			case "JI":
-				if (Item.inventory.contains(Item.ji)) {
-					Item.inventory.remove(Item.ji);
+				if (Player.inventory.contains(Item.ji)) {
+					Player.inventory.remove(Item.ji);
 					Room.getObjects().add(Item.ji);
 					Story.print("Dropped.");
 				} else {
@@ -629,8 +760,8 @@ public class Action {
 				}
 				break;
 			case "RA":
-				if (Item.inventory.contains(Item.ra)) {
-					Item.inventory.remove(Item.ra);
+				if (Player.inventory.contains(Item.ra)) {
+					Player.inventory.remove(Item.ra);
 					Room.getObjects().add(Item.ra);
 					Story.print("Dropped.");
 				} else {
@@ -638,8 +769,8 @@ public class Action {
 				}
 				break;
 			case "SHI":
-				if (Item.inventory.contains(Item.shi)) {
-					Item.inventory.remove(Item.shi);
+				if (Player.inventory.contains(Item.shi)) {
+					Player.inventory.remove(Item.shi);
 					Room.getObjects().add(Item.shi);
 					Story.print("Dropped.");
 				} else {
@@ -647,8 +778,8 @@ public class Action {
 				}
 				break;
 			case "ROD":
-				if (Item.inventory.contains(Item.rod)) {
-					Item.inventory.remove(Item.rod);
+				if (Player.inventory.contains(Item.rod)) {
+					Player.inventory.remove(Item.rod);
 					Room.getObjects().add(Item.rod);
 					Story.print("Dropped.");
 				} else {
@@ -656,8 +787,8 @@ public class Action {
 				}
 				break;
 			case "BOOKLET":
-				if (Item.inventory.contains(Item.booklet)) {
-					Item.inventory.remove(Item.booklet);
+				if (Player.inventory.contains(Item.booklet)) {
+					Player.inventory.remove(Item.booklet);
 					Room.getObjects().add(Item.booklet);
 					Story.print("Dropped.");
 				} else {
@@ -665,8 +796,8 @@ public class Action {
 				}
 				break;
 			case "HANDBOOK":
-				if (Item.inventory.contains(Item.handbook)) {
-					Item.inventory.remove(Item.handbook);
+				if (Player.inventory.contains(Item.handbook)) {
+					Player.inventory.remove(Item.handbook);
 					Room.getObjects().add(Item.handbook);
 					Story.print("Dropped.");
 				} else {
@@ -674,8 +805,8 @@ public class Action {
 				}
 				break;
 			case "PAMPHLET":
-				if (Item.inventory.contains(Item.pamphlet)) {
-					Item.inventory.remove(Item.pamphlet);
+				if (Player.inventory.contains(Item.pamphlet)) {
+					Player.inventory.remove(Item.pamphlet);
 					Room.getObjects().add(Item.pamphlet);
 					Story.print("Dropped.");
 				} else {
@@ -683,8 +814,8 @@ public class Action {
 				}
 				break;
 			case "CORN":
-				if (Item.inventory.contains(Item.corn)) {
-					Item.inventory.remove(Item.corn);
+				if (Player.inventory.contains(Item.corn)) {
+					Player.inventory.remove(Item.corn);
 					Room.getObjects().add(Item.corn);
 					Story.print("Dropped.");
 				} else {
@@ -692,8 +823,8 @@ public class Action {
 				}
 				break;
 			case "PARCHMENT":
-				if (Item.inventory.contains(Item.parchment)) {
-					Item.inventory.remove(Item.parchment);
+				if (Player.inventory.contains(Item.parchment)) {
+					Player.inventory.remove(Item.parchment);
 					Room.getObjects().add(Item.parchment);
 					Story.print("Dropped.");
 				} else {
@@ -701,10 +832,19 @@ public class Action {
 				}
 				break;
 			case "CARD":
-				if (Item.inventory.contains(Item.card)) {
-					Item.inventory.remove(Item.card);
+				if (Player.inventory.contains(Item.card)) {
+					Player.inventory.remove(Item.card);
 					Room.getObjects().add(Item.card);
 					Story.print("Dropped.");
+				} else {
+					Story.printNotInInventory();
+				}
+				break;
+			case "PHONE":
+				if (Player.inventory.contains(Item.phone)) {
+					Player.inventory.remove(Item.phone);
+					Room.getObjects().add(Item.phone);
+					Story.print("You hang up the phone.");
 				} else {
 					Story.printNotInInventory();
 				}
@@ -715,41 +855,101 @@ public class Action {
 		}
 	}
 	
+	public static void hang(String n) {
+		switch (n) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "UP":
+				if (Player.inventory.contains(Item.phone)) {
+					Player.inventory.remove(Item.phone);
+					Room.getObjects().add(Item.phone);
+					Story.print("You hang up the phone.");
+				} else {
+					Story.print("You're not even holding the phone.");
+				}
+				break;
+			default:
+				Story.invalid();
+			break;
+		}
+	}
+	
 	public static void read(String n) {
 		switch (n) {
 			case "":
 				Story.printMissingNoun();
 				break;
 			case "BOOK":
-				if (Item.inventory.contains(Item.book) || Room.getObjects().contains(Item.book)) {
+				if (Player.inventory.contains(Item.book) || Room.getObjects().contains(Item.book)) {
 					Item.examineBook();
 				} else {
 					Story.printNotHere();
 				}
 				break;
 			case "BOOKLET":
-				if (Item.inventory.contains(Item.booklet) || Room.getObjects().contains(Item.booklet)) {
+				if (Player.inventory.contains(Item.booklet) || Room.getObjects().contains(Item.booklet)) {
 					Item.examineBooklet();
 				} else {
 					Story.printNotHere();
 				}
 				break;
 			case "HANDBOOK":
-				if (Item.inventory.contains(Item.handbook) || Room.getObjects().contains(Item.handbook)) {
+				if (Player.inventory.contains(Item.handbook) || Room.getObjects().contains(Item.handbook)) {
 					Item.examineHandbook();
 				} else {
 					Story.printNotHere();
 				}
 				break;
 			case "PAMPHLET":
-				if (Item.inventory.contains(Item.pamphlet) || Room.getObjects().contains(Item.pamphlet)) {
+				if (Player.inventory.contains(Item.pamphlet) || Room.getObjects().contains(Item.pamphlet)) {
 					Item.examinePamphlet();
 				} else {
 					Story.printNotHere();
 				}
 				break;
+			case "SIGN":
+				readSign();
+				break;
 			default:
 				System.out.println("Action.read() error");
+				break;
+		}
+	}
+	
+	private static void readSign() {
+		switch (Player.getLocation().title) {
+			case "Sand Exhibit":
+				Story.print(Story.sandExhibitSign);
+				break;
+			case "Shrine Room 2":
+				Story.print(Story.shrineRoom2Sign);
+				break;
+			case "Sitting Room":
+				Story.print(Story.sittingRoomSign);
+				break;
+			case "Inside Gate":
+				Story.print(Story.insideGateSign);
+				break;
+			case "Bottom of Stairs":
+				Story.print(Story.bottomOfStairsSign);
+				break;
+			case "Top of Stairs":
+				if (Player.memory.contains("Knot")) {
+					Story.printReadKnot();
+				} else {
+					Story.printMemorize();
+					Player.memory.add("Knot");
+				}
+				break;
+			case "Hondo":
+				Story.print(Story.hondoSign);
+				break;
+			case "Shrine Room 3":
+				Story.print(Story.shrineRoom3Sign);
+				break;
+			default:
+				Story.printNotHere();
 				break;
 		}
 	}
@@ -803,8 +1003,47 @@ public class Action {
 			case "CARD":
 				Item.examineCard();
 				break;
+			case "MIRROR":
+				Item.examineMirror();
+				break;
+			case "PLAQUE":
+				Item.examinePlaque();
+				break;
+			case "WOMAN":
+				if (Player.getLocation().title.equals("Cafe") || Player.getLocation().title.equals("Living Room")) {
+					Story.printWoman();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "SIGN":
+				readSign();
+				break;
+			case "ROBE":
+				Story.print("It's a loosely-fit faded " + Player.getRobe() + " robe."); 
+				break;
+			case "POND":
+				if (Player.getLocation().title.equals("Pond")) {
+					Story.print("Small ripples roll across the pond. You can see a red koi fish exploring idly underwater.");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "FISH":
+				if (Player.getLocation().title.equals("Pond")) {
+					Story.print("The red koi fish is exploring idly underwater, just out of reach.");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "TV":
+				Item.examineTV();
+				break;
+			case "PHONE":
+				Item.examinePhone();
+				break;
 			default:
-				System.out.println("Action.read() error");
+				Story.printNotHere();
 				break;
 		}
 	}
@@ -834,6 +1073,9 @@ public class Action {
 			case "":
 				Story.print("What do you want to shut?");
 				break;
+			case "EYES":
+				meditate();
+				break;
 			case "DOOR":
 				shutDoor();
 				break;
@@ -850,7 +1092,7 @@ public class Action {
 	}
 	
 	public static void openDoor() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Sand Exhibit":
 				if (Room.shrineRoom1DoorOpen) {
 					Story.printAlreadyOpen();
@@ -918,7 +1160,7 @@ public class Action {
 	}
 	
 	public static void shutDoor() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Sand Exhibit":
 				if (!Room.shrineRoom1DoorOpen) {
 					Story.printAlreadyShut();
@@ -974,7 +1216,7 @@ public class Action {
 	}
 	
 	public static void openSafe() {
-		switch (Room.getLocation().title) {
+		switch (Player.getLocation().title) {
 			case "Lounge":
 				if (Room.loungeSafeOpen) {
 					Story.printAlreadyOpen();
@@ -1018,7 +1260,36 @@ public class Action {
 	}
 	
 	public static void shutSafe() {
-		
+		switch (Player.getLocation().title) {
+			case "Lounge":
+				if (Room.loungeSafeOpen) {
+					Story.print("The safe slams shut.");
+					Room.loungeSafeOpen = false;
+					
+				} else {
+					Story.printAlreadyOpen();
+				}
+				break;
+			case "Shrine Room 1":
+				if (Room.shrineRoom1SafeOpen) {
+					Story.print("The safe slams shut.");
+					Room.loungeSafeOpen = false;
+				} else {
+					Story.printAlreadyOpen();
+				}
+				break;
+			case "Master Bedroom":
+				if (Room.masterBedroomSafeOpen) {
+					Story.print("The safe slams shut.");
+					Room.masterBedroomSafeOpen = false;
+				} else {
+					Story.printAlreadyOpen();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
 	}
 	
 	public static void openCase() {
@@ -1027,5 +1298,188 @@ public class Action {
 	
 	public static void shutCase() {
 		
+	}
+	
+	public static void press(String n) {
+		switch (n) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "REWIND":
+				pressRewind();
+				break;
+			case "FASTFORWARD":
+				pressFastforward();
+				break;
+			case "PLAY":
+				pressPlay();
+				break;
+			case "BUTTON":
+				if (Player.getLocation().title.equals("Hallway")) {
+					System.out.println("hallway");
+				} else if (Player.getLocation().title.equals("Creaky Deck")) {
+					System.out.println("creakyDeck");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				Story.printNothingHappens();
+				break;
+		}
+	}
+	
+	public static void pressRewind() {
+		switch (Player.getLocation().title) {
+			case "Shrine Room 1":
+				if (Player.purpleAlive) {
+					Story.printTapeAtBeginning();
+				} else {
+					Story.printRewind("purple");
+					Player.purpleAlive = true;
+					World.resetBulbs();
+				}
+				break;
+			case "Library":
+				if (Player.orangeAlive) {
+					Story.printTapeAtBeginning();
+				} else {
+					Story.printRewind("orange");
+					Player.orangeAlive = true;
+					World.resetBulbs();
+				}
+				break;
+			case "Island":
+				if (Player.greenAlive) {
+					Story.printTapeAtBeginning();
+				} else {
+					Story.printRewind("green");
+					Player.greenAlive = true;
+					World.resetBulbs();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void pressFastforward() {
+		switch (Player.getLocation().title) {
+			case "Shrine Room 1":
+				if (Player.purpleAlive) {
+					Story.printFastforward("purple");
+					Player.purpleAlive = false;
+					World.resetBulbs();	
+				} else {
+					Story.printNothingHappens();
+				}
+				break;
+			case "Library":
+				if (Player.orangeAlive) {
+					Story.printFastforward("orange");
+					Player.orangeAlive = false;
+					World.resetBulbs();
+				} else {
+					Story.printNothingHappens();
+				}
+				break;
+			case "Island":
+				if (Player.greenAlive) {
+					Story.printFastforward("green");
+					Player.greenAlive = false;
+					World.resetBulbs();
+				} else {
+					Story.printNothingHappens();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void pressPlay() {
+		switch (Player.getLocation().title) {
+			case "Shrine Room 1":
+				if (Player.purpleAlive) {
+					Story.printBlackOut();
+					Player.orangeAtTV = true;
+					
+					if (Player.purpleAtTV) {
+						Player.updateLocation(Room.island);
+					} else {
+						Player.updateLocation(Room.outsideGate);
+					}
+				} else {
+					Story.printTapePlaying();
+				}
+				break;
+			case "Library":
+				if (Player.orangeAlive) {
+					Story.printBlackOut();
+					Player.greenAtTV = true;
+					
+					if (Player.orangeAtTV) {
+						Player.updateLocation(Room.shrineRoom1);
+					} else {
+						Player.updateLocation(Room.gardenPatio);
+					}
+				} else {
+					Story.printTapePlaying();
+				}
+				break;
+			case "Island":
+				if (Player.greenAlive) {
+					Story.printBlackOut();
+					Player.purpleAtTV = true;
+					
+					if (Player.greenAtTV) {
+						Player.updateLocation(Room.library);
+					} else {
+						Player.updateLocation(Room.shrineRoom2);
+					}
+				} else {
+					Story.printTapePlaying();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void move(String n) {
+		switch (n) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "CRANES":
+				moveCranes();
+				break;
+			default:
+				Story.invalid();
+				break;
+		}
+	}
+	
+	public static void moveCranes() {
+		Story.printMoveCranes();
+		Story.newLine();
+		Player.facingReaper = true;
+		Story.printReaperEncounter2();
+	}
+	
+	public static void dial(String n) {
+		switch (n) {
+			case "19670064":
+				Player.onPhone = true;
+				World.setKimi("moshi");
+				Story.printKimiMoshi();
+				break;
+			default:
+				Story.printPhoneWrong();
+				break;
+		}
 	}
 }
