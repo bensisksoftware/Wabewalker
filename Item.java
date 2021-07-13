@@ -17,6 +17,7 @@ public class Item {
 	public static String parchmentTitle = "a parchment"; 
 	public static String cardTitle = "a business card"; 
 	public static String phoneTitle = "a corded landline telephone"; 
+	public static String boxTitle = "a jewelled box"; 
 	
 	public static String omDesc = "Inscribed on the faded scroll is the sacred word OM."; 
 	public static String niDesc = "Inscribed on the fancy scroll is the sacred word NI"; 
@@ -30,6 +31,7 @@ public class Item {
 	public static String parchmentDesc = "Inscribed on the parchment is the sacred symbol of the Lotus."; 
 	public static String cardDesc = "The business card reads: \"Dance, Narrative, and Reiki Therapy. Meditation Instruction. Call Kimi! Business Contact: 19670064\"";
 	public static String phoneDesc = "The beige landline phone has a dialpad.";
+	public static String boxDesc = "It's really fancy! There's a plaque on it.";
 	public static String bookDesc = "MAGICK IN THEORY AND PRACTICE\nBY THE MASTER THERION (ALEISTER CROWLEY)\nFirst published Paris: Lecram Press., 1930.\n   What is there in common between Christ, Buddha, and Mohammed? Is there any one point upon which all three are in accord?\n   Buddha was born a Prince, and died a beggar.\n   Mohammed was born a beggar, and died a Prince.\n   Christ remained obscure until many years after his death.\n   Elaborate lives of each have been written by devotees, and there is one thing common to all three -- an ommision. We hear nothing of Christ between the ages of twelve and thirty. Mohammed disappeared into a cave. Buddha left his place, and went for a long while into the desert. Each of them, perfectly silent up to the time of disappearance, came back and immediately began to preach a new law. A nobody goes away, and comes back a somebody.\n   The methods advised by all these people have a startling resemblance to one another. They recommend \"virtue\" (of various kinds), solitude, absence of excitement, moderation in diet, and finally a practice which some call prayer and some call meditation.\n   On investigating what is meant by these two things, we find that they are only one. For what is the state of either prayer or meditation? It is the restraining of the mind to a single act, state, or thought.\n   If proper conditions are met, something happens whose nature may form the subject of a further discussion later on. For the moment let it suffice to say that this consciousness of the Ego and the non-Ego, the seer and the thing seen, the knower and the thing known, is blotted out. There is usually an intense light, an intense sound, and a feeling of such overwhelming bliss that the resources of language have been exhausted again and again in the attempt to describe it.\n   It is an absolute knock-out blow to the mind. It is so vivid and tremendous that those who experience it are in the gravest danger of losing all sense of proportion.\n   By its light all other events of life are as darkness. Owing to this, people have utterly failed to analyse it or to estimate it.\n   As it will be seen later, the \"vision of God,\" or \"Samadhi,\" or whatever we may agree to call it, has many kinds and many degrees, although there is an impassable abyss between the least of them and the greatest of all the phenomena of normal consciousness.\n   I: VISUALIZATION\nThe moment then that the student takes a simple subject -- or rather a simple object or symbol -- and visualizes it, he will find that it is not so much his creature as he supposed. Other thoughts will invade the mind, so that the object is altogether forgotten, perhaps for whole minutes at a time; and at other times the object itself will begin to play all sorts of tricks.\n   II: CHANT\nThe best way to time the breathing, is by the use of a mantra, or chant. The chant acts on the thoughts very much as Pranayama does upon the breath. The thought is bound down to a recurring cycle; any intruding thoughts are thrown off by the chant, just as pieces of putty would be from a fly-wheel; and the swifter the wheel the more difficult would it be for anything to stick.\n   Any sentence may be used as a chant, and possibly the Hindus are correct in thinking that there is a particular sentence best suited to any particular student, or possibly the Shingon Buddhists were correct in thinking that there is a particular location best suited to any particular mantra.\n   You have not even begun to master a mantra until it continues unbroken through sleep. This is much easier than it sounds.\n   By the time that you are meditating two or three hours a day, and filing up most of the rest of the day with other practices designed to assist, when nearly every time something or other happens, and there is constantly a feeling of being \"on the brink of something pretty big,\" one may expect to proceed to the next state -- Samadhi.\n   And there is this anchor for the beginner, that his work is cumulative: every act directed towards attainment builds up a destiny which must some day come to fruition. May all attain!";
 	public static String handbookDesc = "Hanzo's\n Handy\n   Fishing\n    Handbook\n\n   Whether you're a novice or a veteran, the fundamentals are the same for everybody. People of all ages and skills can enjoy the pleasures of fishing.\n   First, you need to pick a spot. Talk to local fisherman for tips on locations. Secluded spots around ponds or levees outside of town are good bets. Make sure you're not trespassing onto private property!\n   Next you need to decide on a rod. Typically, a medium length pole will be appropriate for most beginners. Pick a rod that's roughly as long as you are tall and that's a comfortable weight for your casting arm.\n   Additionaly, you need to choose the right bait for the fish you're trying to catch. You can either purchase live bait at the local angling shop, or you can gather your own.\n   Once you've gotten everything together and arrive at your spot, you need to bait your hook. While it depends on the kind of bait you're using, in general, you'll want to work the hook through your bait as many times as possible to keep it securely on the hook.\n   Now the fun begins! Cast your line. Most beginners will cast side arm, using the same motion used to skip a stone across water. Bring the rod back to your side and bring it smoothly in the direction you'd like to cast, releasing the line as you point in the right direction.\n   Wait quietly. You can tell if a fish is biting by touch, or by watching a loose line or a bobber.\n   Once you hooked a fish, keep the line tight and reel it in! Decide if you are releasing or keeping the fish. If the fish is too small, toss it bacck gently into the water. If you are going to cook the fish, you may want to consider cleaning the fish at this point, or keeping it alive in an underwater cage for the purpose and cleaning it later.\n   Further reading:\n   Hanzo's Handy Sailing Handbook\n   Hanzo's Handy Yoga Handbook\n   Hanzo's Handy Tea Ceremony Handbook\n   Hanzo's Handy Bunraku Handbook";
 	public static String pamphletDesc = "  The term mantra is traditionally said to be derived from two roots: man, to think; and the action-oriented suffix -tra. Thus a mantra can be considered to be a linguistic device for deepening ones thought, or in the Buddhist context for developing the enlightened mind.\n   They have also been used as magic spells for purposes such as attaining wealth and long life, and eliminating enemies.\n   There is no essential difference between the syllables of mantras and sacred texts, and those of ordinary language. If one understood the workings of mantra, then any sounds could be representative of ultimate reality. Despite this, a collection of syllables and mantras have been written to better acheive this purpose.\n   Emei Mantra\n   Gohogo Mantra\n   Heart Sutra\n   Luminous Sutra\n   Mantra of Harmony\n   Mantra of Light\n   Mantra of Radiancen\n   Sutra of Peace\n   Sutra of Shadow";
@@ -61,6 +63,7 @@ public class Item {
 	public static Item parchment = new Item(parchmentTitle, parchmentDesc);
 	public static Item card = new Item(cardTitle, cardDesc);
 	public static Item phone = new Item(phoneTitle, phoneDesc);
+	public static Item box = new Item(boxTitle, boxDesc);
 	
 	public String getTitle() {
 		return this.title;
@@ -155,45 +158,76 @@ public class Item {
 		Room.getObjects().remove(book);
 	}
 	
+	public static void getScroll() {
+		if (Room.getObjects().contains(om))
+			getOm();
+		
+		if (Room.getObjects().contains(ni))
+			getNi();
+		
+		if (Room.getObjects().contains(go))
+			getGo();
+		
+		if (Room.getObjects().contains(yu))
+			getYu();
+		
+		if (Room.getObjects().contains(ji))
+			getJi();
+		
+		if (Room.getObjects().contains(ra))
+			getRa();
+		
+		if (Room.getObjects().contains(shi))
+			getShi();
+	}
+	
 	public static void getOm() {
 		Story.printTakeItem();
 		Player.inventory.add(om);
 		Room.getObjects().remove(om);
+		Room.removeScroll();
 	}
 	
 	public static void getNi() {
 		Story.printTakeItem();
 		Player.inventory.add(ni);
 		Room.getObjects().remove(ni);
+		Room.removeScroll();
 	}
 	
 	public static void getGo() {
 		Story.printTakeItem();
 		Player.inventory.add(go);
 		Room.getObjects().remove(go);
+		Room.removeScroll();
 	}
 	
 	public static void getYu() {
 		Story.printTakeItem();
 		Player.inventory.add(yu);
 		Room.getObjects().remove(yu);
+		Room.removeScroll();
 	}
 	
 	public static void getJi() {
 		Story.printTakeItem();
 		Player.inventory.add(ji);
 		Room.getObjects().remove(ji);
+		Room.removeScroll();
 	}
 	
 	public static void getRa() {
 		Story.printTakeItem();
 		Player.inventory.add(ra);
 		Room.getObjects().remove(ra);
+		Room.removeScroll();
 	}
 	
 	public static void getShi() {
-		Story.print("You feel a rather large bulge in your pants.");
+		Story.printTakeItem();
 		Player.inventory.add(shi);
+		Room.getObjects().remove(shi);
+		Room.removeScroll();
 	}
 	
 	public static void getRod() {
@@ -431,5 +465,48 @@ public class Item {
 		}
 		
 		Story.print(" There is a rewind button, a fastforward button, and a play button.");
+	}
+	
+	public static void examineDoor() {
+		switch (Player.getLocation().title) {
+			case "Sand Exhibit":
+				Story.print("It has a metal plaque bolted on it.");
+				break;
+			case "Shrine Room 1":
+				Story.print("It has a metal plaque bolted on it.");
+				break;
+			case "Shrine Room 2":
+				Story.print("It's a wooden sliding door on the west wall.");
+				break;
+			case "Dark Passageway":
+				Story.print("It's a wooden sliding door on the east wall.");
+				break;
+			case "Courtyard":
+				Story.print("There's nothing special about it.");
+				break;
+			case "Closet":
+				Story.print("There's nothing special about it.");
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void examineSafe() {
+		switch (Player.getLocation().title) {
+			case "Shrine Room 1":
+				Story.print("It has a metal plaque bolted on it.");
+				break;
+			case "Lounge":
+				Story.print("It has a metal plaque bolted on it.");
+				break;
+			case "Master Bedroom":
+				Story.print("It has a metal plaque bolted on it.");
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
 	}
 }

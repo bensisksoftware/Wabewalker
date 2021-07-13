@@ -13,6 +13,19 @@ public class World {
 	public static boolean dark;
 	public static boolean raDropped;
 	public static boolean scheduled;
+	public static boolean islandOpen;
+	public static boolean omInSafe;
+	public static boolean jiInSafe;
+	public static boolean niInSafe;
+	public static boolean yuInCase;
+	public static boolean goInCase;
+	public static boolean sandExhibitDoorOpen;
+	public static boolean loungeSafeOpen;
+	public static boolean shrineRoom1SafeOpen;
+	public static boolean shrineRoom2DoorOpen;
+	public static boolean courtyardDoorOpen;
+	public static boolean masterBedroomSafeOpen;
+	public static boolean creakyDeckOpen;
 	
 	public static String kimiState = "";
 	
@@ -62,6 +75,13 @@ public class World {
 			XXO = true;
 			System.out.println("XXO");
 		}
+		
+		// close all doors, safes, etc
+		lockup();
+	}
+	
+	public static void lockup() {
+		
 	}
 	
 	public static void wipeBulbs() {
@@ -195,5 +215,66 @@ public class World {
 	
 	public static String getKimi() {
 		return kimiState;
+	}
+	
+	public static void checkShrine() {
+		// shift chants in arraylist to the left if list > max
+		if (Player.chantInputs.size() > 14) {
+			for(int i = 0; i < Player.chantInputs.size()-1; i++) {
+				Player.chantInputs.set(i, Player.chantInputs.get(i+1)); 
+			}
+			
+			Player.chantInputs.remove(Player.chantInputs.size() -1);
+		}
+		
+		if ((Player.getLocation().title.equals("Shrine Room 1")
+			&& Player.chantInputs.equals(gChant)
+			&& Player.visualizingKnot) 
+		||	(Player.getLocation().title.equals("Shrine Room 2")
+			&& Player.chantInputs.equals(hChant)
+			&& Player.visualizingLotus) 
+		||	(Player.getLocation().title.equals("Shrine Room 3")
+			&& Player.chantInputs.equals(tChant)
+			&& Player.visualizingFish)) {
+				Player.trance();
+		}
+	}
+	
+	public static void pressButton() {
+		switch (Player.getLocation().title) {
+			case "Shrine Room 1":
+				Story.print("Which button?");
+				break;
+			case "Library":
+				Story.print("Which button?");
+				break;
+			case "Island":
+				Story.print("Which button?");
+				break;
+			case "Theater":
+				Story.print("Which button?");
+				break;
+			case "Hallway":
+				if (OOO && !raDropped) {
+					Story.printActivateHallway();
+					raDropped = true;
+					Room.closetObjects.add(Item.ra);
+					Room.closet.scrollCount++;
+				} else {
+					Story.print("You push the button, but nothing happens.");
+				}
+				break;
+			case "Creaky Deck":
+				if (OOO && !creakyDeckOpen) {
+					Story.printActivateCreakyDeck();
+					creakyDeckOpen = true;
+				} else {
+					Story.print("You push the button, but nothing happens.");
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
 	}
 }

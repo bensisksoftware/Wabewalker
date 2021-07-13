@@ -113,6 +113,34 @@ public class Parser {
 			n = "SOUTHWEST";
 		}
 		
+		if (n.equals("FADED")) {
+			n = "OM";
+		}
+		
+		if (n.equals("FANCY")) {
+			n = "NI";
+		}
+		
+		if (n.equals("FROSTY")) {
+			n = "GO";
+		}
+		
+		if (n.equals("CRUMPLED")) {
+			n = "YU";
+		}
+		
+		if (n.equals("SMOOTH")) {
+			n = "JI";
+		}
+		
+		if (n.equals("DUSTY")) {
+			n = "RA";
+		}
+		
+		if (n.equals("STAINED")) {
+			n = "SHI";
+		}
+		
 		if (n.equals("BULBS")
 			|| n.equals("BULB")) {
 			n = "PLAQUE";
@@ -128,6 +156,10 @@ public class Parser {
 		
 		if (n.equals("WATER")) {
 			n = "POND";
+		}
+
+		if (n.equals("KERNEL")) {
+			n = "CORN";
 		}
 		
 		if (n.equals("POLE")) {
@@ -201,6 +233,14 @@ public class Parser {
 			v = "DOWN";
 		}
 		
+		if (v.equals("RW")) {
+			v = "REWIND";
+		}
+		
+		if (v.equals("FF")) {
+			v = "FASTFORWARD";
+		}
+		
 		if (v.equals("I")) {
 			v = "INVENTORY";
 		}
@@ -219,6 +259,10 @@ public class Parser {
 			v = "OPEN";
 		}
 		
+		if (v.equals("CLOSE")){
+			v = "SHUT";
+		}
+		
 		if (v.equals("CALL")){
 			v = "DIAL";
 		}
@@ -235,7 +279,7 @@ public class Parser {
 			v = "DROP";
 		}
 		
-				if (v.equals("OK")
+		if (v.equals("OK")
 		|| v.equals("OKAY")
 		|| v.equals("K")
 		|| v.equals("KAY")
@@ -379,6 +423,10 @@ public class Parser {
 			v = "SCROLL";
 		}
 		
+		if (v.equals("YANK")) {
+			v = "PULL";
+		}
+		
 		if (v.equals("SWALLOW")
 		|| v.equals("CONSUME")) {
 			v = "EAT";
@@ -450,6 +498,8 @@ public class Parser {
 			} else {
 				World.handleKimi(v);
 			}
+		} else if (Player.meditating) {
+			Player.handleMeditating(v);
 		} else {
 			handleInput(v);
 		}
@@ -561,13 +611,16 @@ public class Parser {
 				Action.hang(noun.toString());
 				break;
 			case "VISUALIZE":
-				Action.visualize(noun.toString());
+				Story.printNotMeditating();
 				break;
 			case "CHANT":
-				Action.chant(noun.toString());
+				Story.printNotMeditating();
 				break;
 			case "PRESS":
 				Action.press(noun.toString());
+				break;
+			case "PULL":
+				Action.pull(noun.toString());
 				break;
 			case "REWIND":
 				Action.pressRewind();

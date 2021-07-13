@@ -14,7 +14,7 @@ public class Story {
 	private static String doorBlocking = "The door blocking you way.";
 	private static String alreadyOpen = "It's open.";
 	private static String alreadyShut = "It's closed.";
-	private static String shutDoor = "You shut the door.";
+	private static String shutDoor = "The door slams shut.";
 	private static String woman = "Her stillness is inhuman, like a mannequin. You feel a strong sense of foreboding from the sight of her.";
 	private static String nowMeditating = "You close your eyes, and all of your surroundings become quiet and disappear. You are now meditating.";
 	private static String nowVisualizing = "You are now visualizing the sacred ";
@@ -23,6 +23,10 @@ public class Story {
 	private static String doneMeditating = "You are no longer meditating.";
 	private static String notMemorized = "You don't have that memorized.";
 	private static String notMeditating = "Despite your best efforts, you become distracted and give up. That sort of thing is best done while meditating.";
+	private static String activateHallway = "You push the button and hear a beep. The shelf behind the glass slides. The scroll that was on the shelf falls down the laundry chute.";
+	private static String activateCreakyDeck = "You push the button and hear a beep. The wooden plank slides up, revealing a cool secret cabinet. In the cabinet is a frosty scroll.";
+	private static String pullTassel = "You pull the tassel, and the gate of the thing creaks as it raises up, revealing a TV.";
+	private static String gate = "It's a gate, but you notice a tassel!";
 	
 	// Reaper
 	private static String seeReaper1 = "Out of the corner of your eye, you see a hooded figure to the north before it vanishes out of sight.";
@@ -37,7 +41,7 @@ public class Story {
 	private static String reaperKill3 = "Fast as lightning, it stabs the sword into your stomach.";
 	
 	// plaques
-	private static String plaqueDesc = "The square metal plaque has an orange bulb, a green bulb, and a purble bulb.";
+	private static String plaqueDesc = "The square metal plaque has an orange bulb, a green bulb, and a purple bulb.";
 	private static String plaqueSandExhibit = "Scratched into the metal are arrows pointing at the orange bulb and the green bulb.";
 	private static String plaqueLounge = "Scratched into the metal are arrows pointing at the orange bulb and the green bulb.";
 	private static String plaqueShrineRoom1 = "Scratched into the metal are arrows pointing at the orange bulb and the purple bulb.";
@@ -149,6 +153,15 @@ public class Story {
 	
 	public static void printNowMeditating() {
 		print(nowMeditating);
+	}
+	
+	public static void printNotMeditating() {
+		print(notMeditating);
+	}
+	
+	public static void printDoneMeditating() {
+		print(doneMeditating);
+		newParagraph();
 	}
 	
 	public static void printVisualize(String s) {
@@ -478,5 +491,25 @@ public class Story {
 	
 	public static void printKimiBye() {
 		print(kimiBye);
+	}
+	
+	public static void printActivateHallway() {
+		print(activateHallway);
+	}
+	
+	public static void printActivateCreakyDeck() {
+		print(activateCreakyDeck);
+	}
+	
+	public static void printInteresting() {
+		print("An interesting concept!");
+	}
+	
+	public static void printTassel() {
+		print(pullTassel);
+	}
+	
+	public static void printExamineGate() {
+		print(gate);
 	}
 }

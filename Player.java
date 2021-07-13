@@ -26,6 +26,7 @@ public class Player {
 	public static ArrayList<Item> orangeSavedInventory = new ArrayList<Item>();
 	public static ArrayList<Item> greenSavedInventory = new ArrayList<Item>();
 	public static ArrayList<Item> purpleSavedInventory = new ArrayList<Item>();
+	public static ArrayList<String> chantInputs = new ArrayList();
 	
 	public static Room getLocation() {
 		return Room.location.get(0);
@@ -120,13 +121,28 @@ public class Player {
 	public static void wipeOrange() {
 		orangeAlive = false;
 		orangeAtTV = false;
-		Room.shrineRoom1DoorOpen = false;
+		World.sandExhibitDoorOpen = false;
 		
 		if (!getLocation().equals(Room.library))
 			inventory.clear();
 		
 		sawReaper1 = false;
 		orangeSavedInventory.clear();
+		
+		Room.gardenPatioObjects.clear();
+		Room.cobbleSquareObjects.clear();
+		Room.teaRoomObjects.clear(); 
+		Room.sandExhibitObjects.clear(); 
+		Room.thatchedHutObjects.clear(); 
+		Room.gardenOverlookObjects.clear(); 
+		Room.loungeObjects.clear(); 
+		Room.cafeObjects.clear(); 
+		Room.outsideGalleryObjects.clear(); 
+		Room.shrineRoom1Objects.clear(); 
+		Room.insideGalleryObjects.clear(); 
+		Room.assemblyRoomObjects.clear(); 
+		
+		Room.setGardenObjects(); 
 	}
 	
 	public static void wipeGreen() {
@@ -142,6 +158,22 @@ public class Player {
 			inventory.clear();
 		
 		greenSavedInventory.clear();
+		
+		Room.shrineRoom2Objects.clear(); 
+		Room.livingRoomObjects.clear(); 
+		Room.pondObjects.clear(); 
+		Room.courtyardObjects.clear(); 
+		Room.landingObjects.clear(); 
+		Room.hallwayObjects.clear(); 
+		Room.sittingRoomObjects.clear(); 
+		Room.masterBedroomObjects.clear(); 
+		Room.libraryObjects.clear(); 
+		Room.closetObjects.clear(); 
+		Room.darkPassagewayObjects.clear();
+		Room.mannequinRoomObjects.clear(); 
+		Room.theaterObjects.clear(); 
+		
+		Room.setHouseObjects(); 
 	}
 	
 	public static void wipePurple() {
@@ -152,6 +184,21 @@ public class Player {
 			inventory.clear();
 		
 		purpleSavedInventory.clear();
+		
+		Room.outsideGateObjects.clear();
+		Room.insideGateObjects.clear(); 
+		Room.islandObjects.clear(); 
+		Room.bottomOfStairsObjects.clear(); 
+		Room.topOfStairsObjects.clear(); 
+		Room.hamletObjects.clear(); 
+		Room.hondoObjects.clear(); 
+		Room.balconyObjects.clear(); 
+		Room.shrineRoom3Objects.clear();
+		Room.trinketShopObjects.clear(); 
+		Room.creakyDeckObjects.clear(); 
+		Room.overlookObjects.clear();
+		
+		Room.setTempleObjects(); 
 	}
 	
 	public static void saveOrangeInventory() {
@@ -331,6 +378,26 @@ public class Player {
 			default:
 				System.out.println("Player.getRobe() error");
 				return null;
+		}
+	}
+	
+	public static void trance() {
+		
+	}
+	
+	public static void handleMeditating(String v) {
+		switch (v) {
+			case "VISUALIZE":
+				Action.visualize(Parser.noun.toString());
+				break;
+			case "CHANT":
+				Action.chant(Parser.noun.toString());
+				break;
+			default:
+				meditating = false;
+				Story.printDoneMeditating();
+				Parser.handleInput(v);
+				break;
 		}
 	}
 }

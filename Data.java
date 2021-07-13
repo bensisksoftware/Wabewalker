@@ -14,11 +14,13 @@ public class Data {
 		Room.visited.add(Room.gardenPatio);
 		Room.setRooms();
 		Room.setExits();
-		Room.setObjects();
+		Room.setGardenObjects();
+		Room.setHouseObjects();
+		Room.setTempleObjects();
 		Room.setRoomsWithPlaques();
 		
 		// test
-		Player.updateLocation(Room.sittingRoom);
+		test();
 	}
 	
 	public static void printToCMD() {
@@ -68,5 +70,9 @@ public class Data {
 				Story.printYesOrNo();
 				break;
 		}
+	}
+	
+	public static void test() {
+		
 	}
 }

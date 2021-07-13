@@ -1,14 +1,6 @@
 import java.util.ArrayList;
 
 public class Room {
-	public static boolean shrineRoom1DoorOpen;
-	public static boolean loungeSafeOpen;
-	public static boolean shrineRoom1SafeOpen;
-	public static boolean darkPassagewayDoorOpen;
-	public static boolean closetDoorOpen;
-	public static boolean masterBedroomSafeOpen;
-	public static boolean creakyDeckOpen;
-	
 	public static ArrayList<Room> rooms = new ArrayList<Room>();
 	public static ArrayList<Room> location = new ArrayList<Room>();
 	public static ArrayList<Room> visited = new ArrayList<Room>();
@@ -114,13 +106,13 @@ public class Room {
 	public static String sittingRoomDesc = "A quaint room. Sign here. There are rooms to the east and west, as well as a hallway to the north.";
 	public static String masterBedroomDesc = "A gentle breeze flows in through the window. The room is quite bare. There is a safe with a plaque on the wall.";
 	public static String libraryDesc = "This is a small library. A red book, a blue book, and a black book stand on the shelf. Hung on the wall is a fishing pole. There's a TV here.";
-	public static String closetDesc = "This small closet contains a trashcan. In the trashcan is a small pile of corn, and a scroll. Above the trashcan is a chute that comes out from the ceiling. There is an exit to the west.";
+	public static String closetDesc = "This is a small closet. Above is a chute that comes out from the ceiling. There is an exit to the west.";
 	public static String darkPassagewayDesc = "This is a dark passageway. There is a way to the north. Light from the shrine room emits through the doorway to the east.";
 	public static String mannequinRoomDesc = "It's dark here, but you can see what look to be mannequins. There is a Desc here too. There are passageways to the east and south.";
 	public static String theaterDesc = "There is a TV here. There is a passageway to the west.";
 	public static String outsideGateDesc = "A huge mountain looms above you. You see a path through the gate to the north.";
 	public static String insideGateDesc = "The path up the mountain leads north. Beside the path is a stone monument with an inscription carved into it. To the east is a bridge extending over a frozen pond. In the middle of the pond is a small man-made island. There is also a path leading south.";
-	public static String islandDesc = "There is a thing here with a gate. Through the gate you see a TV. There is a tassel here. The bridge extends west over the frozen pond.";
+	public static String islandDesc = "There is a thing here with a gate. Through the gate you see a TV. The bridge extends west over the frozen pond.";
 	public static String bottomOfStairsDesc = "You are at the bottom of a large stair. Stone carving here. To the north, you can just make out a temple. There is a path to the south.";
 	public static String topOfStairsDesc = "You are at the top of the stairs. There is a wooden sign here. To the north is a large temple. To the west you can see residents' quarters.";
 	public static String hamletDesc = "There is a house here. In the front, is a wooden post with a plaque on it. There is a path to the east.";
@@ -134,6 +126,7 @@ public class Room {
 	
 	public String title;
 	public String desc;
+	public int scrollCount = 0;
 	
 	public Room(String title, String desc) {
 		this.title = title;
@@ -297,8 +290,11 @@ public class Room {
 		overlookExits.add("E"); 
 	}
 	
-	public static void setObjects() {
+	public static void setGardenObjects() {
 		teaRoomObjects.add(Item.book); 
+	}
+	
+	public static void setHouseObjects() {
 		libraryObjects.add(Item.rod); 
 		libraryObjects.add(Item.booklet); 
 		sittingRoomObjects.add(Item.phone); 
@@ -306,7 +302,11 @@ public class Room {
 		masterBedroomObjects.add(Item.pamphlet); 
 		closetObjects.add(Item.corn); 
 		mannequinRoomObjects.add(Item.parchment); 
+	}
+	
+	public static void setTempleObjects() {
 		balconyObjects.add(Item.card); 
+		trinketShopObjects.add(Item.box); 
 	}
 	
 	public static void setRoomsWithPlaques() {
@@ -404,8 +404,6 @@ public class Room {
 		}
 	}
 	
-	
-	
 	public static ArrayList getObjects() {
 		switch (Player.getLocation().title) {
 			case "Garden Patio":
@@ -486,5 +484,17 @@ public class Room {
 				System.out.println("Room.getObjects() error");
 				return null;
 		}
+	}
+	
+	public static void addScroll() {
+		location.get(0).scrollCount++;
+	}
+	
+	public static void removeScroll() {
+		location.get(0).scrollCount--;
+	}
+	
+	public static int getScrollCount() {
+		return location.get(0).scrollCount;
 	}
 }
