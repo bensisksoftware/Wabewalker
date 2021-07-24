@@ -1,5 +1,5 @@
 public class Data {
-	public static int numberOfMoves = 0;
+	public static int moves = 0;
 	public static int year = -2137459457;
 	
 	public static boolean gameOver;
@@ -24,7 +24,7 @@ public class Data {
 	}
 	
 	public static void printToCMD() {
-		System.out.println("\nMove: " + numberOfMoves);
+		System.out.println("\nMove: " + moves);
 		System.out.println(Player.getLocation().title);
 		System.out.println("input: " + Parser.input);
 	}
@@ -73,6 +73,8 @@ public class Data {
 	}
 	
 	public static void test() {
-		
+		Player.updateLocation(Room.pond);
+		Player.inventory.add(Item.rod);
+		Player.inventory.add(Item.corn);
 	}
 }

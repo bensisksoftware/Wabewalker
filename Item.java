@@ -159,19 +159,19 @@ public class Item {
 	}
 	
 	public static void getScroll() {
-		if (Room.getObjects().contains(om))
+		if (Room.getObjects().contains(om) || (Player.getLocation().title.equals("Lounge") && World.loungeSafeOpen && World.omInSafe))
 			getOm();
 		
-		if (Room.getObjects().contains(ni))
+		if (Room.getObjects().contains(ni) || (Player.getLocation().title.equals("Master Bedroom") && World.masterBedroomSafeOpen && World.niInSafe))
 			getNi();
 		
-		if (Room.getObjects().contains(go))
+		if (Room.getObjects().contains(go) || (Player.getLocation().title.equals("Creaky Deck") && World.creakyDeckOpen && World.goInCase))
 			getGo();
 		
-		if (Room.getObjects().contains(yu))
+		if (Room.getObjects().contains(yu) || (World.yuInBox && World.boxOpen && (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box))))
 			getYu();
 		
-		if (Room.getObjects().contains(ji))
+		if (Room.getObjects().contains(ji) || (World.jiInSafe && World.shrineRoom1SafeOpen && (Player.inventory.contains(Item.ji))))
 			getJi();
 		
 		if (Room.getObjects().contains(ra))
@@ -185,28 +185,48 @@ public class Item {
 		Story.printTakeItem();
 		Player.inventory.add(om);
 		Room.getObjects().remove(om);
-		Room.removeScroll();
+		
+		if (World.omInSafe) {
+			World.omInSafe = false;
+		} else {
+			Room.removeScroll();
+		}
 	}
 	
 	public static void getNi() {
 		Story.printTakeItem();
 		Player.inventory.add(ni);
 		Room.getObjects().remove(ni);
-		Room.removeScroll();
+		
+		if (World.niInSafe) {
+			World.niInSafe = false;
+		} else {
+			Room.removeScroll();
+		}
 	}
 	
 	public static void getGo() {
 		Story.printTakeItem();
 		Player.inventory.add(go);
 		Room.getObjects().remove(go);
-		Room.removeScroll();
+	
+		if (World.goInCase) {
+			World.goInCase = false;
+		} else {
+			Room.removeScroll();
+		}
 	}
 	
 	public static void getYu() {
 		Story.printTakeItem();
 		Player.inventory.add(yu);
 		Room.getObjects().remove(yu);
-		Room.removeScroll();
+
+		if (World.yuInBox) {
+			World.yuInBox = false;
+		} else {
+			Room.removeScroll();
+		}
 	}
 	
 	public static void getJi() {
@@ -214,6 +234,12 @@ public class Item {
 		Player.inventory.add(ji);
 		Room.getObjects().remove(ji);
 		Room.removeScroll();
+		
+		if (World.jiInSafe) {
+			World.jiInSafe = false;
+		} else {
+			Room.removeScroll();
+		}
 	}
 	
 	public static void getRa() {
@@ -278,6 +304,12 @@ public class Item {
 		Room.getObjects().remove(phone);
 	}
 	
+	public static void getBox() {
+		Story.printTakeItem();
+		Player.inventory.add(box);
+		Room.getObjects().remove(box);
+	}
+	
 	public static void examineBook() {
 		if (Player.inventory.contains(Item.book) || Room.getObjects().contains(Item.book)) {
 			Story.print(bookDesc);
@@ -287,64 +319,124 @@ public class Item {
 	}
 	
 	public static void examineOm() {
-		if (Player.inventory.contains(Item.om) || Room.getObjects().contains(Item.om)) {
-			Story.print(omDesc);
+		if (Room.getObjects().contains(Item.om) || (Player.inventory.contains(Item.om)) || (Player.getLocation().title.equals("Lounge") && World.loungeSafeOpen && World.omInSafe)) {
+			Story.print(om.desc);
+			
+			if (!Player.memory.contains("om")) {
+				Story.printExamineScroll(om);
+			}
 		} else {
 			Story.printNotHere();
 		}
 	}
 	
 	public static void examineNi() {
-		if (Player.inventory.contains(Item.ni) || Room.getObjects().contains(Item.ni)) {
-			Story.print(niDesc);
+		if (Room.getObjects().contains(Item.ni) || (Player.inventory.contains(Item.ni)) || (Player.getLocation().title.equals("Master Bedroom") && World.masterBedroomSafeOpen && World.niInSafe)) {
+			Story.print(ni.desc);
+		
+			if (!Player.memory.contains("ni")) {
+				Story.printExamineScroll(ni);
+			}
 		} else {
 			Story.printNotHere();
 		}
 	}
 	
 	public static void examineGo() {
-		if (Player.inventory.contains(Item.go) || Room.getObjects().contains(Item.go)) {
-			Story.print(goDesc);
+		if (Room.getObjects().contains(Item.go) || (Player.inventory.contains(Item.go)) || (Player.getLocation().title.equals("Creaky Deck") && World.creakyDeckOpen && World.goInCase)) {
+			Story.print(go.desc);
+		
+			if (!Player.memory.contains("go")) {
+				Story.printExamineScroll(go);
+			}
 		} else {
 			Story.printNotHere();
 		}
 	}
 	
 	public static void examineYu() {
-		if (Player.inventory.contains(Item.yu) || Room.getObjects().contains(Item.yu)) {
-			Story.print(yuDesc);
-		} else {
+		if (Room.getObjects().contains(Item.yu) || (Player.inventory.contains(Item.yu)) || (World.yuInBox && World.boxOpen && (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)))){
+			Story.print(yu.desc);
+		
+			if (!Player.memory.contains("yu")) {
+				Story.printExamineScroll(yu);
+			}
+		} else{
 			Story.printNotHere();
 		}
 	}
 	
 	public static void examineJi() {
-		if (Player.inventory.contains(Item.ji) || Room.getObjects().contains(Item.ji)) {
-			Story.print(jiDesc);
+		if (Room.getObjects().contains(Item.ji) || (Player.inventory.contains(Item.ji)) || (World.jiInSafe && World.shrineRoom1SafeOpen && (Player.inventory.contains(Item.ji)))) {
+			Story.print(ji.desc);
+		
+			if (!Player.memory.contains("ji")) {
+				Story.printExamineScroll(ji);
+			}
 		} else {
 			Story.printNotHere();
 		}
 	}
 	
 	public static void examineRa() {
-		if (Player.inventory.contains(Item.ra) || Room.getObjects().contains(Item.ra)) {
-			Story.print(raDesc);
+		if (Room.getObjects().contains(Item.ra) || Player.inventory.contains(Item.ra)) {
+			Story.print(ra.desc);
+		
+			if (!Player.memory.contains("ra")) {
+				Story.printExamineScroll(ra);
+			}
 		} else {
 			Story.printNotHere();
 		}
 	}
 	
 	public static void examineShi() {
-		if (Player.inventory.contains(Item.shi) || Room.getObjects().contains(Item.shi)) {
-			Story.print(shiDesc);
+		Story.print(shi.desc);
+		
+		if (!Player.memory.contains("shi")) {
+			Story.printExamineScroll(shi);
+		}
+		
+		if (Room.getObjects().contains(Item.shi) || Player.inventory.contains(Item.shi)) {
+			Story.print(shi.desc);
+		
+			if (!Player.memory.contains("shi")) {
+				Story.printExamineScroll(shi);
+			}
 		} else {
 			Story.printNotHere();
 		}
 	}
 	
+	public static void examineScroll() {
+		if (Room.getObjects().contains(om) || (Player.getLocation().title.equals("Lounge") && World.loungeSafeOpen && World.omInSafe))
+			examineOm();
+		
+		if (Room.getObjects().contains(ni) || (Player.getLocation().title.equals("Master Bedroom") && World.masterBedroomSafeOpen && World.niInSafe))
+			examineNi();
+		
+		if (Room.getObjects().contains(go) || (Player.getLocation().title.equals("Creaky Deck") && World.creakyDeckOpen && World.goInCase))
+			examineGo();
+		
+		if (Room.getObjects().contains(yu) || (World.yuInBox && World.boxOpen && (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box))))
+			examineYu();
+		
+		if (Room.getObjects().contains(ji) || (World.jiInSafe && World.shrineRoom1SafeOpen && (Player.inventory.contains(Item.ji))))
+			examineJi();
+		
+		if (Room.getObjects().contains(ra))
+			examineRa();
+		
+		if (Room.getObjects().contains(shi))
+			examineShi();
+	}
+	
 	public static void examineRod() {
 		if (Player.inventory.contains(Item.rod) || Room.getObjects().contains(Item.rod)) {
 			Story.print(rodDesc);
+			
+			if (World.cornOnRod)
+				Story.print(" There is corn attached to the hook.");
 		} else {
 			Story.printNotHere();
 		}
@@ -406,6 +498,14 @@ public class Item {
 		}
 	}	
 	
+	public static void examineBox() {
+		if (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)) {
+			Story.print(boxDesc);
+		} else {
+			Story.printNotHere();
+		}
+	}	
+	
 	public static void examineMirror() {
 		switch (Player.getLocation().title) {
 			case "Thatched Hut":
@@ -415,19 +515,11 @@ public class Item {
 				Story.print("The Chippendale mirror casts your reflection back at you. Your loosely kept hair goes well with your faded green robe.");
 				break;
 			case "Overlook":
-				Story.print("The Chippendale mirror casts your reflection back at you. Your loosely kept hair goes well with your faded orange robe.");
+				Story.print("The Chippendale mirror casts your reflection back at you. Your loosely kept hair goes well with your faded purple robe.");
 				break;
 			default:
 				Story.printNotHere();
 				break;
-		}
-	}
-	
-	public static void examinePlaque() {
-		if (Room.roomsWithPlaques.contains(Player.getLocation())) {
-			Story.printPlaque();
-		} else {
-			Story.printNotHere();
 		}
 	}
 	

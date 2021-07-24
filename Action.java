@@ -1,6 +1,7 @@
 public class Action {
 	public static void look() {
 		Story.printDesc();
+		Story.printDesc2();
 		Story.printObjects();
 	}
 	
@@ -22,6 +23,12 @@ public class Action {
 				break;
 			case "Cafe":
 				Player.updateLocation(Room.outsideGallery);
+				
+				if (!Player.dreaming) {
+					Player.facingReaper = true;
+					Story.newParagraph();
+					Story.printReaperEncounter1();
+				}
 				break;
 			case "Assembly Room":
 				Player.updateLocation(Room.insideGallery);
@@ -31,6 +38,9 @@ public class Action {
 				break;
 			case "Pond":
 				Player.updateLocation(Room.courtyard);
+				World.bite = false;
+				Player.startedFishing = 0;
+				Player.fishing = false;
 				break;
 			case "Sitting Room":
 				if (Player.inventory.contains(Item.phone)) {
@@ -160,12 +170,7 @@ public class Action {
 				}
 				break;
 			case "Outside Gallery":
-				if (Player.dreaming) {
-					Player.updateLocation(Room.insideGallery);
-				} else {
-					Player.facingReaper = true;
-					Story.printReaperEncounter1();
-				}
+				Player.updateLocation(Room.insideGallery);
 				break;
 			case "Living Room":
 				Player.updateLocation(Room.pond);
@@ -263,6 +268,7 @@ public class Action {
 				break;
 			case "Island":
 				Player.updateLocation(Room.insideGate);
+				World.islandOpen = false;
 				break;
 			case "Top of Stairs":
 				Player.updateLocation(Room.hamlet);
@@ -452,10 +458,77 @@ public class Action {
 					Story.printNoExit();
 				}
 				break;
+			case "FISHING":
+				if (Player.inventory.contains(Item.rod)) {
+					goFishing();
+				} else {
+					Story.printHow();
+				}
 			default:
 				System.out.println("Action.go() error");
 				break;
 		}
+	}
+	
+	public static void cast(String n) {
+		switch (n) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "ROD":
+				if (Player.inventory.contains(Item.rod)) {
+					goFishing();
+				} else {
+					Story.printHow();
+				}
+				break;
+			default:
+				Story.invalid();
+				break;
+		}
+	}
+	public static void goFishing() {
+		if (Player.getLocation().equals(Room.pond)) {
+			Player.fishing = true;
+			Story.printCast();
+			Player.startedFishing = Data.moves;
+		} else {
+			Story.print("You cast your line and the hook lands on the ground in front of you.");
+		}
+	}
+	
+	public static void passTime() {
+		Story.printPassTime();
+		
+		if (World.cornOnRod && Player.fishing && (Data.moves == (Player.startedFishing + 6))) {
+			Story.printBite();
+			World.bite = true;
+			World.cornOnRod = false;
+		}
+		
+		if (World.bite && (Data.moves > (Player.startedFishing + 6))) {
+			Story.print(" You no longer feel a tug on the line.");
+			World.bite = false;
+		}
+	}
+	
+	private static void reelIn() {
+		Story.print("You reel in the line.");
+		
+		if (World.bite) {
+			catchFish();
+		} else {
+			Story.print(" You didn't catch anything.");
+		}
+		
+		Player.startedFishing = 0;
+		World.bite = false;
+	}
+	
+	private static void catchFish() {
+		World.cornOnRod = false;
+		Story.printCatch();
+		Player.memorizeFish();
 	}
 	
 	public static void checkInventory() {
@@ -602,7 +675,7 @@ public class Action {
 				}
 				break;
 			case "OM":
-				if (Room.getObjects().contains(Item.om)) {
+				if (Room.getObjects().contains(Item.om) || (Player.getLocation().title.equals("Lounge") && World.loungeSafeOpen && World.omInSafe)) {
 					Item.getOm();
 				} else if (Player.inventory.contains(Item.om)) {
 					Story.printAlreadyHave();
@@ -611,7 +684,7 @@ public class Action {
 				}
 				break;
 			case "NI":
-				if (Room.getObjects().contains(Item.ni)) {
+				if (Room.getObjects().contains(Item.ni) || (Player.getLocation().title.equals("Master Bedroom") && World.masterBedroomSafeOpen && World.niInSafe)) {
 					Item.getNi();
 				} else if (Player.inventory.contains(Item.ni)) {
 					Story.printAlreadyHave();
@@ -620,7 +693,7 @@ public class Action {
 				}
 				break;
 			case "GO":
-				if (Room.getObjects().contains(Item.go)) {
+				if (Room.getObjects().contains(Item.go) || (Player.getLocation().title.equals("Creaky Deck") && World.creakyDeckOpen && World.goInCase)) {
 					Item.getGo();
 				} else if (Player.inventory.contains(Item.go)) {
 					Story.printAlreadyHave();
@@ -629,16 +702,16 @@ public class Action {
 				}
 				break;
 			case "YU":
-				if (Room.getObjects().contains(Item.yu)) {
+				if (Room.getObjects().contains(Item.yu) || (World.yuInBox && World.boxOpen && (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)))){
 					Item.getYu();
 				} else if (Player.inventory.contains(Item.yu)) {
 					Story.printAlreadyHave();
-				} else {
+				} else{
 					Story.printNotHere();
 				}
 				break;
 			case "JI":
-				if (Room.getObjects().contains(Item.ji)) {
+				if (Room.getObjects().contains(Item.ji) || (World.jiInSafe && World.shrineRoom1SafeOpen && (Player.inventory.contains(Item.ji)))) {
 					Item.getJi();
 				} else if (Player.inventory.contains(Item.ji)) {
 					Story.printAlreadyHave();
@@ -746,7 +819,7 @@ public class Action {
 				break;
 			case "FISH":
 				if (Player.getLocation().title.equals("Pond")) {
-					catchFish();
+					reelIn();
 				} else {
 					Story.printNotHere();
 				}
@@ -759,6 +832,14 @@ public class Action {
 				} else {
 					Story.printNotHere();
 				}
+				break;
+			case "BOX":
+				if (Room.getObjects().contains(Item.box)) {
+					Item.getBox();
+				} else {
+					Story.printNotHere();
+				}
+				break;
 			default:
 				Story.printNotHere();
 				break;
@@ -766,8 +847,33 @@ public class Action {
 		
 	}
 	
-	private static void catchFish() {
-		
+	public static void put(String n) {
+		switch (n) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "CORN":
+				if (Player.inventory.contains(Item.rod) && Player.inventory.contains(Item.corn)) {
+					Story.printBait();
+					World.cornOnRod = true;
+					Player.inventory.remove(Item.corn);
+				} else {
+					Story.printHow();
+				}
+				break;
+			case "ROD":
+				if (Player.inventory.contains(Item.rod) && Player.inventory.contains(Item.corn)) {
+					Story.printBait();
+					World.cornOnRod = true;
+					Player.inventory.remove(Item.corn);
+				} else {
+					Story.printHow();
+				}
+				break;
+			default:
+				Story.invalid();
+				break;
+		}
 	}
 	
 	public static void drop(String n) {
@@ -858,6 +964,9 @@ public class Action {
 				if (Player.inventory.contains(Item.rod)) {
 					Player.inventory.remove(Item.rod);
 					Room.getObjects().add(Item.rod);
+					Player.fishing = false;
+					World.bite = false;
+					Player.startedFishing = 0;
 					Story.print("Dropped.");
 				} else {
 					Story.printNotInInventory();
@@ -952,48 +1061,6 @@ public class Action {
 		}
 	}
 	
-	public static void read(String n) {
-		switch (n) {
-			case "":
-				Story.printMissingNoun();
-				break;
-			case "BOOK":
-				if (Player.inventory.contains(Item.book) || Room.getObjects().contains(Item.book)) {
-					Item.examineBook();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "BOOKLET":
-				if (Player.inventory.contains(Item.booklet) || Room.getObjects().contains(Item.booklet)) {
-					Item.examineBooklet();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "HANDBOOK":
-				if (Player.inventory.contains(Item.handbook) || Room.getObjects().contains(Item.handbook)) {
-					Item.examineHandbook();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "PAMPHLET":
-				if (Player.inventory.contains(Item.pamphlet) || Room.getObjects().contains(Item.pamphlet)) {
-					Item.examinePamphlet();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "SIGN":
-				readSign();
-				break;
-			default:
-				System.out.println("Action.read() error");
-				break;
-		}
-	}
-	
 	private static void readSign() {
 		switch (Player.getLocation().title) {
 			case "Sand Exhibit":
@@ -1015,7 +1082,7 @@ public class Action {
 				if (Player.memory.contains("Knot")) {
 					Story.printReadKnot();
 				} else {
-					Story.printMemorize();
+					Story.printMemorizeSymbol();
 					Player.memory.add("Knot");
 				}
 				break;
@@ -1048,25 +1115,49 @@ public class Action {
 			case "PAMPHLET":
 				Item.examinePamphlet();
 				break;
-			case "FADED":
+			case "OM":
 				Item.examineOm();
-			case "FANCY":
-				Item.examineNi();
 				break;
-			case "FROSTY":
-				Item.examineGo();
+			case "NI":
+					Item.examineNi();
+				
 				break;
-			case "CRUMPLED":
-				Item.examineYu();
+			case "GO":
+					Item.examineGo();
+				
 				break;
-			case "SMOOTH":
-				Item.examineJi();
+			case "YU":
+					Item.examineYu();
+				
 				break;
-			case "DUSTY":
-				Item.examineRa();
+			case "JI":
+					Item.examineJi();
+			
 				break;
-			case "STAINED":
-				Item.examineShi();
+			case "RA":
+					Item.examineRa();
+				
+				break;
+			case "SHI":
+					Item.examineShi();
+				
+				break;
+			case "SCROLL":
+				if (Player.getLocation().equals(Room.hallway)) {
+					if (Room.hallway.getScrollCount() == 0) {
+						Story.print("The glass panel prevents you from getting to the scroll.");
+					} else {
+						Story.print("Which one?");
+					}
+				} else {
+					if (Room.getScrollCount() > 1) {
+						Story.print("Which one?");
+					} else if (Room.getScrollCount() == 1) {
+						Item.examineScroll();
+					} else {
+						Story.printNotHere();
+					}
+				}
 				break;
 			case "ROD":
 				Item.examineRod();
@@ -1084,7 +1175,7 @@ public class Action {
 				Item.examineMirror();
 				break;
 			case "PLAQUE":
-				Item.examinePlaque();
+				Story.printPlaque();
 				break;
 			case "WOMAN":
 				if (Player.getLocation().title.equals("Cafe") || Player.getLocation().title.equals("Living Room")) {
@@ -1127,6 +1218,25 @@ public class Action {
 				break;
 			case "GATE":
 				Story.printExamineGate();
+				break;
+			case "BOX":
+				Item.examineBox();
+				break;
+			case "CRANES":
+				// if at overlook or shrine1 w right screen
+				if (Player.getLocation().title.equals("Overlook")) {
+					Story.print("The cranes are colorful and on a hinge thing where you can maybe move it hint hint.");
+				} else if (Player.getLocation().title.equals("Shrine Room 1") && Player.purpleAlive) {
+					Story.print("The paper cranes on the TV are so colorful and encompass the whole screen");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "MEMORY":
+				Story.printMemory();
+				break;
+			case "SHRINE":
+				Story.printExamineShrine();
 				break;
 			default:
 				Story.printNotHere();
@@ -1419,6 +1529,45 @@ public class Action {
 					pullTassel();
 				} else {
 					Story.printNotHere();
+				}
+				break;
+			case "IN":
+				if (Player.fishing) {
+					reelIn();
+				}
+				break;
+			case "ROD":
+				if (Player.fishing) {
+					reelIn();
+				}
+				break;
+			default:
+				Story.printInteresting();
+				break;
+		}
+	}
+	
+	public static void reel(String n) {
+		switch (n) {
+			case "":
+				if (Player.fishing) {
+					reelIn();
+				} else {
+					Story.printHow();
+				}
+				break;
+			case "IN":
+				if (Player.fishing) {
+					reelIn();
+				} else {
+					Story.printHow();
+				}
+				break;
+			case "ROD":
+				if (Player.fishing) {
+					reelIn();
+				} else {
+					Story.printHow();
 				}
 				break;
 			default:

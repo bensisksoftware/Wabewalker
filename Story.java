@@ -27,6 +27,10 @@ public class Story {
 	private static String activateCreakyDeck = "You push the button and hear a beep. The wooden plank slides up, revealing a cool secret cabinet. In the cabinet is a frosty scroll.";
 	private static String pullTassel = "You pull the tassel, and the gate of the thing creaks as it raises up, revealing a TV.";
 	private static String gate = "It's a gate, but you notice a tassel!";
+	private static String cornOnRod = "You put that corn on the hook boy!";
+	private static String cast = "You cast your line. It lands in the pond with a plop.";
+	private static String hallwayDescRaDropped = "There is a scroll on the shelf behind the glass pane.";
+	private static String hallwayDescRaNotDropped = "There is nothing on the shelf behind the glass pane.";
 	
 	// Reaper
 	private static String seeReaper1 = "Out of the corner of your eye, you see a hooded figure to the north before it vanishes out of sight.";
@@ -50,7 +54,7 @@ public class Story {
 	private static String plaqueHallway = "Scratched into the metal are arrows pointing at all three bulbs.";
 	private static String plaqueMasterBedroom = "Scratched into the metal is an arrow pointing at the green bulb.";
 	private static String plaqueHondo = "Scratched into the metal are arrows pointing at the green bulb and the purple bulb.";
-	private static String plaqueTrinketShop = "Scratched into the metal is an arrow pointing at the purple bulb.";
+	private static String plaqueTrinketShop = "Scratched into the metal of the jewelled box is an arrow pointing at the purple bulb.";
 	private static String plaqueCreakyDeck = "Scratched into the metal are arrows pointing at all three bulbs.";
 	private static String OOO = "All three bulbs are glowing.";
 	private static String OOX = "The orange bulb and the green bulb are glowing.";
@@ -149,6 +153,22 @@ public class Story {
 	
 	public static void printDesc() {
 		print(Player.getLocation().desc);
+	}
+	
+	public static void printDesc2() {
+		switch (Player.getLocation().title) {
+			case "Hallway":
+				newLine();
+				
+				if (World.raDropped) {
+					print(hallwayDescRaDropped);
+				} else {
+					print(hallwayDescRaNotDropped);
+				}
+				break;
+			default:
+				// leave blank
+				break;
 	}
 	
 	public static void printNowMeditating() {
@@ -319,17 +339,24 @@ public class Story {
 			case "Master Bedroom":
 				print(plaqueMasterBedroom);
 				break;
-			case "Hondo":
+			case "Hamlet":
 				print(plaqueHondo);
-				break;
-			case "Trinket Shop":
-				print(plaqueTrinketShop);
+				
+				if (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)) 
+					print(" " + plaqueTrinketShop);
 				break;
 			case "Creaky Deck":
 				print(plaqueCreakyDeck);
+				
+				if (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)) 
+					print(" " + plaqueTrinketShop);
 				break;
 			default:
-				Story.printNotHere();
+				if (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)) {
+					print(plaqueTrinketShop);
+				} else {
+					Story.printNotHere();
+				}
 				break;
 		}
 		
@@ -433,8 +460,12 @@ public class Story {
 		print("The sign has a knot on it.");
 	}
 	
-	public static void printMemorize() {
-		print("The symbol is commited to memory and available to visualize while meditating!");
+	public static void printMemorizeSymbol() {
+		print("The sacred symbol is commited to memory and available to visualize while meditating!");
+	}
+	
+	public static void printMemorizeWord() {
+		print("The sacred word is commited to memory and available to chant while meditating!");
 	}
 	
 	public static void printPhoneWrong() {
@@ -511,5 +542,69 @@ public class Story {
 	
 	public static void printExamineGate() {
 		print(gate);
+	}
+	
+	public static void printBait() {
+		print(cornOnRod);
+	}
+	
+	public static void printHow() {
+		print("How do you expect to do that?");
+	}
+	
+	public static void printCast() {
+		print(cast);
+	}
+	
+	public static void printPassTime() {
+		print("Time passes...");
+	}
+	
+	public static void printBite() {
+		print(" You feel a tug on your fishing rod. You got a bite!");
+	}
+	
+	public static void printCatch() {
+		print(" You caught a koi fish! There is a marking on the fish. It is the sacred symbol of fish! ");
+		
+		if (!Player.memory.contains("Fish"))
+			printMemorizeSymbol();
+		
+		print(" The fish wiggles out of your hands back into the pond with a splash.");
+	}
+	
+	public static void printExamineScroll(Item s) {
+		print(" ");
+		printMemorizeWord();
+	}
+	
+	public static void printMemory() {
+		if (Player.memory.size() == 0) {
+			Story.print("You don't have anything memorized.");
+		} else {
+			Story.print("You have memorized:");
+			
+			for (int i = 0; i < Player.memory.size(); i++) {
+				newLine();
+				print(Player.memory.get(i));
+			}
+		}
+	}
+	
+	public static void printExamineShrine() {
+		switch (Player.getLocation().title) {
+			case "Shrine Room 1":
+				Story.print("Beautiful shrine. TV in front.");
+				break;
+			case "Shrine Room 2":
+				Story.print("Beautiful shrine. Banner above.");
+				break;
+			case "Shrine Room 3":
+				Story.print("Beautiful shrine.");
+				break;
+			default:
+				printNotHere();
+				break;
+		}
 	}
 }

@@ -4,7 +4,7 @@ public class Parser {
 	public static StringBuilder noun = new StringBuilder("");
 	
 	public static void submitInput() {
-		Data.numberOfMoves++;
+		Data.moves++;
 		
 		Story.newParagraph();
 		
@@ -162,7 +162,9 @@ public class Parser {
 			n = "CORN";
 		}
 		
-		if (n.equals("POLE")) {
+		if (n.equals("POLE")
+			|| n.equals("HOOK")
+			|| n.equals("LINE")) {
 			n = "ROD";
 		}
 		
@@ -233,6 +235,10 @@ public class Parser {
 			v = "DOWN";
 		}
 		
+		if (v.equals("Z")) {
+			v = "WAIT";
+		}
+		
 		if (v.equals("RW")) {
 			v = "REWIND";
 		}
@@ -246,6 +252,7 @@ public class Parser {
 		}
 		
 		if (v.equals("X")
+			|| v.equals("READ")
 			|| v.equals("INVESTIGATE")
 			|| v.equals("CHECK")){
 			v = "EXAMINE";
@@ -583,6 +590,9 @@ public class Parser {
 			case "GO":
 				Action.go(noun.toString());
 				break;
+			case "WAIT":
+				Action.passTime();
+				break;
 			case "INVENTORY":
 				Action.checkInventory();
 				break;
@@ -594,9 +604,6 @@ public class Parser {
 				break;
 			case "LOOK":
 				Action.look();
-				break;
-			case "READ":
-				Action.read(noun.toString());
 				break;
 			case "EXAMINE":
 				Action.examine(noun.toString());
@@ -622,6 +629,12 @@ public class Parser {
 			case "PULL":
 				Action.pull(noun.toString());
 				break;
+			case "PUT":
+				Action.put(noun.toString());
+				break;
+			case "CAST":
+				Action.cast(noun.toString());
+				break;
 			case "REWIND":
 				Action.pressRewind();
 				break;
@@ -640,6 +653,9 @@ public class Parser {
 				} else {
 					Story.print("You're not holding an item that can do that.");
 				}
+				break;
+			case "REEL":
+				Action.reel(noun.toString());
 				break;
 			default:
 				Story.invalid();

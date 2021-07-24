@@ -102,7 +102,7 @@ public class Room {
 	public static String pondDesc = "The trickling of water sounds nice. You see some fish swimming. There are hallways to the west and north.";
 	public static String courtyardDesc = "Sunny courtyard. A door is to the east. There's a plaque next to it. A winding stone staircase leads to the northeast. A hallway extends south.";
 	public static String landingDesc = "You are halfway up the stairs. It ascends to the southeast, and descends to the southwest.";
-	public static String hallwayDesc = "There's a laundry chute here with a button. Through a glass pane you see a scroll sitting atop a shelf. There is a plaque here.";
+	public static String hallwayDesc = "There's a laundry chute here with a button. There is a plaque here. There is a glass pane with a shelf behind it and this constitutes the laundry chute.";
 	public static String sittingRoomDesc = "A quaint room. Sign here. There are rooms to the east and west, as well as a hallway to the north.";
 	public static String masterBedroomDesc = "A gentle breeze flows in through the window. The room is quite bare. There is a safe with a plaque on the wall.";
 	public static String libraryDesc = "This is a small library. A red book, a blue book, and a black book stand on the shelf. Hung on the wall is a fishing pole. There's a TV here.";
@@ -318,7 +318,6 @@ public class Room {
 		roomsWithPlaques.add(hallway);
 		roomsWithPlaques.add(masterBedroom);
 		roomsWithPlaques.add(hondo);
-		roomsWithPlaques.add(trinketShop);
 		roomsWithPlaques.add(creakyDeck);
 	}
 	

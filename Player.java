@@ -19,6 +19,9 @@ public class Player {
 	public static boolean hadCorn;
 	public static boolean raDropped;
 	public static boolean onPhone;
+	public static boolean fishing;
+	
+	public static int startedFishing = 0;
 	
 	public static ArrayList<String> memory = new ArrayList<String>();
 	public static ArrayList<String> answers = new ArrayList<String>();
@@ -152,7 +155,8 @@ public class Player {
 		hadCorn = false;
 		raDropped = false;
 		World.scheduled = false;
-		World.tripwire = true;
+		World.tripwire = false;
+		World.cornOnRod = false;
 			
 		if (!getLocation().equals(Room.island))
 			inventory.clear();
@@ -399,5 +403,10 @@ public class Player {
 				Parser.handleInput(v);
 				break;
 		}
+	}
+	
+	public static void memorizeFish() {
+		if (!memory.contains("Fish"))
+			memory.add("Fish");
 	}
 }

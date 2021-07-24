@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class World {
-	
 	public static boolean OOO;
 	public static boolean OOX;
 	public static boolean OXO;
@@ -17,7 +16,7 @@ public class World {
 	public static boolean omInSafe;
 	public static boolean jiInSafe;
 	public static boolean niInSafe;
-	public static boolean yuInCase;
+	public static boolean yuInBox;
 	public static boolean goInCase;
 	public static boolean sandExhibitDoorOpen;
 	public static boolean loungeSafeOpen;
@@ -26,6 +25,9 @@ public class World {
 	public static boolean courtyardDoorOpen;
 	public static boolean masterBedroomSafeOpen;
 	public static boolean creakyDeckOpen;
+	public static boolean boxOpen;
+	public static boolean cornOnRod;
+	public static boolean bite;
 	
 	public static String kimiState = "";
 	
@@ -97,6 +99,7 @@ public class World {
 	public static void handleReaper(String v) {
 		if (Data.yearToString().equals(v) || Data.yearToString().equals(Parser.noun.toString())) {
 			// correct answer
+			
 		} else {
 			// incorrect answer
 			Story.printReaperWrong();
