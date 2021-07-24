@@ -169,6 +169,7 @@ public class Story {
 			default:
 				// leave blank
 				break;
+		}
 	}
 	
 	public static void printNowMeditating() {
