@@ -500,4 +500,22 @@ public class Room {
 	public static int getScrollCount() {
 		return location.get(0).scrollCount;
 	}
+	
+	public static boolean anyScrollsHere() {
+		// returns true if there are 1 or more scrolls here
+		if ((Room.getScrollCount() + Player.getInventoryScrollCount()) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean multipleScrollsHere() {
+		// returns true if there are more than one scroll within reach
+		if (((getScrollCount() + Player.getInventoryScrollCount()) > 1) || (((World.boxOpen && World.yuInBox) && (getObjects().contains(Item.box) || Player.inventory.contains(Item.box))) && (getScrollCount() + Player.getInventoryScrollCount()) >= 1)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

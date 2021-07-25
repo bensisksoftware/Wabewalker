@@ -29,10 +29,6 @@ public class World {
 	public static boolean bite;
 	public static boolean theaterTVAtBeginning;
 	
-	public static ArrayList<String> gChant = new ArrayList();
-	public static ArrayList<String> hChant = new ArrayList();
-	public static ArrayList<String> tChant = new ArrayList();
-	
 	public static void resetBulbs() {
 		if (Player.orangeAlive && Player.greenAlive && Player.purpleAlive) {
 			wipeBulbs();
@@ -92,29 +88,6 @@ public class World {
 		OXX = false;
 		XXO = false;
 		XOX = false;
-	}
-	
-	public static void checkShrine() {
-		// shift chants in arraylist to the left if list > max
-		if (Meditate.chantInputs.size() > 14) {
-			for(int i = 0; i < Meditate.chantInputs.size()-1; i++) {
-				Meditate.chantInputs.set(i, Meditate.chantInputs.get(i+1)); 
-			}
-			
-			Meditate.chantInputs.remove(Meditate.chantInputs.size() -1);
-		}
-		
-		if ((Player.getLocation().title.equals("Shrine Room 1")
-			&& Meditate.chantInputs.equals(gChant)
-			&& Player.visualizingKnot) 
-		||	(Player.getLocation().title.equals("Shrine Room 2")
-			&& Meditate.chantInputs.equals(hChant)
-			&& Player.visualizingLotus) 
-		||	(Player.getLocation().title.equals("Shrine Room 3")
-			&& Meditate.chantInputs.equals(tChant)
-			&& Player.visualizingFish)) {
-				Meditate.trance();
-		}
 	}
 	
 	public static void pressButton() {

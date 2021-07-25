@@ -3,9 +3,6 @@ import java.util.ArrayList;
 public class Player {
 	public static boolean meditating;
 	public static boolean dreaming;
-	public static boolean visualizingLotus;
-	public static boolean visualizingFish;
-	public static boolean visualizingKnot;
 	public static boolean tookACBook;
 	public static boolean sawReaper1;
 	public static boolean sawReaper2;

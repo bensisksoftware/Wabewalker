@@ -551,6 +551,7 @@ public class Parser {
 			NPC.handleTod(v);
 		} else if (Player.meditating) {
 			Meditate.handleMeditating(v);
+			Meditate.checkShrine();
 		} else {
 			handleInput(v);
 		}
@@ -657,7 +658,11 @@ public class Parser {
 				break;
 			case "EXAMINE":
 				if (World.dark) {
-					Story.printTooDark();
+					if (noun.toString().equals("HOLE")) {
+						Action.examine("HOLE");
+					} else {
+						Story.printTooDark();
+					}
 				} else {
 					Action.examine(noun.toString());
 				}

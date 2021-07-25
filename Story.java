@@ -584,7 +584,7 @@ public class Story {
 	}
 	
 	public static void printBite() {
-		print(" You feel a tug on your fishing rod. You got a bite!");
+		print("\nYou feel a tug on your fishing rod. You got a bite!");
 	}
 	
 	public static void printCatch() {
@@ -602,52 +602,52 @@ public class Story {
 		} else {
 			print("You have memorized:");
 			
-			if (Player.inventory.contains("Fish")) {
+			if (Player.memory.contains("Fish")) {
 				newLine();
 				print("   The sacred symbol: Fish");
 			}
 			
-			if (Player.inventory.contains("Lotus")) {
+			if (Player.memory.contains("Lotus")) {
 				newLine();
 				print("   The sacred symbol: Lotus");
 			}
 			
-			if (Player.inventory.contains("Knot")) {
+			if (Player.memory.contains("Knot")) {
 				newLine();
 				print("   The sacred symbol: Knot");
 			}
 			
-			if (Player.inventory.contains("om")) {
+			if (Player.memory.contains("om")) {
 				newLine();
 				print("   The sacred word: \"Om\"");
 			}
 			
-			if (Player.inventory.contains("ni")) {
+			if (Player.memory.contains("ni")) {
 				newLine();
 				print("   The sacred word: \"Ni\"");
 			}
 			
-			if (Player.inventory.contains("go")) {
+			if (Player.memory.contains("go")) {
 				newLine();
 				print("   The sacred word: \"Go\"");
 			}
 			
-			if (Player.inventory.contains("yu")) {
+			if (Player.memory.contains("yu")) {
 				newLine();
 				print("   The sacred word: \"Yu\"");
 			}
 			
-			if (Player.inventory.contains("ji")) {
+			if (Player.memory.contains("ji")) {
 				newLine();
 				print("   The sacred word: \"Ji\"");
 			}
 			
-			if (Player.inventory.contains("ra")) {
+			if (Player.memory.contains("ra")) {
 				newLine();
 				print("   The sacred word: \"Ra\"");
 			}
 			
-			if (Player.inventory.contains("shi")) {
+			if (Player.memory.contains("shi")) {
 				newLine();
 				print("   The sacred word: \"Shi\"");
 			}

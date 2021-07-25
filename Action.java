@@ -202,8 +202,12 @@ public class Action {
 				Player.updateLocation(Room.sittingRoom);
 				break;
 			case "Dark Passageway":
-				Player.updateLocation(Room.shrineRoom2);
-				World.dark = false;
+				if (World.shrineRoom2DoorOpen) {
+					Player.updateLocation(Room.shrineRoom2);
+					World.dark = false;
+				} else {
+					Story.printDoorBlocking();
+				}
 				break;
 			case "Mannequin Room":
 				Player.updateLocation(Room.theater);
@@ -525,7 +529,7 @@ public class Action {
 		}
 		
 		if (World.bite && (Data.moves > (Player.startedFishing + 6))) {
-			Story.print(" You no longer feel a tug on the line.");
+			Story.print("\nYou no longer feel a tug on the line.");
 			World.bite = false;
 		}
 	}
@@ -1089,18 +1093,23 @@ public class Action {
 				break;
 			case "SCROLL":
 				if (Player.getLocation().equals(Room.hallway)) {
-					if (Room.hallway.getScrollCount() == 0) {
-						Story.print("The glass panel prevents you from getting to the scroll.");
+					// Hallway is the only location where a scroll can be seen but not accessible. For this reason, this condition is necessary
+					if (!Room.anyScrollsHere()) {
+						if (World.raDropped) {
+							Story.printNotHere();
+						} else {
+							Story.print("The glass panel prevents you from getting to the scroll.");
+						}
 					} else {
 						Story.print("Which one?");
 					}
 				} else {
-					if ((Room.getScrollCount() + Player.getInventoryScrollCount()) > 1) {
-						Story.print("Which one?");
-					} else if ((Room.getScrollCount() + Player.getInventoryScrollCount()) == 1) {
-						Item.examineScroll();
-					} else {
+					if (!Room.anyScrollsHere()) {
 						Story.printNotHere();
+					} else if (Room.multipleScrollsHere()) {
+						Story.print("Which one?");
+					} else {
+						Item.examineScroll();
 					}
 				}
 				break;

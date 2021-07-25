@@ -102,7 +102,7 @@ public class Data {
 	}
 	
 	public static void test() {
-		//Player.updateLocation(Room.topOfStairs);
+		//Player.updateLocation(Room.darkPassageway);
 		//World.XOO = true;
 	}
 }

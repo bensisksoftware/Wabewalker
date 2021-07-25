@@ -1,7 +1,14 @@
 import java.util.ArrayList;
 
 public class Meditate {
+	public static boolean visualizingLotus;
+	public static boolean visualizingFish;
+	public static boolean visualizingKnot;
+	
 	public static ArrayList<String> chantInputs = new ArrayList();
+	public static ArrayList<String> gChant = new ArrayList();
+	public static ArrayList<String> hChant = new ArrayList();
+	public static ArrayList<String> tChant = new ArrayList();
 	
 	public static void trance() {
 		
@@ -60,10 +67,10 @@ public class Meditate {
 				break;
 			case "LOTUS":
 				if (Player.memory.contains("Lotus")) {
-					if (!Player.visualizingLotus) {
-						Player.visualizingFish = false;						
-						Player.visualizingKnot = false;						
-						Player.visualizingLotus = true;	
+					if (!visualizingLotus) {
+						visualizingFish = false;						
+						visualizingKnot = false;						
+						visualizingLotus = true;	
 						Story.printVisualize("lotus");
 					} else {
 						Story.printAlreadyVisualizing();
@@ -74,10 +81,10 @@ public class Meditate {
 				break;
 			case "FISH":
 				if (Player.memory.contains("Fish")) {
-					if (!Player.visualizingFish) {
-						Player.visualizingLotus = false;						
-						Player.visualizingKnot = false;						
-						Player.visualizingFish = true;	
+					if (!visualizingFish) {
+						visualizingLotus = false;						
+						visualizingKnot = false;						
+						visualizingFish = true;	
 						Story.printVisualize("fish");						
 					} else {
 						Story.printAlreadyVisualizing();
@@ -88,10 +95,10 @@ public class Meditate {
 				break;
 			case "KNOT":
 				if (Player.memory.contains("Knot")) {
-					if (!Player.visualizingKnot) {
-						Player.visualizingLotus = false;						
-						Player.visualizingFish = false;						
-						Player.visualizingKnot = true;
+					if (!visualizingKnot) {
+						visualizingLotus = false;						
+						visualizingFish = false;						
+						visualizingKnot = true;
 						Story.printVisualize("knot");
 					} else {
 						Story.printAlreadyVisualizing();
@@ -170,6 +177,54 @@ public class Meditate {
 			default:
 				Story.printNotMemorized();
 				break;
+		}
+	}
+	
+	public static void checkShrine() {
+		// shift chants in arraylist to the left if list > max
+		if (chantInputs.size() > 14) {
+			for(int i = 0; i < chantInputs.size()-1; i++) {
+				chantInputs.set(i, chantInputs.get(i+1)); 
+			}
+			
+			chantInputs.remove(chantInputs.size() -1);
+		}
+		
+		System.out.println(Meditate.chantInputs);
+		
+		if (visualizingKnot) {
+			System.out.println("Player is visualizing knot");
+		} else if (visualizingFish) {
+			System.out.println("Player is visualizing fish");
+		} else if (visualizingLotus) {
+			System.out.println("Player is visualizing lotus");
+		} else {
+			System.out.println("Player is NOT visualizing");
+		}
+		
+		if (chantInputs.equals(gChant) || chantInputs.equals(hChant) || chantInputs.equals(tChant)) {
+			System.out.println("chant is correct");
+		} else {
+			System.out.println("chant is NOT correct");
+		}
+		
+		System.out.println("pChant " + chantInputs);
+		System.out.println("gChant " + gChant);
+		System.out.println("hChant " + hChant);
+		System.out.println("tChant " + tChant);
+		
+		if ((Player.getLocation().title.equals("Shrine Room 1")
+			&& chantInputs.equals(gChant)
+			&& visualizingKnot) 
+		||	(Player.getLocation().title.equals("h1e")
+			&& chantInputs.equals(hChant)
+			&& visualizingLotus) 
+		||	(Player.getLocation().title.equals("t7n shrine")
+			&& chantInputs.equals(tChant)
+			&& visualizingFish)) {
+				trance();
+		} else {
+			System.out.println("still meditating");
 		}
 	}
 }
