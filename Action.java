@@ -26,7 +26,7 @@ public class Action {
 				
 				if (!Player.dreaming) {
 					Player.facingReaper = true;
-					Story.newParagraph();
+					Story.newLine();
 					Story.printReaperEncounter1();
 				}
 				break;
@@ -504,6 +504,7 @@ public class Action {
 				break;
 		}
 	}
+	
 	public static void goFishing() {
 		if (Player.getLocation().equals(Room.pond)) {
 			Player.fishing = true;
@@ -553,126 +554,6 @@ public class Action {
 			Story.printInventoryEmpty();
 		} else {
 			Story.printInventory();
-		}
-	}
-	
-	public static void visualize(String n) {
-		switch (n) {
-			case "":
-				Story.print("What do you want to visualize?");
-				break;
-			case "LOTUS":
-				if (Player.memory.contains("Lotus")) {
-					if (!Player.visualizingLotus) {
-						Player.visualizingFish = false;						
-						Player.visualizingKnot = false;						
-						Player.visualizingLotus = true;	
-						Story.printVisualize("lotus");
-					} else {
-						Story.printAlreadyVisualizing();
-					}
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			case "FISH":
-				if (Player.memory.contains("Fish")) {
-					if (!Player.visualizingFish) {
-						Player.visualizingLotus = false;						
-						Player.visualizingKnot = false;						
-						Player.visualizingFish = true;	
-						Story.printVisualize("fish");						
-					} else {
-						Story.printAlreadyVisualizing();
-					}
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			case "KNOT":
-				if (Player.memory.contains("Knot")) {
-					if (!Player.visualizingKnot) {
-						Player.visualizingLotus = false;						
-						Player.visualizingFish = false;						
-						Player.visualizingKnot = true;
-						Story.printVisualize("knot");
-					} else {
-						Story.printAlreadyVisualizing();
-					}
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			default:
-				Story.printNotMemorized();
-				break;
-		}
-	}
-	
-	public static void chant(String c) {
-		switch (c) {
-			case "":
-				Story.print("Chant what?");
-				break;
-			case "OM":
-				if (Player.memory.contains("om")) {
-					Story.print("\"...Ommm...\"");
-					Player.chantInputs.add("om");
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			case "NI":
-				if (Player.memory.contains("ni")) {
-					Story.print("\"...Niii...\"");
-					Player.chantInputs.add("ni");
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			case "GO":
-				if (Player.memory.contains("go")) {
-					Story.print("\"...Gooo...\"");
-					Player.chantInputs.add("go");
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			case "YU":
-				if (Player.memory.contains("yu")) {
-					Story.print("\"...Yuuu...\"");
-					Player.chantInputs.add("yu");
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			case "JI":
-				if (Player.memory.contains("ji")) {
-					Story.print("\"...Jiii...\"");
-					Player.chantInputs.add("ji");
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			case "RA":
-				if (Player.memory.contains("ra")) {
-					Story.print("\"...Raaa...\"");
-					Player.chantInputs.add("ra");
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			case "SHI":
-				if (Player.memory.contains("shi")) {
-					Story.print("\"...Shiii...\"");
-					Player.chantInputs.add("shi");
-				} else {
-					Story.printNotMemorized();
-				}
-				break;
-			default:
-				Story.printNotMemorized();
-				break;
 		}
 	}
 	
@@ -1896,7 +1777,7 @@ public class Action {
 		switch (n) {
 			case "19670064":
 				Player.onPhone = true;
-				World.setKimi("moshi");
+				NPC.setKimi("moshi");
 				Story.printKimiMoshi();
 				break;
 			default:

@@ -77,7 +77,7 @@ public class Data {
 		World.tripwire = false;
 		World.dark = false;
 		World.raDropped = false;
-		World.scheduled = false;
+		NPC.scheduled = false;
 		World.islandOpen = false;
 		World.omInSafe = true;
 		World.jiInSafe = true;

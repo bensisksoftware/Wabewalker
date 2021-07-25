@@ -33,7 +33,6 @@ public class Player {
 	public static ArrayList<Item> orangeSavedInventory = new ArrayList<Item>();
 	public static ArrayList<Item> greenSavedInventory = new ArrayList<Item>();
 	public static ArrayList<Item> purpleSavedInventory = new ArrayList<Item>();
-	public static ArrayList<String> chantInputs = new ArrayList();
 	
 	public static Room getLocation() {
 		return Room.location.get(0);
@@ -159,7 +158,7 @@ public class Player {
 		hadCorn = false;
 		raDropped = false;
 		sawReaper2 = false;
-		World.scheduled = false;
+		NPC.scheduled = false;
 		World.tripwire = false;
 		World.cornOnRod = false;
 			
@@ -397,26 +396,6 @@ public class Player {
 		}
 	}
 	
-	public static void trance() {
-		
-	}
-	
-	public static void handleMeditating(String v) {
-		switch (v) {
-			case "VISUALIZE":
-				Action.visualize(Parser.noun.toString());
-				break;
-			case "CHANT":
-				Action.chant(Parser.noun.toString());
-				break;
-			default:
-				meditating = false;
-				Story.printDoneMeditating();
-				Parser.handleInput(v);
-				break;
-		}
-	}
-	
 	public static void memorizeFish() {
 		if (!memory.contains("Fish"))
 			memory.add("Fish");
@@ -427,7 +406,7 @@ public class Player {
 		restorePurpleInventory();
 		Story.print(Story.tod11);
 		inventory.add(Item.shi);
-		World.setTod("content");
+		NPC.setTod("content");
 		Story.newLine();
 		updateLocation(Room.hamlet);
 		metIsachi = true;

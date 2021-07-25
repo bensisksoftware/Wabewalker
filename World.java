@@ -11,7 +11,6 @@ public class World {
 	public static boolean tripwire;
 	public static boolean dark;
 	public static boolean raDropped;
-	public static boolean scheduled;
 	public static boolean islandOpen;
 	public static boolean omInSafe;
 	public static boolean jiInSafe;
@@ -29,9 +28,6 @@ public class World {
 	public static boolean cornOnRod;
 	public static boolean bite;
 	public static boolean theaterTVAtBeginning;
-	
-	public static String kimiState = "";
-	public static String todState = "content";
 	
 	public static ArrayList<String> gChant = new ArrayList();
 	public static ArrayList<String> hChant = new ArrayList();
@@ -98,204 +94,26 @@ public class World {
 		XOX = false;
 	}
 	
-	public static void handleReaper(String v) {
-		if (Data.yearToString().equals(v) || Data.yearToString().equals(Parser.noun.toString())) {
-			// correct answer
-			
-		} else {
-			// incorrect answer
-			Story.printReaperWrong();
-			Player.facingReaper = false;
-		}
-	}
-	
-	public static void handleKimi(String v) {
-		switch (getKimi()) {
-			case "moshi":
-				if (v.equals("DANCE") || v.equals("NARRATIVE") || v.equals("REIKI") || v.equals("THERAPY")) {
-					Story.printKimiNeedSch();
-					setKimi("needSch");
-				} else if (v.equals("MEDITATION") || v.equals("INSTRUCTION") || v.equals("KNOWLEDGE")) {
-					Story.printKimiSchOrPho();
-					setKimi("schOrPho");
-				} else {
-					Story.printKimiBiz();
-					setKimi("biz");
-				}
-				break;
-			case "biz":
-				// business or personal
-				if (v.equals("BUSINESS")) {
-					Story.printKimiRight();
-					setKimi("right");
-				} else {
-					Story.printKimiWrong();
-					setKimi("anythingElse");
-				}
-				break;
-			case "right":
-				if (v.equals("REMEDY")) {
-					Story.printKimiNeedSch();
-					setKimi("needSch");
-				} else if (v.equals("KNOWLEDGE")) {
-					Story.printKimiSchOrPho();
-					setKimi("schOrPho");
-				} else {
-					Story.printKimiWrong();
-					setKimi("anythingElse");
-				}
-				break;
-			case "needSch":
-				if (v.equals("YES")) {
-					if (scheduled) {
-						Story.printKimiNoSch();
-						setKimi("anythingElse");
-					} else {
-						Story.printKimiHaveOpening();
-						setKimi("haveOpening");
-					}
-				} else if (v.equals("NO")) { 
-					Story.printKimiSorry();
-					setKimi("anythingElse");
-				} else {
-					Story.printKimiWrong();
-					setKimi("anythingElse");
-				}
-				break;
-			case "haveOpening":
-				if (v.equals("YES")) {
-					scheduled = true;
-					Story.printKimiAnythingElse();
-					setKimi("anythingElse");
-				} else {
-					Story.printKimiWrong();
-					setKimi("anythingElse");
-				}
-				break;
-			case "anythingElse":
-				if (v.equals("YES")) {
-					Story.printKimiBiz();
-					setKimi("biz");
-				} else if (v.equals("DANCE") || v.equals("NARRATIVE") || v.equals("REIKI") || v.equals("THERAPY")) {
-					Story.printKimiNeedSch();
-					setKimi("needSch");
-				} else if (v.equals("MEDITATION") || v.equals("INSTRUCTION") || v.equals("KNOWLEDGE")) {
-					Story.printKimiSchOrPho();
-					setKimi("schOrPho");
-				} else if (v.equals("NO")) {
-					Story.printKimiBye();
-					Player.onPhone = false;
-				} else {
-					Story.printKimiWrong();
-					setKimi("anythingElse");
-				}
-				break;
-			case "schOrPho":
-				if (v.equals("SCHEDULE")) {
-					if (scheduled) {
-						Story.printKimiNoSch();
-						setKimi("anythingElse");
-					} else {
-						Story.printKimiHaveOpening();
-						setKimi("haveOpening");
-					}
-				} else if (v.equals("PHONE")) {
-					Story.printKimiWisdom();
-					setKimi("anythingElse");
-				} else {
-					Story.printKimiWrong();
-					setKimi("anythingElse");
-				}
-				break;
-			default:
-				System.out.println("World.handleKimi() error");
-				break;
-			
-		}
-	}
-	
-	public static void setKimi(String s) {
-		kimiState = s;
-	}
-	
-	public static String getKimi() {
-		return kimiState;
-	}
-	
-	public static void handleTod(String v) {
-		switch (getTod()) {
-			case "content":
-				if (v.equals("ICHIRO")) {
-					Story.print(Story.tod2);
-				} else if (v.equals("POWER") || v.equals("HELP")) {
-					Story.print(Story.tod3);
-				} else if (v.equals("SCROLL")) {
-					Story.print(Story.tod4a);
-					
-					if (Player.sipped) {
-						Story.print(Story.tod4c);
-					} else {
-						Story.print(Story.tod4b);
-					}
-					
-					Story.print(Story.tod4d);
-					setTod("proposing");
-				} else if (v.equals("TEA")) {
-					Story.print("\"It should be cooled off by now,\" he says, taking a sip of his own.");
-				} else if (v.equals("DRINK")) {
-					Story.print("You sip the tea. It's quite good.");
-				} else {
-					Story.print(Story.tod8);
-				}
-				break;
-			case "proposing":
-				if (v.equals("YES")) {
-					Story.print(Story.tod5);
-					Player.savePurpleInventory();
-					Player.updateLocation(Room.gardenPatio);
-					Player.dreaming = true;
-					World.XOO = false;
-					World.OOO = true;
-				} else {
-					Story.print(Story.tod6);
-					setTod("content");
-				}
-				break;
-			default:
-				System.out.println("World.handleTod() error");
-				break;
-			
-		}
-	}
-	
-	public static void setTod(String s) {
-		todState = s;
-	}
-	
-	public static String getTod() {
-		return todState;
-	}
-	
 	public static void checkShrine() {
 		// shift chants in arraylist to the left if list > max
-		if (Player.chantInputs.size() > 14) {
-			for(int i = 0; i < Player.chantInputs.size()-1; i++) {
-				Player.chantInputs.set(i, Player.chantInputs.get(i+1)); 
+		if (Meditate.chantInputs.size() > 14) {
+			for(int i = 0; i < Meditate.chantInputs.size()-1; i++) {
+				Meditate.chantInputs.set(i, Meditate.chantInputs.get(i+1)); 
 			}
 			
-			Player.chantInputs.remove(Player.chantInputs.size() -1);
+			Meditate.chantInputs.remove(Meditate.chantInputs.size() -1);
 		}
 		
 		if ((Player.getLocation().title.equals("Shrine Room 1")
-			&& Player.chantInputs.equals(gChant)
+			&& Meditate.chantInputs.equals(gChant)
 			&& Player.visualizingKnot) 
 		||	(Player.getLocation().title.equals("Shrine Room 2")
-			&& Player.chantInputs.equals(hChant)
+			&& Meditate.chantInputs.equals(hChant)
 			&& Player.visualizingLotus) 
 		||	(Player.getLocation().title.equals("Shrine Room 3")
-			&& Player.chantInputs.equals(tChant)
+			&& Meditate.chantInputs.equals(tChant)
 			&& Player.visualizingFish)) {
-				Player.trance();
+				Meditate.trance();
 		}
 	}
 	

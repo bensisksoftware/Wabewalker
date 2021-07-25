@@ -535,7 +535,7 @@ public class Parser {
 	
 	public static void interruptInput(String v) {
 		if (Player.facingReaper) {
-			World.handleReaper(v);
+			NPC.handleReaper(v);
 		} else if (v.equals("UNUSED")) {
 			Story.print("You don't need to do that in this game.");
 		} else if (Data.gameOver) { 
@@ -544,13 +544,13 @@ public class Parser {
 			if (v.equals("HANG")) {
 				Action.hang(noun.toString());
 			} else {
-				World.handleKimi(v);
+				NPC.handleKimi(v);
 			}
 		} else if (Player.getLocation().title.equals("Hisachi Ichiro's House")) {
 			System.out.println("asdf");
-			World.handleTod(v);
+			NPC.handleTod(v);
 		} else if (Player.meditating) {
-			Player.handleMeditating(v);
+			Meditate.handleMeditating(v);
 		} else {
 			handleInput(v);
 		}
