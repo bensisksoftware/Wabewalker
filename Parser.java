@@ -146,6 +146,11 @@ public class Parser {
 			n = "PLAQUE";
 		}
 		
+		if (n.equals("CRANE")
+			|| n.equals("ORAGAMI")) {
+			n = "CRANES";
+		}
+		
 		if (n.equals("BANNER")) {
 			n = "SIGN";
 		}
@@ -168,8 +173,30 @@ public class Parser {
 			n = "ROD";
 		}
 		
+		if (n.equals("ME")
+			|| n.equals("SELF")
+			|| n.equals("I")) {
+			n = "ROBE";
+		}
+		
 		if (n.equals("LANDLINE")) {
 			n = "PHONE";
+		}
+		
+		if (n.equals("FIGURES")) {
+			n = "FIGURE";
+		}
+		
+		if (n.equals("GOLD")) {
+			n = "CHEST";
+		}
+		
+		if (n.equals("PLAQUES")) {
+			n = "PLAQUE";
+		}
+		
+		if (n.equals("JEWELED")) {
+			n = "BOX";
 		}
 		
 		noun.setLength(0);
@@ -256,6 +283,12 @@ public class Parser {
 			|| v.equals("INVESTIGATE")
 			|| v.equals("CHECK")){
 			v = "EXAMINE";
+		}
+		
+		if (v.equals("KILL")
+			|| v.equals("COMBAT")
+			|| v.equals("HIT")){
+			v = "FIGHT";
 		}
 		
 		if (v.equals("L")){
@@ -388,10 +421,13 @@ public class Parser {
 			v = "BYE";
 		}
 		
-		if (v.equals("CUP")
-		|| v.equals("SIP")
-		|| v.equals("DRINK")) {
+		if (v.equals("CUP")) {
 			v = "TEA";
+		}
+		
+		if (v.equals("SIP")
+		|| v.equals("GULP")) {
+			v = "DRINK";
 		}
 		
 		if (v.equals("YOU")
@@ -421,8 +457,7 @@ public class Parser {
 		|| v.equals("PLAQUES")
 		|| v.equals("POST")
 		|| v.equals("SLATE")
-		|| v.equals("METAL")
-		|| v.equals("HELP")) {
+		|| v.equals("METAL")) {
 			v = "POWER";
 		}
 		
@@ -439,7 +474,13 @@ public class Parser {
 			v = "EAT";
 		}
 		
+		if (v.equals("M")) {
+			v = "MEMORY";
+		}
 		
+		if (v.equals("H")) {
+			v = "HELP";
+		}
 		
 		if (v.equals("BAIT")
 		|| v.equals("HOOK")
@@ -505,6 +546,9 @@ public class Parser {
 			} else {
 				World.handleKimi(v);
 			}
+		} else if (Player.getLocation().title.equals("Hisachi Ichiro's House")) {
+			System.out.println("asdf");
+			World.handleTod(v);
 		} else if (Player.meditating) {
 			Player.handleMeditating(v);
 		} else {
@@ -514,6 +558,9 @@ public class Parser {
 	
 	public static void handleInput(String v) {
 		switch (v) {
+			case "HELP":
+				Story.printHelp();
+				break;
 			case "MEDITATE":
 				Action.meditate();
 				break;
@@ -596,6 +643,9 @@ public class Parser {
 			case "INVENTORY":
 				Action.checkInventory();
 				break;
+			case "MEMORY":
+				Story.printMemory();
+				break;
 			case "TAKE":
 				Action.take(noun.toString());
 				break;
@@ -606,7 +656,11 @@ public class Parser {
 				Action.look();
 				break;
 			case "EXAMINE":
-				Action.examine(noun.toString());
+				if (World.dark) {
+					Story.printTooDark();
+				} else {
+					Action.examine(noun.toString());
+				}
 				break;
 			case "OPEN":
 				Action.open(noun.toString());
@@ -656,6 +710,9 @@ public class Parser {
 				break;
 			case "REEL":
 				Action.reel(noun.toString());
+				break;
+			case "FIGHT":
+				Action.fight(noun.toString());
 				break;
 			default:
 				Story.invalid();

@@ -74,6 +74,7 @@ public class Room {
 	public static ArrayList<Item> bottomOfStairsObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> topOfStairsObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> hamletObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> todsHouseObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> hondoObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> balconyObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> shrineRoom3Objects = new ArrayList<Item>();
@@ -84,13 +85,13 @@ public class Room {
 	public static ArrayList<Room> roomsWithPlaques = new ArrayList<Room>(); 
 	
 	public static String intro = "You bought a ticket to the Adachi Museum of Art.\n\nThis is the introduction.\n\nBUNRAKU\n\nCopyright (C) 2021 by Benjamin, Inc. All rights reserved.\n\nBUNRAKU is a trademark of Benjamin, Inc.\n\nRelease 1\n\n";
-	public static String gardenPatioDesc = "The celebrated White Gravel and Pine Tree Garden of the Adachi Bigutsukan expands before you. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the south is the Adachi Museum of Art.";
+	public static String gardenPatioDesc = "The celebrated White Gravel and Pine Tree Garden of the Adachi Museum expands before you. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the south is the Adachi Museum of Art.";
 	public static String cobbleSquareDesc = "Your sandles clack on the cobblestone tiles. The garden expands to the north. There are rooms to the east and west of you. To the south is a hut.";
 	public static String teaRoomDesc = "You are standing in a room designed for drinking tea. There are a few benches here. There is an exit to the east.";
 	public static String acBookDesc = "There is a large blue book here, titled: \"MAGICK Liber ABA, by Aleister Crowley.\"";
 	public static String sandExhibitDesc = "This room displays a sand exhibit. To the south lies a door. Mounted on the door is a plaque. Beside the door is a sign.";
 	public static String thatchedHutDesc = "You are in a thatched hut. There is a Chippendale mirror standing here. To the southeast is a lovely hallway. The cobble square is to the north.";
-	public static String gardenOverlookDesc = "The White Gravel and Pine Tree Garden of the Adachi Bigutsukan expands to the south. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the west is a room. To the east is a jungle path. The thatched hut is to the northwest.";
+	public static String gardenOverlookDesc = "The White Gravel and Pine Tree Garden of the Adachi Museum expands to the south. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the west is a room. To the east is a jungle path. The thatched hut is to the northwest.";
 	public static String loungeDesc = "A comfy red sofa lines the wall. Above it, built into the wall, is a metal safe. On the safe is a plaque. There is an exit to the east.";
 	public static String cafeDesc = "The cafe is empty. There's a masked woman in a blue kimono staring at you from behind the glass. There are paths to the west and to the north.";
 	public static String outsideGalleryDesc = "The entrance to the gallery is here to the east. The cafe is to the south.";
@@ -104,10 +105,10 @@ public class Room {
 	public static String landingDesc = "You are halfway up the stairs. It ascends to the southeast, and descends to the southwest.";
 	public static String hallwayDesc = "There's a laundry chute here with a button. There is a plaque here. There is a glass pane with a shelf behind it and this constitutes the laundry chute.";
 	public static String sittingRoomDesc = "A quaint room. Sign here. There are rooms to the east and west, as well as a hallway to the north.";
-	public static String masterBedroomDesc = "A gentle breeze flows in through the window. The room is quite bare. There is a safe with a plaque on the wall.";
+	public static String masterBedroomDesc = "A gentle breeze flows in through the window. There is a Chippendale mirror standing here. There is a safe with a plaque on the wall.";
 	public static String libraryDesc = "This is a small library. A red book, a blue book, and a black book stand on the shelf. Hung on the wall is a fishing pole. There's a TV here.";
 	public static String closetDesc = "This is a small closet. Above is a chute that comes out from the ceiling. There is an exit to the west.";
-	public static String darkPassagewayDesc = "This is a dark passageway. There is a way to the north. Light from the shrine room emits through the doorway to the east.";
+	public static String darkPassagewayDesc = "This is a dark passageway. There is a way to the north. Light from the shrine room emits through the doorway to the east. On the south wall, a beam of light is shining through a small hole.";
 	public static String mannequinRoomDesc = "It's dark here, but you can see what look to be mannequins. There is a Desc here too. There are passageways to the east and south.";
 	public static String theaterDesc = "There is a TV here. There is a passageway to the west.";
 	public static String outsideGateDesc = "A huge mountain looms above you. You see a path through the gate to the north.";
@@ -116,13 +117,13 @@ public class Room {
 	public static String bottomOfStairsDesc = "You are at the bottom of a large stair. Stone carving here. To the north, you can just make out a temple. There is a path to the south.";
 	public static String topOfStairsDesc = "You are at the top of the stairs. There is a wooden sign here. To the north is a large temple. To the west you can see residents' quarters.";
 	public static String hamletDesc = "There is a house here. In the front, is a wooden post with a plaque on it. There is a path to the east.";
-	public static String hisachiIchirosHouseDesc = "You are sitting on a cushion in a warm house.";
+	public static String todsHouseDesc = "You are sitting on a cushion in a warm house. There's a cup of hot tea on a table in front of you. Hisachi Ichiro sits on the opposite side.";
 	public static String hondoDesc = "This is the main area of the temple. Basin here. To the northeast you see a balcony. To the north you can see a magnificent golden shrine. A trinket shop is to the northwest.";
 	public static String balconyDesc = "The balcony extends along the edge of the temple. There are paper slips here. The deck continues to the north and southeast.";
 	public static String shrineRoom3Desc = "This is a magnificent golden shrine. Banner above. There is an exit to the south.";
-	public static String trinketShopDesc = "A shopkeeper is here behind the counter. There is an exit to the southwest.";
+	public static String trinketShopDesc = "There is an exit to the southwest.";
 	public static String creakyDeckDesc = "The deck creaks beneath your feet. There is a wooden box here with a button and a plaque. There are walkways to the west and south.";
-	public static String overlookDesc = "There is a mirror here, and paper cranes. There is a way to the east.";
+	public static String overlookDesc = "There is a mirror here, and hanging oragami cranes. There is a way to the east.";
 	
 	public String title;
 	public String desc;
@@ -164,7 +165,7 @@ public class Room {
 	public static Room bottomOfStairs = new Room("Bottom of Stairs", bottomOfStairsDesc); 
 	public static Room topOfStairs = new Room("Top of Stairs", topOfStairsDesc); 
 	public static Room hamlet = new Room("Hamlet", hamletDesc); 
-	public static Room hisachiIchirosHouse = new Room("Hisachi Ichiro's House", hisachiIchirosHouseDesc); 
+	public static Room todsHouse = new Room("Hisachi Ichiro's House", todsHouseDesc); 
 	public static Room hondo = new Room("Hondo", hondoDesc); 
 	public static Room balcony = new Room("Balcony", balconyDesc); 
 	public static Room shrineRoom3 = new Room("Shrine Room 3", shrineRoom3Desc);
@@ -204,7 +205,7 @@ public class Room {
 		rooms.add(bottomOfStairs); 
 		rooms.add(topOfStairs); 
 		rooms.add(hamlet); 
-		rooms.add(hisachiIchirosHouse); 
+		rooms.add(todsHouse); 
 		rooms.add(hondo); 
 		rooms.add(balcony); 
 		rooms.add(shrineRoom3);
@@ -313,6 +314,7 @@ public class Room {
 		roomsWithPlaques.add(sandExhibit);
 		roomsWithPlaques.add(lounge);
 		roomsWithPlaques.add(shrineRoom1);
+		roomsWithPlaques.add(assemblyRoom);
 		roomsWithPlaques.add(shrineRoom2);
 		roomsWithPlaques.add(courtyard);
 		roomsWithPlaques.add(hallway);
@@ -467,6 +469,8 @@ public class Room {
 				return topOfStairsObjects;
 			case "Hamlet":
 				return hamletObjects;
+			case "Hisachi Ichiro's House":
+				return todsHouseObjects;
 			case "Hondo":
 				return hondoObjects;
 			case "Balcony":

@@ -28,8 +28,10 @@ public class World {
 	public static boolean boxOpen;
 	public static boolean cornOnRod;
 	public static boolean bite;
+	public static boolean theaterTVAtBeginning;
 	
 	public static String kimiState = "";
+	public static String todState = "content";
 	
 	public static ArrayList<String> gChant = new ArrayList();
 	public static ArrayList<String> hChant = new ArrayList();
@@ -218,6 +220,60 @@ public class World {
 	
 	public static String getKimi() {
 		return kimiState;
+	}
+	
+	public static void handleTod(String v) {
+		switch (getTod()) {
+			case "content":
+				if (v.equals("ICHIRO")) {
+					Story.print(Story.tod2);
+				} else if (v.equals("POWER") || v.equals("HELP")) {
+					Story.print(Story.tod3);
+				} else if (v.equals("SCROLL")) {
+					Story.print(Story.tod4a);
+					
+					if (Player.sipped) {
+						Story.print(Story.tod4c);
+					} else {
+						Story.print(Story.tod4b);
+					}
+					
+					Story.print(Story.tod4d);
+					setTod("proposing");
+				} else if (v.equals("TEA")) {
+					Story.print("\"It should be cooled off by now,\" he says, taking a sip of his own.");
+				} else if (v.equals("DRINK")) {
+					Story.print("You sip the tea. It's quite good.");
+				} else {
+					Story.print(Story.tod8);
+				}
+				break;
+			case "proposing":
+				if (v.equals("YES")) {
+					Story.print(Story.tod5);
+					Player.savePurpleInventory();
+					Player.updateLocation(Room.gardenPatio);
+					Player.dreaming = true;
+					World.XOO = false;
+					World.OOO = true;
+				} else {
+					Story.print(Story.tod6);
+					setTod("content");
+				}
+				break;
+			default:
+				System.out.println("World.handleTod() error");
+				break;
+			
+		}
+	}
+	
+	public static void setTod(String s) {
+		todState = s;
+	}
+	
+	public static String getTod() {
+		return todState;
 	}
 	
 	public static void checkShrine() {

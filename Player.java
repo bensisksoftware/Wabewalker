@@ -8,6 +8,7 @@ public class Player {
 	public static boolean visualizingKnot;
 	public static boolean tookACBook;
 	public static boolean sawReaper1;
+	public static boolean sawReaper2;
 	public static boolean facingReaper;
 	public static boolean orangeAlive;
 	public static boolean greenAlive;
@@ -20,6 +21,9 @@ public class Player {
 	public static boolean raDropped;
 	public static boolean onPhone;
 	public static boolean fishing;
+	public static boolean sipped;
+	public static boolean spokeToClan;
+	public static boolean metIsachi;
 	
 	public static int startedFishing = 0;
 	
@@ -154,6 +158,7 @@ public class Player {
 		caughtFish = false;
 		hadCorn = false;
 		raDropped = false;
+		sawReaper2 = false;
 		World.scheduled = false;
 		World.tripwire = false;
 		World.cornOnRod = false;
@@ -183,6 +188,13 @@ public class Player {
 	public static void wipePurple() {
 		purpleAlive = false;
 		purpleAtTV = false;
+		sipped = false;
+		spokeToClan = false;
+		metIsachi = false;
+		World.boxOpen = false;
+		World.creakyDeckOpen = false;
+		World.yuInBox = true;
+		World.goInCase = true;
 			
 		if (!getLocation().equals(Room.shrineRoom1))
 			inventory.clear();
@@ -408,5 +420,45 @@ public class Player {
 	public static void memorizeFish() {
 		if (!memory.contains("Fish"))
 			memory.add("Fish");
+	}
+	
+	public static void returnToIsachi() {
+		dreaming = false;
+		restorePurpleInventory();
+		Story.print(Story.tod11);
+		inventory.add(Item.shi);
+		World.setTod("content");
+		Story.newLine();
+		updateLocation(Room.hamlet);
+		metIsachi = true;
+		World.OOO = false;
+		World.XOO = true;
+	}
+	
+	public static int getInventoryScrollCount() {
+		int c = 0;
+		
+		if (inventory.contains(Item.om))
+			c++;
+		
+		if (inventory.contains(Item.ni))
+			c++;
+		
+		if (inventory.contains(Item.go))
+			c++;
+		
+		if (inventory.contains(Item.yu))
+			c++;
+		
+		if (inventory.contains(Item.ji))
+			c++;
+		
+		if (inventory.contains(Item.ra))
+			c++;
+		
+		if (inventory.contains(Item.shi))
+			c++;
+		
+		return c;
 	}
 }

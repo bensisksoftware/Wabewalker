@@ -18,6 +18,7 @@ public class Data {
 		Room.setHouseObjects();
 		Room.setTempleObjects();
 		Room.setRoomsWithPlaques();
+		resetAllBooleans();
 		
 		// test
 		test();
@@ -72,9 +73,36 @@ public class Data {
 		}
 	}
 	
+	private static void resetAllBooleans() {
+		World.tripwire = false;
+		World.dark = false;
+		World.raDropped = false;
+		World.scheduled = false;
+		World.islandOpen = false;
+		World.omInSafe = true;
+		World.jiInSafe = true;
+		World.niInSafe = true;
+		World.yuInBox = true;
+		World.goInCase = true;
+		World.sandExhibitDoorOpen = false;
+		World.loungeSafeOpen = false;
+		World.shrineRoom1SafeOpen = false;
+		World.shrineRoom2DoorOpen = false;
+		World.courtyardDoorOpen = false;
+		World.masterBedroomSafeOpen = false;
+		World.creakyDeckOpen = false;
+		World.boxOpen = false;
+		World.cornOnRod = false;
+		World.bite = false;
+		World.theaterTVAtBeginning = true;
+		Player.sipped = false;
+		Player.spokeToClan = false;
+		Player.metIsachi = false;
+		Player.sawReaper2 = false;
+	}
+	
 	public static void test() {
-		Player.updateLocation(Room.pond);
-		Player.inventory.add(Item.rod);
-		Player.inventory.add(Item.corn);
+		//Player.updateLocation(Room.topOfStairs);
+		//World.XOO = true;
 	}
 }
