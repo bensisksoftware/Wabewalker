@@ -64,6 +64,8 @@ public class Bunraku extends JFrame {
 			}
 		});
 		
+		body.setFocusable(false);
+		
 		Data.setUp();
 		Story.printLocation();
 		Story.newLine();

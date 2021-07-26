@@ -1,11 +1,14 @@
 public class Data {
 	public static int moves = 0;
 	public static int year = -2137459457;
+	public static int kimisNumber = -19670064;
 	
 	public static boolean gameOver;
 	
 	public static void setUp() {
 		setYear();
+		setKimisNumber();
+		Thesaurus.addExtraWords();
 		World.OOO = true;
 		Player.orangeAlive = true;
 		Player.greenAlive = true;
@@ -36,11 +39,15 @@ public class Data {
 	}
 	
 	public static void setYear() {
+		kimisNumber = (int)(Math.random() * 99999999 + 1);
+	}
+	
+	public static void setKimisNumber() {
 		year = (int)(Math.random() * 5998 + 1);
 		
 		// resets year to desired range
 		while ((year > 1861 && year < 2200)	|| (year < 101)) {
-			System.out.println("Data.setYear contained undesirable number");
+			//System.out.println("Data.setYear contained undesirable number");
 			year = (int)(Math.random() * 5998 + 1);
 		}
 		
@@ -104,5 +111,6 @@ public class Data {
 	public static void test() {
 		//Player.updateLocation(Room.darkPassageway);
 		//World.XOO = true;
+
 	}
 }

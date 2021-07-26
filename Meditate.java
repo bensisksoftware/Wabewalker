@@ -17,10 +17,10 @@ public class Meditate {
 	public static void handleMeditating(String v) {
 		switch (v) {
 			case "VISUALIZE":
-				visualize(Parser.noun.toString());
+				visualize(Parser.sentence.get(1));
 				break;
 			case "CHANT":
-				chant(Parser.noun.toString());
+				chant(Parser.sentence.get(1));
 				break;
 			case "LOTUS":
 				visualize("LOTUS");

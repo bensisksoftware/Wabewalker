@@ -30,7 +30,7 @@ public class Item {
 	public static String rodDesc = "It is made of wood with a sharp hook tied to the line."; 
 	public static String cornDesc = "It smells sweet."; 
 	public static String parchmentDesc = "Inscribed on the parchment is the sacred symbol of the Lotus."; 
-	public static String cardDesc = "The business card reads: \"Dance, Narrative, and Reiki Therapy. Meditation Instruction. Call Kimi! Business Contact: 19670064\"";
+	public static String cardDesc = "The business card reads: \"Dance, Narrative, and Reiki Therapy. Meditation Instruction. Call Kimi! Business Contact: ";
 	public static String phoneDesc = "The beige landline phone has a dialpad.";
 	public static String boxDesc = "It's really fancy! There's a plaque on it.";
 	public static String swordDesc = "It's really sharp.";
@@ -480,6 +480,7 @@ public class Item {
 	public static void examineCard() {
 		if (Player.inventory.contains(Item.card) || Room.getObjects().contains(Item.card)) {
 			Story.print(cardDesc);
+			Story.print(Data.kimisNumber + "\"");
 		} else {
 			Story.printNotHere();
 		}

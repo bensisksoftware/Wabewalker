@@ -5,7 +5,7 @@ public class NPC {
 	public static String todState = "content";
 	
 	public static void handleReaper(String v) {
-		if (Data.yearToString().equals(v) || Data.yearToString().equals(Parser.noun.toString())) {
+		if (Data.yearToString().equals(v) || Data.yearToString().equals(Parser.sentence.get(1))) {
 			// correct answer
 			
 		} else {
