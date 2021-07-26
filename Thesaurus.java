@@ -15,6 +15,8 @@ public class Thesaurus {
 		extraWords.add("IN");
 		extraWords.add("IT");
 		extraWords.add("ABOUT");
+		extraWords.add("SAY");
+		extraWords.add("THAT");
 	}
 	
 	public static String translate(String w) {
@@ -370,12 +372,14 @@ public class Thesaurus {
 			|| w.equals("HISACHI")
 			|| w.equals("YOURSELF")
 			|| w.equals("U")
+			|| w.equals("HIM")
 			|| w.equals("TOD")) {
 				w = "ICHIRO";
 			}
 			
 			
 			if (w.equals("OUTAGE")
+			|| w.equals("HELP")
 			|| w.equals("ELECTRICITY")
 			|| w.equals("LIGHTS")
 			|| w.equals("HEAT")
@@ -392,6 +396,10 @@ public class Thesaurus {
 			|| w.equals("METAL")); {
 				w = "POWER";
 			}
+		}
+		
+		if (w.equals("HER")) {
+			w = "KIMI";
 		}
 		
 		if (w.equals("SCROLLS")) {
