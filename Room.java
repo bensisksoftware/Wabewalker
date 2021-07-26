@@ -119,7 +119,7 @@ public class Room {
 	public static String hamletDesc = "There is a house here. In the front, is a wooden post with a plaque on it. There is a path to the east.";
 	public static String todsHouseDesc = "You are sitting on a cushion in a warm house. There's a cup of hot tea on a table in front of you. Hisachi Ichiro sits on the opposite side.";
 	public static String hondoDesc = "This is the main area of the temple. Basin here. To the northeast you see a balcony. To the north you can see a magnificent golden shrine. A trinket shop is to the northwest.";
-	public static String balconyDesc = "The balcony extends along the edge of the temple. There are paper slips here. The deck continues to the north and southeast.";
+	public static String balconyDesc = "The balcony extends along the edge of the temple. The deck continues to the north and southeast.";
 	public static String shrineRoom3Desc = "This is a magnificent golden shrine. Banner above. There is an exit to the south.";
 	public static String trinketShopDesc = "There is an exit to the southwest.";
 	public static String creakyDeckDesc = "The deck creaks beneath your feet. There is a wooden box here with a button and a plaque. There are walkways to the west and south.";

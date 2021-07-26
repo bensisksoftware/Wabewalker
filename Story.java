@@ -22,7 +22,7 @@ public class Story {
 	private static String nowVisualizing = "You are now visualizing the sacred ";
 	private static String alreadyMeditating = "You are meditating.";
 	private static String alreadyVisualizing = "You are.";
-	private static String doneMeditating = "You are no longer meditating.";
+	private static String doneMeditating = "Your concentration breaks. You are no longer meditating.";
 	private static String notMemorized = "You don't have that memorized.";
 	private static String notMeditating = "Despite your best efforts, you become distracted and give up. That sort of thing is best done while meditating.";
 	private static String activateHallway = "You push the button and hear a beep. The shelf behind the glass slides. The scroll that was on the shelf falls down the laundry chute.";
@@ -110,6 +110,11 @@ public class Story {
 	// TV
 	private static String theaterTV = "Bright white light. Fades. Monk enters scene. He says, \"Konnichiwa. My name is Kiyoshi Mikami. This is my introduction to Shingon video. The name 'Shingon' means 'true word,' referring to the mantra or the chanting that's used in the practice. Shingon was first brought to Japan from China in  A.D. by Kukai. One fundamental principle is the belief that you can attain buddahood in this life without reincarnation. The idea is to break down the mental barrier between yourself and the universe and realize oneness. All of the strength and wisdom of the universe becomes yours after this realization. The practice of prana, mandala, and mantra is called sanmitsu. Prana is the breath, which must precede all else. Mandala is the concept of visualization, and mantra is chanting. Bring those three together as one. Pair mandalas to their sister mantra to enhance their power. Traditional pairings include the Conch Shell with the Celestial Sutra, the Golden Fish with the Mantra of Light, the Endless Knot with the Gohogo Mantra, the Wheel of Dharma with the Mantra of Jambi, the Lotus Flower with the Heart Sutra... The list goes on. This is the process to achieve oneness and to recieve the aid from your deity. You must destroy parts of yourself at times if you are to maintain inner balance. You will start to merge with it and become one with it, and from there, you merge with the universe. Thank you and namaste.\" The monk exits the scene.";
 	
+	// Trance
+	private static String trance1 = "\"How is it when a practitioner goes along a narrow path?\"\n\n\"You will meet a deadly snake on the great road. I advise you not to run into it.\"\n\n\"What if I do run into it?\"\n\n\"You will lose your life.\"\n\n\"What if I don't run into it?\"\n\n\"You have no place to escape from it.\"\n\n\"Precisely at such a time, what then?\"\n\n\"It is lost.\"\n\n\"I wonder where it is gone...\"";
+	private static String trance2 = "\"What will happen when the leaves fall and the trees become bare?\"\n\n\"The golden wind.\"\n\n\"What do you mean?\"\n\n\"The trunk becomes visible in the autumn wind.\"";
+	private static String trance3 = "\"Where are you going?\"\n\n\"I am on pilgrimage, following the wind.\"\n\n\"What are you on pilgrimage for?\"\n\n\"I don't know.\"\n\n\"Non-knowing is most intimate.\"\n\n\"What year did Palu write Post Radius?\"";
+	
 	public static void setScrollbar() {
 		// set scrollbar to bottom
 		Bunraku.body.setCaretPosition(Bunraku.body.getDocument().getLength());
@@ -195,7 +200,6 @@ public class Story {
 	
 	public static void printDoneMeditating() {
 		print(doneMeditating);
-		newParagraph();
 	}
 	
 	public static void printVisualize(String s) {
@@ -210,8 +214,8 @@ public class Story {
 		print(alreadyVisualizing);
 	}
 	
-	public static void printTake() {
-		print("Taken.");
+	public static void printTake(String t) {
+		print("You pick up the " + t + ".");
 	}
 	
 	public static void printCantTake() {
@@ -231,7 +235,7 @@ public class Story {
 		
 		for (int i = 0; i < Player.inventory.size(); i++) {
 			newLine();
-			print("   " + Player.inventory.get(i).title);
+			print("   a " + Player.inventory.get(i).title);
 		}
 	}
 	
@@ -423,7 +427,7 @@ public class Story {
 				print("The screen becomes static. The pool of blood reenters monk. Figure enters scene. Monk rises. Figure leaves backwards. Monk leaves.");
 				break;
 			case "purple":
-				print("The screen becomes static. The figure enters the scene. Purple monk rises up and spins around. Colorful paper cranes cover the screen.");
+				print("The screen becomes static. The figure enters the scene. Purple monk rises up and spins around. Colorful oragami cranes cover the screen.");
 				break;
 			case "theater":
 				print("The screen becomes static. A monk enters and exits the scene.");
@@ -731,5 +735,26 @@ public class Story {
 	
 	public static void printTheaterTV() {
 		print(theaterTV);
+	}
+	
+	public static void printTrance(int t) {
+		newParagraph();
+		print("Everything goes quiet.\n\nYou hear distant voices...");
+		newParagraph();
+		
+		if (t == 1)
+			print(trance1);
+		
+		if (t == 2)
+			print(trance2);
+		
+		if (t == 3) {
+			print(trance3);
+			newParagraph();
+			print("\"" + Data.year + ".\"");
+		}
+		
+		newParagraph();
+		printDoneMeditating();
 	}
 }

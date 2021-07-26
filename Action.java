@@ -774,22 +774,7 @@ public class Action {
 				Story.printMissingNoun();
 				break;
 			case "CORN":
-				if (Player.inventory.contains(Item.rod) && Player.inventory.contains(Item.corn)) {
-					Story.printBait();
-					World.cornOnRod = true;
-					Player.inventory.remove(Item.corn);
-				} else {
-					Story.printHow();
-				}
-				break;
-			case "ROD":
-				if (Player.inventory.contains(Item.rod) && Player.inventory.contains(Item.corn)) {
-					Story.printBait();
-					World.cornOnRod = true;
-					Player.inventory.remove(Item.corn);
-				} else {
-					Story.printHow();
-				}
+				Item.putCorn();
 				break;
 			default:
 				Story.invalid();
@@ -1053,8 +1038,8 @@ public class Action {
 		}
 	}
 	
-	public static void examine(String n) {
-		switch (n) {
+	public static void examine(String w) {
+		switch (w) {
 			case "":
 				Story.printMissingNoun();
 				break;
@@ -1181,7 +1166,7 @@ public class Action {
 				if (Player.getLocation().title.equals("Overlook")) {
 					Story.print("The cranes are colorful and on a hinge thing where you can maybe move it hint hint.");
 				} else if (Player.getLocation().title.equals("Shrine Room 1") && Player.purpleAlive) {
-					Story.print("The paper cranes on the TV are so colorful and encompass the whole screen");
+					Story.print("The oragami cranes on the TV are so colorful and encompass the whole screen");
 				} else {
 					Story.printNotHere();
 				}
@@ -1551,6 +1536,9 @@ public class Action {
 				} else {
 					Story.printNotHere();
 				}
+				break;
+			case "CRANES":
+				moveCranes();
 				break;
 			case "IN":
 				if (Player.fishing) {

@@ -13,6 +13,7 @@ public class Data {
 		Player.orangeAlive = true;
 		Player.greenAlive = true;
 		Player.purpleAlive = true;
+		Meditate.setShrines();
 		Room.location.add(Room.gardenPatio);
 		Room.visited.add(Room.gardenPatio);
 		Room.setRooms();
@@ -108,9 +109,23 @@ public class Data {
 		Player.sawReaper2 = false;
 	}
 	
+	private static void addMemory() {
+		Player.memory.add("Lotus");
+		Player.memory.add("Fish");
+		Player.memory.add("Knot");
+		Player.memory.add("om");
+		Player.memory.add("ni");
+		Player.memory.add("go");
+		Player.memory.add("yu");
+		Player.memory.add("ji");
+		Player.memory.add("ra");
+		Player.memory.add("shi");
+	}
+	
 	public static void test() {
 		//Player.updateLocation(Room.darkPassageway);
 		//World.XOO = true;
-
+		
+		addMemory();
 	}
 }

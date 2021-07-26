@@ -89,7 +89,7 @@ public class Parser {
 		}
 
 		removeExtraWords();
-		System.out.println(sentence);
+		sentence.add("");
 	}
 	
 	private static void removeExtraWords() {

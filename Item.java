@@ -1,24 +1,24 @@
 import java.util.ArrayList;
 
 public class Item {
-	public static String omTitle = "a faded scroll"; 
-	public static String niTitle = "a fancy scroll"; 
-	public static String goTitle = "a frosty scroll"; 
-	public static String yuTitle = "a crumpled scroll"; 
-	public static String jiTitle = "a smooth scroll"; 
-	public static String raTitle = "a dusty scroll"; 
-	public static String shiTitle = "a stained scroll"; 
-	public static String bookTitle = "a book"; 
-	public static String rodTitle = "a fishing pole"; 
-	public static String bookletTitle = "a booklet"; 
-	public static String handbookTitle = "a handbook"; 
-	public static String pamphletTitle = "a pamphlet"; 
-	public static String cornTitle = "a kernel of corn"; 
-	public static String parchmentTitle = "a parchment"; 
-	public static String cardTitle = "a business card"; 
-	public static String phoneTitle = "a corded landline telephone"; 
-	public static String boxTitle = "a jewelled box"; 
-	public static String swordTitle = "a long sword"; 
+	public static String omTitle = "faded scroll"; 
+	public static String niTitle = "fancy scroll"; 
+	public static String goTitle = "frosty scroll"; 
+	public static String yuTitle = "crumpled scroll"; 
+	public static String jiTitle = "smooth scroll"; 
+	public static String raTitle = "dusty scroll"; 
+	public static String shiTitle = "stained scroll"; 
+	public static String bookTitle = "book"; 
+	public static String rodTitle = "fishing pole"; 
+	public static String bookletTitle = "booklet"; 
+	public static String handbookTitle = "handbook"; 
+	public static String pamphletTitle = "pamphlet"; 
+	public static String cornTitle = "kernel of corn"; 
+	public static String parchmentTitle = "parchment"; 
+	public static String cardTitle = "business card"; 
+	public static String phoneTitle = "corded landline telephone"; 
+	public static String boxTitle = "jewelled box"; 
+	public static String swordTitle = "long sword"; 
 	
 	public static String omDesc = "Inscribed on the faded scroll is the sacred word OM. The sacred word is commited to memory and available to chant while meditating! Near the bottom, someone drew a picture of a human eye."; 
 	public static String niDesc = "Inscribed on the fancy scroll is the sacred word NI. The sacred word is commited to memory and available to chant while meditating! Near the bottom, someone drew a picture of a human mouth."; 
@@ -30,7 +30,7 @@ public class Item {
 	public static String rodDesc = "It is made of wood with a sharp hook tied to the line."; 
 	public static String cornDesc = "It smells sweet."; 
 	public static String parchmentDesc = "Inscribed on the parchment is the sacred symbol of the Lotus."; 
-	public static String cardDesc = "The business card reads: \"Dance, Narrative, and Reiki Therapy. Meditation Instruction. Call Kimi! Business Contact: ";
+	public static String cardDesc = "The business card reads: \"Dance, Narrative, and Reiki Therapy.\nMeditation Instruction.\nCall Kimi! Business Contact: ";
 	public static String phoneDesc = "The beige landline phone has a dialpad.";
 	public static String boxDesc = "It's really fancy! There's a plaque on it.";
 	public static String swordDesc = "It's really sharp.";
@@ -156,7 +156,7 @@ public class Item {
 	}
 	
 	public static void getBook() {
-		Story.printTake();
+		Story.printTake(bookTitle);
 		Player.inventory.add(book);
 		Room.getObjects().remove(book);
 	}
@@ -185,7 +185,7 @@ public class Item {
 	}
 	
 	public static void getOm() {
-		Story.printTake();
+		Story.printTake(omTitle);
 		Player.inventory.add(om);
 		Room.getObjects().remove(om);
 		
@@ -197,7 +197,7 @@ public class Item {
 	}
 	
 	public static void getNi() {
-		Story.printTake();
+		Story.printTake(niTitle);
 		Player.inventory.add(ni);
 		Room.getObjects().remove(ni);
 		
@@ -209,7 +209,7 @@ public class Item {
 	}
 	
 	public static void getGo() {
-		Story.printTake();
+		Story.printTake(goTitle);
 		Player.inventory.add(go);
 		Room.getObjects().remove(go);
 	
@@ -221,7 +221,7 @@ public class Item {
 	}
 	
 	public static void getYu() {
-		Story.printTake();
+		Story.printTake(yuTitle);
 		Player.inventory.add(yu);
 		Room.getObjects().remove(yu);
 
@@ -233,7 +233,7 @@ public class Item {
 	}
 	
 	public static void getJi() {
-		Story.printTake();
+		Story.printTake(jiTitle);
 		Player.inventory.add(ji);
 		Room.getObjects().remove(ji);
 		Room.removeScroll();
@@ -246,69 +246,69 @@ public class Item {
 	}
 	
 	public static void getRa() {
-		Story.printTake();
+		Story.printTake(raTitle);
 		Player.inventory.add(ra);
 		Room.getObjects().remove(ra);
 		Room.removeScroll();
 	}
 	
 	public static void getShi() {
-		Story.printTake();
+		Story.printTake(shiTitle);
 		Player.inventory.add(shi);
 		Room.getObjects().remove(shi);
 		Room.removeScroll();
 	}
 	
 	public static void getRod() {
-		Story.printTake();
+		Story.printTake(rodTitle);
 		Player.inventory.add(rod);
 		Room.getObjects().remove(rod);
 	}
 	
 	public static void getBooklet() {
-		Story.printTake();
+		Story.printTake(bookletTitle);
 		Player.inventory.add(booklet);
 		Room.getObjects().remove(booklet);
 	}
 	
 	public static void getHandbook() {
-		Story.printTake();
+		Story.printTake(handbookTitle);
 		Player.inventory.add(pamphlet);
 		Room.getObjects().remove(handbook);
 	}
 	
 	public static void getPamphlet() {
-		Story.printTake();
+		Story.printTake(pamphletTitle);
 		Player.inventory.add(pamphlet);
 		Room.getObjects().remove(pamphlet);
 	}
 	
 	public static void getCorn() {
-		Story.printTake();
+		Story.printTake(cornTitle);
 		Player.inventory.add(corn);
 		Room.getObjects().remove(corn);
 	}
 	
 	public static void getParchment() {
-		Story.printTake();
+		Story.printTake(parchmentTitle);
 		Player.inventory.add(parchment);
 		Room.getObjects().remove(parchment);
 	}
 	
 	public static void getCard() {
-		Story.printTake();
+		Story.printTake(cardTitle);
 		Player.inventory.add(card);
 		Room.getObjects().remove(card);
 	}
 	
 	public static void getPhone() {
-		Story.printTake();
+		Story.printTake(phoneTitle);
 		Player.inventory.add(phone);
 		Room.getObjects().remove(phone);
 	}
 	
 	public static void getBox() {
-		Story.printTake();
+		Story.printTake(boxTitle);
 		Player.inventory.add(box);
 		Room.getObjects().remove(box);
 	}
@@ -426,7 +426,7 @@ public class Item {
 			Story.print(rodDesc);
 			
 			if (World.cornOnRod)
-				Story.print(" There is corn attached to the hook.");
+				Story.print(" A kernel of corn is on the hook.");
 		} else {
 			Story.printNotHere();
 		}
@@ -552,7 +552,7 @@ public class Item {
 		switch (Player.getLocation().title) {
 			case "Shrine Room 1":
 				if (Player.purpleAlive) {
-					Story.print("a colorful array of paper cranes.");
+					Story.print("a colorful array of oragami cranes.");
 				} else {
 					Story.print("a snowy overlook.");
 				}
@@ -621,6 +621,34 @@ public class Item {
 				break;
 			default:
 				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void putCorn() {
+		switch (Parser.sentence.get(2)) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "ROD":
+				if (Player.inventory.contains(Item.rod) && Player.inventory.contains(Item.corn)) {
+					Story.printBait();
+					World.cornOnRod = true;
+					Player.inventory.remove(Item.corn);
+				} else {
+					Story.printHow();
+				}
+				break;
+			case "Pond":
+				if (Player.getLocation().title.equals("Pond") && Player.inventory.contains(Item.corn)) {
+					Story.print("The corn lands in the pond with a \"plop.\" You see a koi fish gobble it up.");
+					Player.inventory.remove(Item.corn);
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				Story.invalid();
 				break;
 		}
 	}

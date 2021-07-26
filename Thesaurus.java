@@ -13,6 +13,8 @@ public class Thesaurus {
 		extraWords.add("ON");
 		extraWords.add("WITH");
 		extraWords.add("IN");
+		extraWords.add("IT");
+		extraWords.add("ABOUT");
 	}
 	
 	public static String translate(String w) {
@@ -122,8 +124,7 @@ public class Thesaurus {
 		}
 		
 		if (w.equals("ME")
-			|| w.equals("SELF")
-			|| w.equals("I")) {
+			|| w.equals("SELF")) {
 			w = "ROBE";
 		}
 		
@@ -360,35 +361,37 @@ public class Thesaurus {
 			w = "DRINK";
 		}
 		
-		if (w.equals("YOU")
-		|| w.equals("HRU")
-		|| w.equals("SUP")
-		|| w.equals("WHADDUP")
-		|| w.equals("ASK")
-		|| w.equals("OGENKIDESUKA")
-		|| w.equals("HISACHI")
-		|| w.equals("YOURSELF")
-		|| w.equals("U")
-		|| w.equals("TOD")) {
-			w = "ICHIRO";
-		}
-		
-		if (w.equals("OUTAGE")
-		|| w.equals("ELECTRICITY")
-		|| w.equals("LIGHTS")
-		|| w.equals("HEAT")
-		|| w.equals("AIR")
-		|| w.equals("CONDITIONER")
-		|| w.equals("AC")
-		|| w.equals("BULB")
-		|| w.equals("BULBS")
-		|| w.equals("LIGHT")
-		|| w.equals("PLAQUE")
-		|| w.equals("PLAQUES")
-		|| w.equals("POST")
-		|| w.equals("SLATE")
-		|| w.equals("METAL")) {
-			w = "POWER";
+		if (Player.getLocation().title.equals("Ichiro Hisachi's House")) {
+			if (w.equals("YOU")
+			|| w.equals("HRU")
+			|| w.equals("SUP")
+			|| w.equals("WHADDUP")
+			|| w.equals("OGENKIDESUKA")
+			|| w.equals("HISACHI")
+			|| w.equals("YOURSELF")
+			|| w.equals("U")
+			|| w.equals("TOD")) {
+				w = "ICHIRO";
+			}
+			
+			
+			if (w.equals("OUTAGE")
+			|| w.equals("ELECTRICITY")
+			|| w.equals("LIGHTS")
+			|| w.equals("HEAT")
+			|| w.equals("AIR")
+			|| w.equals("CONDITIONER")
+			|| w.equals("AC")
+			|| w.equals("BULB")
+			|| w.equals("BULBS")
+			|| w.equals("LIGHT")
+			|| w.equals("PLAQUE")
+			|| w.equals("PLAQUES")
+			|| w.equals("POST")
+			|| w.equals("SLATE")
+			|| w.equals("METAL")); {
+				w = "POWER";
+			}
 		}
 		
 		if (w.equals("SCROLLS")) {

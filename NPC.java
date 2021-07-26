@@ -4,8 +4,8 @@ public class NPC {
 	public static String kimiState = "";
 	public static String todState = "content";
 	
-	public static void handleReaper(String v) {
-		if (Data.yearToString().equals(v) || Data.yearToString().equals(Parser.sentence.get(1))) {
+	public static void handleReaper(String w) {
+		if (Parser.sentence.contains(Data.yearToString())) {
 			// correct answer
 			
 		} else {
@@ -128,14 +128,19 @@ public class NPC {
 		return kimiState;
 	}
 	
-	public static void handleTod(String v) {
+	public static void handleTod(String w) {
 		switch (getTod()) {
 			case "content":
-				if (v.equals("ICHIRO")) {
+				if (w.equals("ASK")) {
+					
+				}
+				
+				
+				if (w.equals("ICHIRO")) {
 					Story.print(Story.tod2);
-				} else if (v.equals("POWER") || v.equals("HELP")) {
+				} else if (w.equals("POWER") || w.equals("HELP")) {
 					Story.print(Story.tod3);
-				} else if (v.equals("SCROLL")) {
+				} else if (w.equals("SCROLL")) {
 					Story.print(Story.tod4a);
 					
 					if (Player.sipped) {
@@ -146,16 +151,16 @@ public class NPC {
 					
 					Story.print(Story.tod4d);
 					setTod("proposing");
-				} else if (v.equals("TEA")) {
+				} else if (w.equals("TEA")) {
 					Story.print("\"It should be cooled off by now,\" he says, taking a sip of his own.");
-				} else if (v.equals("DRINK")) {
+				} else if (w.equals("DRINK")) {
 					Story.print("You sip the tea. It's quite good.");
 				} else {
 					Story.print(Story.tod8);
 				}
 				break;
 			case "proposing":
-				if (v.equals("YES")) {
+				if (w.equals("YES")) {
 					Story.print(Story.tod5);
 					Player.savePurpleInventory();
 					Player.updateLocation(Room.gardenPatio);

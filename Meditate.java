@@ -4,14 +4,65 @@ public class Meditate {
 	public static boolean visualizingLotus;
 	public static boolean visualizingFish;
 	public static boolean visualizingKnot;
+	public static boolean trancedGarden;
+	public static boolean trancedHouse;
+	public static boolean trancedTemple;
+	
+	public static int trancesTranced = 0;
+	public static int gardenTrance = 0;
+	public static int houseTrance = 0;
+	public static int templeTrance = 0;
 	
 	public static ArrayList<String> chantInputs = new ArrayList();
 	public static ArrayList<String> gChant = new ArrayList();
 	public static ArrayList<String> hChant = new ArrayList();
 	public static ArrayList<String> tChant = new ArrayList();
 	
-	public static void trance() {
+	public static void setShrines() {
+		gChant.add("ni");
+		gChant.add("yu");
+		gChant.add("ji");
+		gChant.add("om");
+		gChant.add("om");
+		gChant.add("shi");
+		gChant.add("shi");
+		gChant.add("ji");
+		gChant.add("shi");
+		gChant.add("ra");
+		gChant.add("om");
+		gChant.add("go");
+		gChant.add("shi");
+		gChant.add("shi");
 		
+		hChant.add("go");
+		hChant.add("ji");
+		hChant.add("go");
+		hChant.add("ji");
+		hChant.add("yu");
+		hChant.add("ra");
+		hChant.add("shi");
+		hChant.add("om");
+		hChant.add("ji");
+		hChant.add("go");
+		hChant.add("ji");
+		hChant.add("ni");
+		hChant.add("ra");
+		hChant.add("shi");
+		
+		tChant.add("om");
+		tChant.add("ra");
+		tChant.add("yu");
+		tChant.add("ni");
+		tChant.add("shi");
+		tChant.add("yu");
+		tChant.add("ra");
+		tChant.add("go");
+		tChant.add("ni");
+		tChant.add("yu");
+		tChant.add("ji");
+		tChant.add("shi");
+		tChant.add("yu");
+		tChant.add("ra");
 	}
 	
 	public static void handleMeditating(String v) {
@@ -53,11 +104,19 @@ public class Meditate {
 				chant("SHI");
 				break;
 			default:
-				Player.meditating = false;
-				Story.printDoneMeditating();
+				stopMeditating();
 				Parser.handleInput(v);
 				break;
 		}
+	}
+	
+	private static void stopMeditating() {
+		Player.meditating = false;
+		visualizingLotus = false;
+		visualizingFish = false;
+		visualizingKnot = false;
+		chantInputs.clear();
+		Story.printDoneMeditating();
 	}
 	
 	public static void visualize(String n) {
@@ -183,14 +242,12 @@ public class Meditate {
 	public static void checkShrine() {
 		// shift chants in arraylist to the left if list > max
 		if (chantInputs.size() > 14) {
-			for(int i = 0; i < chantInputs.size()-1; i++) {
-				chantInputs.set(i, chantInputs.get(i+1)); 
+			for(int i = 0; i < chantInputs.size() - 1; i++) {
+				chantInputs.set(i, chantInputs.get(i + 1)); 
 			}
 			
-			chantInputs.remove(chantInputs.size() -1);
+			chantInputs.remove(chantInputs.size() - 1);
 		}
-		
-		System.out.println(Meditate.chantInputs);
 		
 		if (visualizingKnot) {
 			System.out.println("Player is visualizing knot");
@@ -209,22 +266,62 @@ public class Meditate {
 		}
 		
 		System.out.println("pChant " + chantInputs);
-		System.out.println("gChant " + gChant);
-		System.out.println("hChant " + hChant);
-		System.out.println("tChant " + tChant);
 		
 		if ((Player.getLocation().title.equals("Shrine Room 1")
 			&& chantInputs.equals(gChant)
 			&& visualizingKnot) 
-		||	(Player.getLocation().title.equals("h1e")
+		||	(Player.getLocation().title.equals("Shrine Room 2")
 			&& chantInputs.equals(hChant)
 			&& visualizingLotus) 
-		||	(Player.getLocation().title.equals("t7n shrine")
+		||	(Player.getLocation().title.equals("Shrine Room 3")
 			&& chantInputs.equals(tChant)
 			&& visualizingFish)) {
 				trance();
 		} else {
 			System.out.println("still meditating");
 		}
+	}
+	
+	public static void trance() {
+		System.out.println("Trance baby, Trance.");
+		
+		if (Player.getLocation().title.equals("Shrine Room 1")) {
+			if (trancedGarden) {
+				Story.printTrance(gardenTrance);
+			} else {
+				Story.printTrance(trancesTranced + 1);
+				gardenTrance = trancesTranced + 1;
+				trancedGarden = true;
+				trancesTranced++;
+			}
+		}
+		
+		if (Player.getLocation().title.equals("Shrine Room 2")) {
+			if (trancedHouse) {
+				Story.printTrance(houseTrance);
+			} else {
+				Story.printTrance(trancesTranced + 1);
+				houseTrance = trancesTranced + 1;
+				trancedHouse = true;
+				trancesTranced++;
+			}
+		}
+		
+		if (Player.getLocation().title.equals("Shrine Room 3")) {
+			if (trancedTemple) {
+				Story.printTrance(templeTrance);
+			} else {
+				Story.printTrance(trancesTranced + 1);
+				templeTrance = trancesTranced + 1;
+				trancedTemple = true;
+				trancesTranced++;
+			}
+		}
+		
+		Player.meditating = false;
+		visualizingLotus = false;
+		visualizingFish = false;
+		visualizingKnot = false;
+		chantInputs.clear();
 	}
 }
