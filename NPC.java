@@ -5,9 +5,9 @@ public class NPC {
 	public static String todState = "content";
 	
 	public static void handleReaper(String w) {
-		if (Parser.sentence.contains(Data.yearToString())) {
+		if (Parser.sentence.contains(Integer.toString(Data.year))) {
 			// correct answer
-			
+			Story.printSamadhi();
 		} else {
 			// incorrect answer
 			Story.printReaperWrong();
@@ -143,7 +143,8 @@ public class NPC {
 					Story.print("\"It should be cooled off by now,\" he says, taking a sip of his own.");
 				} else if (w.equals("DRINK")) {
 					Story.print("You sip the tea. It's quite good.");
-				} else if (w.equals("HYPNOTIZE") {
+					Player.sipped = true;
+				} else if (w.equals("HYPNOTIZE")) {
 					hypnotize();
 				} else {
 					Story.print(Story.tod8);

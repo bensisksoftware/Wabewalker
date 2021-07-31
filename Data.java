@@ -1,5 +1,7 @@
 public class Data {
 	public static int moves = 0;
+	public static int score = 0;
+	public static int maxScore = 200;
 	public static int year = -2137459457;
 	public static int kimisNumber = -19670064;
 	
@@ -32,6 +34,7 @@ public class Data {
 		System.out.println("\nMove: " + moves);
 		System.out.println(Player.getLocation().title);
 		System.out.println("input: " + Parser.input);
+		System.out.println(Parser.sentence);
 	}
 	
 	public static void newGame() {
@@ -53,18 +56,16 @@ public class Data {
 		}
 		
 		// resets year if player previously guessed it
-		while (Player.answers.contains(yearToString())) {
+		while (Player.answers.contains(year)) {
 			System.out.println("Data.setPostRadiusYear contained previous monk answer");
 			year = (int)(Math.random() * 5998 + 1);
 		}
-		
-		//System.out.println(yearToString());
 	}
 	
-	public static String yearToString() {
-		String s = Integer.toString(year);
-		
-		return s;
+	public static void updateScore(int p) {
+		score += p;
+		Story.newParagraph();
+		Story.print("[Your score just went up by " + p + " points. The total is now " + score + " out of " + maxScore + ".]");
 	}
 	
 	public static void handleGameOver(String v) {
@@ -97,7 +98,7 @@ public class Data {
 		World.shrineRoom1SafeOpen = false;
 		World.shrineRoom2DoorOpen = false;
 		World.courtyardDoorOpen = false;
-		World.masterBedroomSafeOpen = false;
+		World.librarySafeOpen = false;
 		World.creakyDeckOpen = false;
 		World.boxOpen = false;
 		World.cornOnRod = false;
@@ -122,10 +123,24 @@ public class Data {
 		Player.memory.add("shi");
 	}
 	
+	private static void addItems() {
+		Player.inventory.add(Item.om);
+		Player.inventory.add(Item.ni);
+		Player.inventory.add(Item.go);
+		Player.inventory.add(Item.yu);
+		Player.inventory.add(Item.ji);
+		Player.inventory.add(Item.ra);
+		Player.inventory.add(Item.shi);
+	}
+	
 	public static void test() {
-		//Player.updateLocation(Room.darkPassageway);
+		// Player.updateLocation(Room.library);
 		//World.XOO = true;
-		
-		addMemory();
+		//addMemory();
+		//addItems();
+	}
+	
+	public static void cheat() {
+		//Story.printTrance(3);
 	}
 }

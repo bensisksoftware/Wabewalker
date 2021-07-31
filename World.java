@@ -22,7 +22,7 @@ public class World {
 	public static boolean shrineRoom1SafeOpen;
 	public static boolean shrineRoom2DoorOpen;
 	public static boolean courtyardDoorOpen;
-	public static boolean masterBedroomSafeOpen;
+	public static boolean librarySafeOpen;
 	public static boolean creakyDeckOpen;
 	public static boolean boxOpen;
 	public static boolean cornOnRod;
@@ -90,41 +90,37 @@ public class World {
 		XOX = false;
 	}
 	
-	public static void pressButton() {
+	public static int getScrollCount() {
+		int totalScrolls = 0;
+		
+		totalScrolls += Room.location.get(0).scrollCount;
+		
+		totalScrolls += Player.getInventoryScrollCount();
+		
+		if ((boxOpen && yuInBox) && (Room.getObjects().contains(Item.box) || Player.inventory.contains(Item.box)))
+			totalScrolls++;
+		
 		switch (Player.getLocation().title) {
 			case "Shrine Room 1":
-				Story.print("Which button?");
+				if (shrineRoom1SafeOpen && jiInSafe)
+					totalScrolls++;
+				break;
+			case "Lounge":
+				if (loungeSafeOpen && omInSafe)
+					totalScrolls++;
 				break;
 			case "Library":
-				Story.print("Which button?");
-				break;
-			case "Island":
-				Story.print("Which button?");
-				break;
-			case "Theater":
-				Story.print("Which button?");
-				break;
-			case "Hallway":
-				if (OOO && !raDropped) {
-					Story.printActivateHallway();
-					raDropped = true;
-					Room.closetObjects.add(Item.ra);
-					Room.closet.scrollCount++;
-				} else {
-					Story.print("You push the button, but nothing happens.");
-				}
+				if (librarySafeOpen && niInSafe)
+					totalScrolls++;
 				break;
 			case "Creaky Deck":
-				if (OOO && !creakyDeckOpen) {
-					Story.printActivateCreakyDeck();
-					creakyDeckOpen = true;
-				} else {
-					Story.print("You push the button, but nothing happens.");
-				}
+				if (creakyDeckOpen && goInCase)
+					totalScrolls++;
 				break;
 			default:
-				Story.printNotHere();
 				break;
 		}
+		
+		return totalScrolls;
 	}
 }

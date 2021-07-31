@@ -56,7 +56,7 @@ public class Action {
 			case "Dark Passageway":
 				Player.updateLocation(Room.mannequinRoom);
 				break;
-			case "Library":
+			case "Master Bedroom":
 				Player.updateLocation(Room.outsideGate);
 				break;
 			case "Outside Gate":
@@ -196,9 +196,9 @@ public class Action {
 					Story.print("You can't take the corded phone with you, so you leave it.");
 					Story.newParagraph();
 				}
-				Player.updateLocation(Room.library);
+				Player.updateLocation(Room.masterBedroom);
 				break;
-			case "Master Bedroom":
+			case "Library":
 				Player.updateLocation(Room.sittingRoom);
 				break;
 			case "Dark Passageway":
@@ -271,9 +271,9 @@ public class Action {
 					Story.print("You can't take the corded phone with you, so you leave it.");
 					Story.newParagraph();
 				}
-				Player.updateLocation(Room.masterBedroom);
+				Player.updateLocation(Room.library);
 				break;
-			case "Library":
+			case "Master Bedroom":
 				Player.updateLocation(Room.sittingRoom);
 				break;
 			case "Theater":
@@ -292,6 +292,11 @@ public class Action {
 					Story.print(Story.tod1);
 					Story.newLine();
 					Player.updateLocation(Room.todsHouse);
+					
+					if (!Player.gotTodPoints) {
+						Player.gotTodPoints = true;
+						Data.updateScore(5);
+					}
 				}
 				break;
 			case "Creaky Deck":
@@ -586,7 +591,7 @@ public class Action {
 				}
 				break;
 			case "NI":
-				if (Room.getObjects().contains(Item.ni) || (Player.getLocation().title.equals("Master Bedroom") && World.masterBedroomSafeOpen && World.niInSafe)) {
+				if (Room.getObjects().contains(Item.ni) || (Player.getLocation().title.equals("Library") && World.librarySafeOpen && World.niInSafe)) {
 					Item.getNi();
 				} else if (Player.inventory.contains(Item.ni)) {
 					Story.printAlreadyHave();
@@ -613,7 +618,7 @@ public class Action {
 				}
 				break;
 			case "JI":
-				if (Room.getObjects().contains(Item.ji) || (World.jiInSafe && World.shrineRoom1SafeOpen && (Player.inventory.contains(Item.ji)))) {
+				if (Room.getObjects().contains(Item.ji) || (World.jiInSafe && World.shrineRoom1SafeOpen && Player.getLocation().title.equals("Shrine Room 1"))) {
 					Item.getJi();
 				} else if (Player.inventory.contains(Item.ji)) {
 					Story.printAlreadyHave();
@@ -641,15 +646,15 @@ public class Action {
 				break;
 			case "SCROLL":
 				if (Player.getLocation().equals(Room.hallway)) {
-					if (Room.hallway.getScrollCount() == 0) {
+					if (World.getScrollCount() == 0) {
 						Story.print("The glass panel prevents you from getting to the scroll.");
 					} else {
 						Story.print("Which one?");
 					}
 				} else {
-					if (Room.getScrollCount() > 1) {
+					if (World.getScrollCount() > 1) {
 						Story.print("Which one?");
-					} else if (Room.getScrollCount() == 1) {
+					} else if (World.getScrollCount() == 1) {
 						Item.getScroll();
 					} else {
 						Story.printNotHere();
@@ -666,6 +671,7 @@ public class Action {
 				}
 				break;
 			case "BOOKLET":
+				/**
 				if (Room.getObjects().contains(Item.booklet)) {
 					Item.getBooklet();
 				} else if (Player.inventory.contains(Item.booklet)) {
@@ -674,7 +680,9 @@ public class Action {
 					Story.printNotHere();
 				}
 				break;
+				*/
 			case "HANDBOOK":
+				/**
 				if (Room.getObjects().contains(Item.handbook)) {
 					Item.getHandbook();
 				} else if (Player.inventory.contains(Item.handbook)) {
@@ -683,6 +691,7 @@ public class Action {
 					Story.printNotHere();
 				}
 				break;
+				*/
 			case "PAMPHLET":
 				if (Room.getObjects().contains(Item.pamphlet)) {
 					Item.getPamphlet();
@@ -756,6 +765,9 @@ public class Action {
 				}
 				break;
 			case "WOMAN":
+				Story.printCantTake();
+				break;
+			case "TV":
 				Story.printCantTake();
 				break;
 			case "CRANES":
@@ -892,6 +904,15 @@ public class Action {
 					Story.printNotInInventory();
 				}
 				break;
+			case "SCROLL":
+				if (Player.getInventoryScrollCount() > 1) {
+					Story.print("Which one?");
+				} else if (Player.getInventoryScrollCount() == 1) {
+					Item.dropScroll();
+				} else {
+					Story.printNotInInventory();
+				}
+				break;
 			case "ROD":
 				if (Player.inventory.contains(Item.rod)) {
 					Player.inventory.remove(Item.rod);
@@ -905,6 +926,7 @@ public class Action {
 				}
 				break;
 			case "BOOKLET":
+				/**
 				if (Player.inventory.contains(Item.booklet)) {
 					Player.inventory.remove(Item.booklet);
 					Room.getObjects().add(Item.booklet);
@@ -913,7 +935,9 @@ public class Action {
 					Story.printNotInInventory();
 				}
 				break;
+				*/
 			case "HANDBOOK":
+				/**
 				if (Player.inventory.contains(Item.handbook)) {
 					Player.inventory.remove(Item.handbook);
 					Room.getObjects().add(Item.handbook);
@@ -922,6 +946,7 @@ public class Action {
 					Story.printNotInInventory();
 				}
 				break;
+				*/
 			case "PAMPHLET":
 				if (Player.inventory.contains(Item.pamphlet)) {
 					Player.inventory.remove(Item.pamphlet);
@@ -976,7 +1001,7 @@ public class Action {
 					Story.printNotInInventory();
 				}
 			default:
-				System.out.println("Action.drop() error");
+				Story.printNotInInventory();
 				break;
 		}
 	}
@@ -1024,6 +1049,7 @@ public class Action {
 				if (!Player.memory.contains("Knot")) {
 					Story.printMemorizeSymbol();
 					Player.memory.add("Knot");
+					Data.updateScore(10);
 				}
 				break;
 			case "Hondo":
@@ -1047,10 +1073,10 @@ public class Action {
 				Item.examineBook();
 				break;
 			case "BOOKLET":
-				Item.examineBooklet();
+				//Item.examineBooklet();
 				break;
 			case "HANDBOOK":
-				Item.examineHandbook();
+				//Item.examineHandbook();
 				break;
 			case "PAMPHLET":
 				Item.examinePamphlet();
@@ -1079,7 +1105,7 @@ public class Action {
 			case "SCROLL":
 				if (Player.getLocation().equals(Room.hallway)) {
 					// Hallway is the only location where a scroll can be seen but not accessible. For this reason, this condition is necessary
-					if (!Room.anyScrollsHere()) {
+					if (World.getScrollCount() == 0) {
 						if (World.raDropped) {
 							Story.printNotHere();
 						} else {
@@ -1089,9 +1115,9 @@ public class Action {
 						Story.print("Which one?");
 					}
 				} else {
-					if (!Room.anyScrollsHere()) {
+					if (World.getScrollCount() == 0) {
 						Story.printNotHere();
-					} else if (Room.multipleScrollsHere()) {
+					} else if (World.getScrollCount() > 1) {
 						Story.print("Which one?");
 					} else {
 						Item.examineScroll();
@@ -1244,12 +1270,19 @@ public class Action {
 				openCase();
 				break;
 			case "CHEST":
-				if (Player.getLocation().title.equals("Assembly Room"))
-					Story.print(Story.tod10);
+				openChest();
 				break;
 			default:
 				Story.print("That is not something you can open.");
 				break;
+		}
+	}
+	
+	private static void openChest() {
+		if (Player.getLocation().title.equals("Assembly Room")) {
+			Story.print(Story.tod10);
+		} else {
+			Story.printNotHere();
 		}
 	}
 	
@@ -1288,6 +1321,11 @@ public class Action {
 					if (World.OOX) {
 						Story.print("The door opens, revealing a shrine room.");
 						World.sandExhibitDoorOpen = true;
+						
+						if (!Player.openedSandExhibitDoor) {
+							Player.openedSandExhibitDoor = true;
+							Data.updateScore(5);
+						}
 					} else {
 						Story.printLocked();
 					}
@@ -1308,6 +1346,11 @@ public class Action {
 					if (World.OOX) {
 						Story.print("With some effort, the door slides opens, revealing a dark passageway.");
 						World.shrineRoom2DoorOpen = true;
+						
+						if (!Player.openedShrineRoom2Door) {
+							Player.openedShrineRoom2Door = true;
+							Data.updateScore(5);
+						}
 					} else {
 						Story.printLocked();
 					}
@@ -1328,6 +1371,11 @@ public class Action {
 					if (World.XOO) {
 						Story.print("The door opens, revealing a small closet.");
 						World.courtyardDoorOpen = true;
+						
+						if (!Player.openedCloset) {
+							Player.openedCloset = true;
+							Data.updateScore(5);
+						}
 					} else {
 						Story.printLocked();
 					}
@@ -1429,13 +1477,13 @@ public class Action {
 					}
 				}
 				break;
-			case "Master Bedroom":
-				if (World.masterBedroomSafeOpen) {
+			case "Library":
+				if (World.librarySafeOpen) {
 					Story.printAlreadyOpen();
 				} else {
 					if (World.XOX) {
 						Story.print("The safe swings open, revealing a fancy scroll.");
-						World.masterBedroomSafeOpen = true;
+						World.librarySafeOpen = true;
 					} else {
 						Story.printLocked();
 					}
@@ -1466,10 +1514,10 @@ public class Action {
 					Story.printAlreadyOpen();
 				}
 				break;
-			case "Master Bedroom":
-				if (World.masterBedroomSafeOpen) {
+			case "Library":
+				if (World.librarySafeOpen) {
 					Story.print("The safe slams shut.");
-					World.masterBedroomSafeOpen = false;
+					World.librarySafeOpen = false;
 				} else {
 					Story.printAlreadyOpen();
 				}
@@ -1491,7 +1539,7 @@ public class Action {
 	}
 	
 	public static void openCase() {
-		Story.print("The case doesn't have a handle.");
+		Story.print("There's no discernable way to open the case by hand.");
 	}
 	
 	public static void shutCase() {
@@ -1517,10 +1565,53 @@ public class Action {
 				pressPlay();
 				break;
 			case "BUTTON":
-				World.pressButton();
+				pressButton();
 				break;
 			default:
 				Story.printNothingHappens();
+				break;
+		}
+	}
+	
+	public static void pressButton() {
+		switch (Player.getLocation().title) {
+			case "Shrine Room 1":
+				Story.print("Which button?");
+				break;
+			case "Master Bedroom":
+				Story.print("Which button?");
+				break;
+			case "Island":
+				Story.print("Which button?");
+				break;
+			case "Theater":
+				Story.print("Which button?");
+				break;
+			case "Hallway":
+				if (World.OOO && !World.raDropped) {
+					Story.printActivateHallway();
+					World.raDropped = true;
+					Room.closetObjects.add(Item.ra);
+					Room.closet.scrollCount++;
+					
+					if (!Player.pushedHallwayButton) {
+						Player.pushedHallwayButton = true;
+						Data.updateScore(5);
+					}
+				} else {
+					Story.print("You push the button, but nothing happens.");
+				}
+				break;
+			case "Creaky Deck":
+				if (World.XXO && !World.creakyDeckOpen) {
+					Story.printActivateCreakyDeck();
+					World.creakyDeckOpen = true;
+				} else {
+					Story.print("You push the button, but nothing happens.");
+				}
+				break;
+			default:
+				Story.printNotHere();
 				break;
 		}
 	}
@@ -1587,10 +1678,15 @@ public class Action {
 	
 	private static void pullTassel() {
 		if (World.islandOpen) {
-			Story.print("You pull the tassel, but nothing happens.");
+			Story.print("You pull the tassel, but nothing happens. The gate is already open.");
 		} else {
 			World.islandOpen = true;
 			Story.printTassel();
+			
+			if (!Player.openedGate) {
+				Player.openedGate = true;
+				Data.updateScore(5);
+			}
 		}
 	}
 	
@@ -1605,7 +1701,7 @@ public class Action {
 					World.resetBulbs();
 				}
 				break;
-			case "Library":
+			case "Master Bedroom":
 				if (Player.orangeAlive) {
 					Story.printTapeAtBeginning();
 				} else {
@@ -1652,7 +1748,7 @@ public class Action {
 					Story.printNothingHappens();
 				}
 				break;
-			case "Library":
+			case "Master Bedroom":
 				if (Player.orangeAlive) {
 					Story.printFastforward("orange");
 					Player.orangeAlive = false;
@@ -1692,11 +1788,13 @@ public class Action {
 		switch (Player.getLocation().title) {
 			case "Shrine Room 1":
 				if (Player.purpleAlive) {
+					Player.saveOrangeInventory();
 					Story.printBlackOut();
 					Player.orangeAtTV = true;
 					
 					if (Player.purpleAtTV) {
 						Player.updateLocation(Room.island);
+						Player.restorePurpleInventory();
 					} else {
 						Player.updateLocation(Room.outsideGate);
 					}
@@ -1704,13 +1802,15 @@ public class Action {
 					Story.printTapePlaying();
 				}
 				break;
-			case "Library":
+			case "Master Bedroom":
 				if (Player.orangeAlive) {
+					Player.saveGreenInventory();
 					Story.printBlackOut();
 					Player.greenAtTV = true;
 					
 					if (Player.orangeAtTV) {
 						Player.updateLocation(Room.shrineRoom1);
+						Player.restoreOrangeInventory();
 					} else {
 						Player.updateLocation(Room.gardenPatio);
 					}
@@ -1721,11 +1821,13 @@ public class Action {
 			case "Island":
 				if (World.islandOpen) {
 					if (Player.greenAlive) {
+						Player.savePurpleInventory();
 						Story.printBlackOut();
 						Player.purpleAtTV = true;
 						
 						if (Player.greenAtTV) {
-							Player.updateLocation(Room.library);
+							Player.updateLocation(Room.masterBedroom);
+							Player.restoreGreenInventory();
 						} else {
 							Player.updateLocation(Room.shrineRoom2);
 						}
@@ -1739,12 +1841,29 @@ public class Action {
 			case "Theater":
 				if (World.theaterTVAtBeginning) {
 					Story.printTheaterTV();
+					World.theaterTVAtBeginning = false;
+					
+					if (!Player.playedTheaterTV) {
+						Player.playedTheaterTV = true;
+						Data.updateScore(5);
+					}
 				} else {
 					Story.printTapePlaying();
 				}
 				break;
 			default:
 				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void pick(String w) {
+		switch (w) {
+			case "UP":
+				take(Parser.sentence.get(2));
+				break;
+			default:
+				Story.invalid();
 				break;
 		}
 	}

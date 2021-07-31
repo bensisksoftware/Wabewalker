@@ -293,6 +293,7 @@ public class Meditate {
 				gardenTrance = trancesTranced + 1;
 				trancedGarden = true;
 				trancesTranced++;
+				Data.updateScore(10);
 			}
 		}
 		
@@ -304,6 +305,7 @@ public class Meditate {
 				houseTrance = trancesTranced + 1;
 				trancedHouse = true;
 				trancesTranced++;
+				Data.updateScore(10);
 			}
 		}
 		
@@ -315,6 +317,7 @@ public class Meditate {
 				templeTrance = trancesTranced + 1;
 				trancedTemple = true;
 				trancesTranced++;
+				Data.updateScore(10);
 			}
 		}
 		

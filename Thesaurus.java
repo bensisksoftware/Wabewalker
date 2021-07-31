@@ -12,7 +12,6 @@ public class Thesaurus {
 		extraWords.add("TO");
 		extraWords.add("ON");
 		extraWords.add("WITH");
-		extraWords.add("IN");
 		extraWords.add("IT");
 		extraWords.add("ABOUT");
 		extraWords.add("SAY");
@@ -363,7 +362,7 @@ public class Thesaurus {
 			w = "DRINK";
 		}
 		
-		if (Player.getLocation().title.equals("Ichiro Hisachi's House")) {
+		if (Player.getLocation().title.equals("Hisachi Ichiro's House")) {
 			if (w.equals("YOU")
 			|| w.equals("HRU")
 			|| w.equals("SUP")
@@ -373,6 +372,7 @@ public class Thesaurus {
 			|| w.equals("YOURSELF")
 			|| w.equals("U")
 			|| w.equals("HIM")
+			|| w.equals("MAN")
 			|| w.equals("TOD")) {
 				w = "ICHIRO";
 			}
@@ -393,13 +393,17 @@ public class Thesaurus {
 			|| w.equals("PLAQUES")
 			|| w.equals("POST")
 			|| w.equals("SLATE")
-			|| w.equals("METAL")); {
+			|| w.equals("METAL")) {
 				w = "POWER";
 			}
 		}
 		
-		if (w.equals("HER")) {
-			w = "KIMI";
+		if (Player.getLocation().title.equals("Sitting Room")) {
+			if (w.equals("HER")
+			|| w.equals("WOMAN")
+			|| w.equals("INSTRUCTOR")) {
+				w = "KIMI";
+			}
 		}
 		
 		if (w.equals("SCROLLS")) {
@@ -427,6 +431,11 @@ public class Thesaurus {
 		|| w.equals("HOOK")
 		|| w.equals("ATTACH")) {
 			w = "PUT";
+		}
+		
+		if (w.equals("TELEVISION")
+		|| w.equals("NINTENDO")) {
+			w = "TV";
 		}
 		
 		if (w.equals("HERE")

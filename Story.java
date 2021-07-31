@@ -2,9 +2,17 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Story {
-	private static String help = "The parser understands one or two word commands such as LOOK or READ BOOK.\nShortcuts:\ngo north = n\ngo south = s\ngo east = e\ngo west = w\ngo northeast = ne\ngo northwest = nw\ngo southeast = se\ngo southwest = sw\nup = u\ndown = d\nlook = l\nexamine = x\ninventory = i\nmemory = m\nhelp = h\nwait = z\nrewind = rw\nfastforward = ff";
+	public static boolean stopScroll;
+	
+	public static int scrollStop;
+	public static int scrollStopBook = 930;
+	public static int scrollStopPamphlet = 1790;
+	public static int scrollStopTrance1 = 470;
+	public static int scrollStopTrance2 = 270;
+	public static int scrollStopTrance3 = 1720;
+	
+	private static String help = "This game understands a variety of commands such as LOOK, EXAMINE BOX, or PICK UP THE SHINY PEARL.\nList of shortcuts:\ngo north = n\ngo south = s\ngo east = e\ngo west = w\ngo northeast = ne\ngo northwest = nw\ngo southeast = se\ngo southwest = sw\nup = u\ndown = d\nlook = l\nexamine = x\ninventory = i\nmemory = m\nhelp = h\nwait = z";
 	private static String invalid = "That is a sentence I don't understand."; // Frotz copyright?
-	private static String tooManySpaces = "There are too many words and/or spaces in that sentence. Try to pair a verb with a noun.";
 	private static String inventory = "Your inventory contains: ";
 	private static String inventoryEmpty = "Your inventory is empty.";
 	private static String missingNoun = "You are missing a noun in that sentence.";
@@ -18,7 +26,7 @@ public class Story {
 	private static String shutDoor = "The door slams shut.";
 	private static String tooDark = "It's too dark to adequately examine.";
 	private static String woman = "Her stillness is inhuman, like a mannequin. You feel a strong sense of foreboding from the sight of her.";
-	private static String nowMeditating = "You close your eyes, and all of your surroundings become quiet and disappear. You are now meditating.";
+	private static String nowMeditating = "You close your eyes, and the world around becomes quiet. You are now meditating.";
 	private static String nowVisualizing = "You are now visualizing the sacred ";
 	private static String alreadyMeditating = "You are meditating.";
 	private static String alreadyVisualizing = "You are.";
@@ -55,10 +63,10 @@ public class Story {
 	private static String plaqueShrineRoom2 = "Scratched into the metal are arrows pointing at the orange bulb and the green bulb.";
 	private static String plaqueCourtyard = "Scratched into the metal are arrows pointing at the green bulb and the purple bulb.";
 	private static String plaqueHallway = "Scratched into the metal are arrows pointing at all three bulbs.";
-	private static String plaqueMasterBedroom = "Scratched into the metal is an arrow pointing at the green bulb.";
+	private static String plaqueLibrary = "Scratched into the metal is an arrow pointing at the green bulb.";
 	private static String plaqueHondo = "Scratched into the metal are arrows pointing at the green bulb and the purple bulb.";
-	private static String plaqueTrinketShop = "Scratched into the metal of the jewelled box is an arrow pointing at the purple bulb.";
-	private static String plaqueCreakyDeck = "Scratched into the metal are arrows pointing at all three bulbs.";
+	private static String plaqueTrinketShop = "Scratched into the metal are arrows pointing at all three bulbs.";
+	private static String plaqueCreakyDeck = "Scratched into the metal of the jewelled box is an arrow pointing at the purple bulb.";
 	private static String OOO = "All three bulbs are glowing.";
 	private static String OOX = "The orange bulb and the green bulb are glowing.";
 	private static String OXO = "The orange bulb and the purple bulb are glowing.";
@@ -86,7 +94,7 @@ public class Story {
 	private static String kimiAnythingElse = "\"OK, you're all set for a session next Sunday. Is there anything else I can help you with today?\"";
 	private static String kimiSorry = "\"I'm sorry, but there's probably not much we can get done over the phone for that service. Is there anything else I can help you with today?\"";
 	private static String kimiSchOrPho = "\"Excellent. It's never too late to gain control over your mind. Were you calling to schedule an appointment for an in-depth lesson, or for a free phone consultation?\"";
-	private static String kimiWisdom = "\"Very well. I am always eager to share this treasured wisdom. As a henro of Saigoku Kannon, I can only speak of the tradition I know. For today's consultation, I'll brief you on our method of meditation. There are countless methods, but Sensei Kukai systematized the process and focused on the core elements in order to produce a result similar to what is written in the Amitayurdhyana Sutra. Those core elements are the visualization, and the spoken mantra. Do not underestimate the value of any of the three elements, as they are all critical to shaping your mind to recieve the image Kukai writes so much about. You will find that breathing must always be consistent to allow your visualizations and mantras to dance freely. The powerful combination a symbol and a mantra will open the gates of your mind and reveal to you what was hiding behind the curtain. The Shingon are also particular about which visualization and mantra should be meditated upon at each temple. For example, a henro will chant the Heart Sutra at an altar of Samantabhadra, the Mantra of Light at a batsudan of Kannon, and the Gohogo Mantra at an Avalokitesvara shrine. These are the rites of a Shingon henro, and when practiced with sincerety, the henro will be one step closer towards enlightenment. I would be happy to speak more about this with you in person, but unfortunately I don't have anymore openings for an appointment. Is there anything else I can help you with today?\"";
+	private static String kimiWisdom = "\"Very well. I am always eager to share this treasured wisdom. As a henro of Saigoku Kannon, I can only speak of the tradition I know. For today's consultation, I'll brief you on our method of meditation. There are countless methods, but Sensei Kukai systematized the process and focused on the core elements in order to produce a result similar to what is written in the Amitayurdhyana Sutra. Those core elements are the visualization, and the spoken mantra. Do not underestimate the value of any of the three elements, as they are all critical to shaping your mind to recieve the image Kukai writes so much about. You will find that breathing must always be consistent to allow your visualizations and mantras to dance freely. The powerful combination a symbol and a mantra will open the gates of your mind and reveal to you what was hiding behind the curtain. The Shingon are also particular about which visualization and mantra should be meditated upon at each temple. For example, a henro will chant the Heart Sutra at an altar of Samantabhadra, the Mantra of Light at a butsudan of Kannon, and the Gohogo Mantra at an Avalokitesvara shrine. These are the rites of a Shingon henro, and when practiced with sincerety, the henro will be one step closer towards enlightenment. I would be happy to speak more about this with you in person, but unfortunately I don't have anymore openings for an appointment. Is there anything else I can help you with today?\"";
 	private static String kimiWrong = "\"Hmm. You might have the wrong number. I offer healing and learning services. If this is not what you called for, I'm sorry. Is there anything else I can help you with today?\"";
 	private static String kimiBye = "\"Dewa mata.\" Kimi hangs up.";
 	private static String kimiNoSch = "\"Oops! Unfortunately I don't have anymore openings. Is there anything else I can help you with today?\"";
@@ -98,7 +106,7 @@ public class Story {
 	public static String tod4a = "\"It was left at my door three days ago. It seems to be a Shingon scroll portraying a sacred syllable for a mantra. I have derived no meaning from it but I keep it regardless. I see your interest in the scroll. Perhaps you will find a better use with it than I, but I will not part with it so quickly. Perhaps you would do me one last favor in exchange for the scroll? Apart from maintaining the temple grounds, I aspire to help Shingon disciples to reach a greater depth in their mind during their medatative practice, namely by the use of hypnosis. A light sedative, which I have used as an ingredient in the tea that you've been ";
 	public static String tod4b = "neglecting";
 	public static String tod4c = "enjoying";
-	public static String tod4d = " goes a little way in that you've been enjoying, goes a little way in helping my hypnosis kick off. Will you allow me to put you in a light trance so I can test my method? In return, you may have the scroll. What do you say?\"";
+	public static String tod4d = " goes a little way in helping my hypnosis kick off. Will you allow me to put you in a light trance so I can test my method? In return, you may have the scroll. What do you say?\"";
 	public static String tod5 = "\"Excellent. Now, if I could just have you close your eyes for me. I want you to focus on my voice. I am going to count to five. When I get to five, you will settle into a deep meditative dream state.\nOne.\nYou feel yourself starting to slip away.\nTwo.\nYou still hear my voice, but you feel you are moving very far away.\nT h r e e . . .\nYou are very far away.\nF  o  u  r  .  .  .\nEverything is black. You are removed.\nF   i   v   e   .   .   .\"\n\n";
 	public static String tod6 = "\"I apologize. It was inappropriate of me to ask.\"";
 	public static String tod7 = "He looks at you as if he expects you to ask him a question.";
@@ -115,17 +123,26 @@ public class Story {
 	private static String trance2 = "\"What will happen when the leaves fall and the trees become bare?\"\n\n\"The golden wind.\"\n\n\"What do you mean?\"\n\n\"The trunk becomes visible in the autumn wind.\"";
 	private static String trance3 = "\"Where are you going?\"\n\n\"I am on pilgrimage, following the wind.\"\n\n\"What are you on pilgrimage for?\"\n\n\"I don't know.\"\n\n\"Non-knowing is most intimate.\"\n\n\"What year did Palu write Post Radius?\"";
 	
+	private static String samadhi = "The cloaked figure stares at you, and eventually lowers its sword. \"Moushiwake arimasen. My upmost apologies. Only a bodhisattva could have found the answer within themself. I believe you and I may walk parallel paths. Let us perform sanmitsu together, and strive to reach the end of this journey. Close your eyes, and I will guide you to samadhi.\"\n\nYou close your eyes. You see 62 images of Sarah Sitkin's artwork. It fades to black.\n\n GAME OVER";
+	
 	public static void setScrollbar() {
-		// set scrollbar to bottom
-		Bunraku.body.setCaretPosition(Bunraku.body.getDocument().getLength());
+		if (stopScroll) {
+			Bunraku.body.setCaretPosition(Bunraku.body.getDocument().getLength() - scrollStop);
+			stopScroll = false;
+		} else {
+			Bunraku.body.setCaretPosition(Bunraku.body.getDocument().getLength());
+		}
+		System.out.println("body length " + Bunraku.body.getDocument().getLength());
+	}
+	
+	public static void setScrollStop(int i) {
+		stopScroll = true;
+		
+		scrollStop = i;
 	}
 	
 	public static void invalid() {
 		print(invalid);
-	}
-	
-	public static void tooManySpaces() {
-		print(tooManySpaces);
 	}
 	
 	public static void newLine() {
@@ -361,8 +378,8 @@ public class Story {
 			case "Hallway":
 				print(plaqueHallway);
 				break;
-			case "Master Bedroom":
-				print(plaqueMasterBedroom);
+			case "Library":
+				print(plaqueLibrary);
 				break;
 			case "Hamlet":
 				print(plaqueHondo);
@@ -421,16 +438,16 @@ public class Story {
 	public static void printRewind(String c) {
 		switch (c) {
 			case "orange":
-				print("The screen becomes static. The pool of blood reenters monk. Monk rises. Walks backwards toward camera. Walks off left side of screen.");
+				print("The image on the screen becomes distorted. The pool of blood reenters monk. Monk rises. Walks backwards toward camera. Walks off left side of screen.");
 				break;
 			case "green":
-				print("The screen becomes static. The pool of blood reenters monk. Figure enters scene. Monk rises. Figure leaves backwards. Monk leaves.");
+				print("The image on the screen becomes distorted. The pool of blood reenters monk. Figure enters scene. Monk rises. Figure leaves backwards. Monk leaves.");
 				break;
 			case "purple":
-				print("The screen becomes static. The figure enters the scene. Purple monk rises up and spins around. Colorful oragami cranes cover the screen.");
+				print("The image on the screen becomes distorted. The figure enters the scene. Purple monk rises up and spins around. Colorful oragami cranes cover the screen.");
 				break;
 			case "theater":
-				print("The screen becomes static. A monk enters and exits the scene.");
+				print("The image on the screen becomes distorted. A monk enters and exits the scene.");
 				break;
 			default:
 				System.out.println("Story.printRewind() error");
@@ -492,7 +509,7 @@ public class Story {
 	}
 	
 	public static void printMemorizeSymbol() {
-		print("The sacred symbol is commited to memory and available to visualize while meditating!");
+		print(" The sacred symbol is commited to memory and available to visualize while meditating!");
 	}
 	
 	public static void printPhoneWrong() {
@@ -541,6 +558,11 @@ public class Story {
 	
 	public static void printKimiWisdom() {
 		print(kimiWisdom);
+		
+		if (!Player.heardKimiWisdom) {
+			Player.heardKimiWisdom = true;
+			Data.updateScore(5);
+		}
 	}
 	
 	public static void printKimiWrong() {
@@ -687,7 +709,7 @@ public class Story {
 		if (World.boxOpen) {
 			printAlreadyOpen();
 		} else {
-			if (World.XXO) {
+			if (World.OOO) {
 				print("The box opens with a satisfying click.");
 				World.boxOpen = true;
 				
@@ -715,7 +737,7 @@ public class Story {
 		if (World.creakyDeckOpen) {
 			printAlreadyOpen();
 		} else {
-			if (World.OOO) {
+			if (World.XXO) {
 				print("The case opens with a creak.");
 				
 				if (World.goInCase) {
@@ -738,23 +760,34 @@ public class Story {
 	}
 	
 	public static void printTrance(int t) {
+		print("(scroll down)");
 		newParagraph();
 		print("Everything goes quiet.\n\nYou hear distant voices...");
 		newParagraph();
 		
-		if (t == 1)
+		if (t == 1) {
 			print(trance1);
+			setScrollStop(scrollStopTrance1);
+		}
 		
-		if (t == 2)
+		if (t == 2) {
 			print(trance2);
+			setScrollStop(scrollStopTrance2);
+		}
 		
 		if (t == 3) {
 			print(trance3);
 			newParagraph();
 			print("\"" + Data.year + ".\"");
+			setScrollStop(scrollStopTrance3);
 		}
 		
 		newParagraph();
 		printDoneMeditating();
+	}
+	
+	public static void printSamadhi() {
+		print(samadhi);
+		Data.updateScore(10);
 	}
 }

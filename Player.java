@@ -21,11 +21,23 @@ public class Player {
 	public static boolean sipped;
 	public static boolean spokeToClan;
 	public static boolean metIsachi;
+	public static boolean playedTheaterTV;
+	public static boolean baitedRod;
+	public static boolean openedGate;
+	public static boolean examinedCard;
+	public static boolean heardKimiWisdom;
+	public static boolean openedSandExhibitDoor;
+	public static boolean gotTodPoints;
+	public static boolean readBook;
+	public static boolean readPamphlet;
+	public static boolean pushedHallwayButton;
+	public static boolean openedCloset;
+	public static boolean openedShrineRoom2Door;
 	
 	public static int startedFishing = 0;
 	
 	public static ArrayList<String> memory = new ArrayList<String>();
-	public static ArrayList<String> answers = new ArrayList<String>();
+	public static ArrayList<Integer> answers = new ArrayList<>();
 	public static ArrayList<Item> inventory = new ArrayList<Item>();
 	public static ArrayList<Item> orangeSavedInventory = new ArrayList<Item>();
 	public static ArrayList<Item> greenSavedInventory = new ArrayList<Item>();
@@ -65,7 +77,7 @@ public class Player {
 					if (greenAtTV) {
 						restoreGreenInventory();
 						Story.printBlackOut();
-						Player.updateLocation(Room.library);
+						Player.updateLocation(Room.masterBedroom);
 					} else {
 						inventory.clear();
 						Story.printBlackOut();
@@ -126,7 +138,7 @@ public class Player {
 		orangeAtTV = false;
 		World.sandExhibitDoorOpen = false;
 		
-		if (!getLocation().equals(Room.library))
+		if (!getLocation().equals(Room.masterBedroom))
 			inventory.clear();
 		
 		sawReaper1 = false;
@@ -171,8 +183,8 @@ public class Player {
 		Room.landingObjects.clear(); 
 		Room.hallwayObjects.clear(); 
 		Room.sittingRoomObjects.clear(); 
-		Room.masterBedroomObjects.clear(); 
 		Room.libraryObjects.clear(); 
+		Room.masterBedroomObjects.clear(); 
 		Room.closetObjects.clear(); 
 		Room.darkPassagewayObjects.clear();
 		Room.mannequinRoomObjects.clear(); 
@@ -349,9 +361,9 @@ public class Player {
 				return "green";
 			case "Sitting Room":
 				return "green";
-			case "Master Bedroom":
-				return "green";
 			case "Library":
+				return "green";
+			case "Master Bedroom":
 				return "green";
 			case "Closet":
 				return "green";
@@ -394,8 +406,10 @@ public class Player {
 	}
 	
 	public static void memorizeFish() {
-		if (!memory.contains("Fish"))
+		if (!memory.contains("Fish")) {
 			memory.add("Fish");
+			Data.updateScore(10);
+		}
 	}
 	
 	public static void returnToIsachi() {

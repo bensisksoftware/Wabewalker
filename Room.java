@@ -24,8 +24,8 @@ public class Room {
 	public static ArrayList<String> landingExits = new ArrayList<String>(); 
 	public static ArrayList<String> hallwayExits = new ArrayList<String>(); 
 	public static ArrayList<String> sittingRoomExits = new ArrayList<String>(); 
-	public static ArrayList<String> masterBedroomExits = new ArrayList<String>(); 
 	public static ArrayList<String> libraryExits = new ArrayList<String>(); 
+	public static ArrayList<String> masterBedroomExits = new ArrayList<String>(); 
 	public static ArrayList<String> closetExits = new ArrayList<String>(); 
 	public static ArrayList<String> darkPassagewayExits = new ArrayList<String>();
 	public static ArrayList<String> mannequinRoomExits = new ArrayList<String>(); 
@@ -62,8 +62,8 @@ public class Room {
 	public static ArrayList<Item> landingObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> hallwayObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> sittingRoomObjects = new ArrayList<Item>(); 
-	public static ArrayList<Item> masterBedroomObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> libraryObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> masterBedroomObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> closetObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> darkPassagewayObjects = new ArrayList<Item>();
 	public static ArrayList<Item> mannequinRoomObjects = new ArrayList<Item>(); 
@@ -105,12 +105,12 @@ public class Room {
 	public static String landingDesc = "You are halfway up the stairs. It ascends to the southeast, and descends to the southwest.";
 	public static String hallwayDesc = "There's a laundry chute here with a button. There is a plaque here. There is a glass pane with a shelf behind it and this constitutes the laundry chute.";
 	public static String sittingRoomDesc = "A quaint room. Sign here. There are rooms to the east and west, as well as a hallway to the north.";
-	public static String masterBedroomDesc = "A gentle breeze flows in through the window. There is a Chippendale mirror standing here. There is a safe with a plaque on the wall.";
-	public static String libraryDesc = "This is a small library. A red book, a blue book, and a black book stand on the shelf. Hung on the wall is a fishing pole. There's a TV here.";
-	public static String closetDesc = "This is a small closet. Above is a chute that comes out from the ceiling. There is an exit to the west.";
+	public static String libraryDesc = "A gentle breeze flows in through the window. There is a Chippendale mirror standing here. There is a safe with a plaque on the wall.";
+	public static String masterBedroomDesc = "This is a small masterBedroom. A red book, a blue book, and a black book stand on the shelf. Hung on the wall is a fishing pole. There's a TV here.";
+	public static String closetDesc = "This is a small closet. Above is a chute that comes out from the ceiling.";
 	public static String darkPassagewayDesc = "This is a dark passageway. There is a way to the north. Light from the shrine room emits through the doorway to the east. On the south wall, a beam of light is shining through a small hole.";
-	public static String mannequinRoomDesc = "It's dark here, but you can see what look to be mannequins. There is a Desc here too. There are passageways to the east and south.";
-	public static String theaterDesc = "There is a TV here. There is a passageway to the west.";
+	public static String mannequinRoomDesc = "It's dark here, but you can see what look to be mannequins. There are passageways to the east and south.";
+	public static String theaterDesc = "Cobwebs. There is a TV here. There is a passageway to the west.";
 	public static String outsideGateDesc = "A huge mountain looms above you. You see a path through the gate to the north.";
 	public static String insideGateDesc = "The path up the mountain leads north. Beside the path is a stone monument with an inscription carved into it. To the east is a bridge extending over a frozen pond. In the middle of the pond is a small man-made island. There is also a path leading south.";
 	public static String islandDesc = "There is a thing here with a gate. Through the gate you see a TV. The bridge extends west over the frozen pond.";
@@ -153,8 +153,8 @@ public class Room {
 	public static Room landing = new Room("Landing", landingDesc); 
 	public static Room hallway = new Room("Hallway", hallwayDesc); 
 	public static Room sittingRoom = new Room("Sitting Room", sittingRoomDesc); 
-	public static Room masterBedroom = new Room("Master Bedroom", masterBedroomDesc); 
 	public static Room library = new Room("Library", libraryDesc); 
+	public static Room masterBedroom = new Room("Master Bedroom", masterBedroomDesc); 
 	public static Room closet = new Room("Closet", closetDesc); 
 	public static Room darkPassageway = new Room("Dark Passageway", darkPassagewayDesc);
 	public static Room mannequinRoom = new Room("Mannequin Room", mannequinRoomDesc); 
@@ -193,8 +193,8 @@ public class Room {
 		rooms.add(landing); 
 		rooms.add(hallway); 
 		rooms.add(sittingRoom); 
-		rooms.add(masterBedroom); 
 		rooms.add(library); 
+		rooms.add(masterBedroom); 
 		rooms.add(closet); 
 		rooms.add(darkPassageway);
 		rooms.add(mannequinRoom); 
@@ -257,8 +257,8 @@ public class Room {
 		sittingRoomExits.add("N"); 
 		sittingRoomExits.add("E"); 
 		sittingRoomExits.add("W"); 
-		masterBedroomExits.add("E"); 
-		libraryExits.add("W"); 
+		libraryExits.add("E"); 
+		masterBedroomExits.add("W"); 
 		closetExits.add("W"); 
 		darkPassagewayExits.add("N");
 		darkPassagewayExits.add("E");
@@ -296,11 +296,11 @@ public class Room {
 	}
 	
 	public static void setHouseObjects() {
-		libraryObjects.add(Item.rod); 
-		libraryObjects.add(Item.booklet); 
+		masterBedroomObjects.add(Item.rod); 
+		//masterBedroomObjects.add(Item.booklet); 
 		sittingRoomObjects.add(Item.phone); 
-		sittingRoomObjects.add(Item.handbook); 
-		masterBedroomObjects.add(Item.pamphlet); 
+		//sittingRoomObjects.add(Item.handbook); 
+		libraryObjects.add(Item.pamphlet); 
 		closetObjects.add(Item.corn); 
 		mannequinRoomObjects.add(Item.parchment); 
 	}
@@ -318,7 +318,7 @@ public class Room {
 		roomsWithPlaques.add(shrineRoom2);
 		roomsWithPlaques.add(courtyard);
 		roomsWithPlaques.add(hallway);
-		roomsWithPlaques.add(masterBedroom);
+		roomsWithPlaques.add(library);
 		roomsWithPlaques.add(hondo);
 		roomsWithPlaques.add(creakyDeck);
 	}
@@ -363,10 +363,10 @@ public class Room {
 				return hallwayExits;
 			case "Sitting Room":
 				return sittingRoomExits;
-			case "Master Bedroom":
-				return masterBedroomExits;
 			case "Library":
 				return libraryExits;
+			case "Master Bedroom":
+				return masterBedroomExits;
 			case "Closet":
 				return closetExits;
 			case "Dark Passageway":
@@ -445,10 +445,10 @@ public class Room {
 				return hallwayObjects;
 			case "Sitting Room":
 				return sittingRoomObjects;
-			case "Master Bedroom":
-				return masterBedroomObjects;
 			case "Library":
 				return libraryObjects;
+			case "Master Bedroom":
+				return masterBedroomObjects;
 			case "Closet":
 				return closetObjects;
 			case "Dark Passageway":
@@ -495,27 +495,5 @@ public class Room {
 	
 	public static void removeScroll() {
 		location.get(0).scrollCount--;
-	}
-	
-	public static int getScrollCount() {
-		return location.get(0).scrollCount;
-	}
-	
-	public static boolean anyScrollsHere() {
-		// returns true if there are 1 or more scrolls here
-		if ((Room.getScrollCount() + Player.getInventoryScrollCount()) > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public static boolean multipleScrollsHere() {
-		// returns true if there are more than one scroll within reach
-		if (((getScrollCount() + Player.getInventoryScrollCount()) > 1) || (((World.boxOpen && World.yuInBox) && (getObjects().contains(Item.box) || Player.inventory.contains(Item.box))) && (getScrollCount() + Player.getInventoryScrollCount()) >= 1)) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 }

@@ -18,15 +18,17 @@ public class Parser {
 		
 		resetInput();
 		
-		eraseSpaces();
-		
-		createSentence();
-		
-		passInput();
-		
-		Story.setScrollbar();
-		
-		Data.printToCMD();
+		if (validInput()) {
+			eraseSpaces();
+			
+			createSentence();
+			
+			passInput();
+			
+			Story.setScrollbar();
+			
+			Data.printToCMD();
+		}
 	}
 	
 	private static void setInput() {
@@ -37,6 +39,20 @@ public class Parser {
 	private static void resetInput() {
 		// erase inputBox
 		Bunraku.inputBox.setText("");
+	}
+	
+	private static boolean validInput() {
+		int c = 0;
+		for (int i = 0; i < input.length(); i++) {
+			if (input.charAt(i) != ' ')
+				c++;
+		}
+		
+		if (c == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	private static void eraseSpaces() {
@@ -89,13 +105,20 @@ public class Parser {
 		}
 
 		removeExtraWords();
-		sentence.add("");
+		sentence.add(""); // adds empty String to end of Sentence so program can easily know it is the end of the sentence.
 	}
 	
 	private static void removeExtraWords() {
 		for (int i = 0; i < Thesaurus.extraWords.size(); i++) {
 			while (sentence.contains(Thesaurus.extraWords.get(i)))
 				sentence.remove(Thesaurus.extraWords.get(i));
+		}
+		
+		// if player says "HISACHI ICHIRO" reduce it to just "ICHIRO"
+		for (int i = 0; i < sentence.size() - 1; i++) {
+			if (sentence.get(i).equals("ICHIRO") && sentence.get(i + 1).equals("ICHIRO")) {
+				sentence.remove(i);
+			}
 		}
 	}
 	
@@ -215,6 +238,9 @@ public class Parser {
 			case "TAKE":
 				Action.take(sentence.get(1));
 				break;
+			case "PICK":
+				Action.pick(sentence.get(1));
+				break;
 			case "DROP":
 				Action.drop(sentence.get(1));
 				break;
@@ -283,6 +309,9 @@ public class Parser {
 				break;
 			case "FIGHT":
 				Action.fight(sentence.get(1));
+				break;
+			case "CHEAT":
+				Data.cheat();
 				break;
 			default:
 				Story.invalid();
