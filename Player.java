@@ -29,15 +29,17 @@ public class Player {
 	public static boolean openedSandExhibitDoor;
 	public static boolean gotTodPoints;
 	public static boolean readBook;
-	public static boolean readPamphlet;
+	public static boolean readLeaflet;
 	public static boolean pushedHallwayButton;
 	public static boolean openedCloset;
 	public static boolean openedShrineRoom2Door;
+	public static boolean sittingOnGround;
+	public static boolean sittingOnSofa;
 	
 	public static int startedFishing = 0;
 	
 	public static ArrayList<String> memory = new ArrayList<String>();
-	public static ArrayList<Integer> answers = new ArrayList<>();
+	public static ArrayList<String> answers = new ArrayList<>();
 	public static ArrayList<Item> inventory = new ArrayList<Item>();
 	public static ArrayList<Item> orangeSavedInventory = new ArrayList<Item>();
 	public static ArrayList<Item> greenSavedInventory = new ArrayList<Item>();
@@ -76,13 +78,12 @@ public class Player {
 					
 					if (greenAtTV) {
 						restoreGreenInventory();
-						Story.printBlackOut();
-						Player.updateLocation(Room.masterBedroom);
 					} else {
 						inventory.clear();
-						Story.printBlackOut();
-						Player.updateLocation(Room.shrineRoom2);
 					}
+					
+					Story.printBlackOut();
+					Player.updateLocation(Room.masterBedroom);
 				} else {
 					// no ningyo
 					Story.printGameOver();

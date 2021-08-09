@@ -28,6 +28,7 @@ public class Thesaurus {
 		|| w.equals("CRUSH")
 		|| w.equals("DESTROY")
 		|| w.equals("RUB")
+		|| w.equals("KISS")
 		|| w.equals("TOUCH")) {
 			w = "UNUSED";
 		}
@@ -133,12 +134,24 @@ public class Thesaurus {
 			w = "PHONE";
 		}
 		
+		if (w.equals("SAND")) {
+			w = "EXHIBIT";
+		}
+		
 		if (w.equals("FIGURES")) {
 			w = "FIGURE";
 		}
 		
 		if (w.equals("GOLD")) {
 			w = "CHEST";
+		}
+		
+		if (w.equals("COUCH")) {
+			w = "SOFA";
+		}
+		
+		if (w.equals("FLOOR")) {
+			w = "GROUND";
 		}
 		
 		if (w.equals("PLAQUES")) {
@@ -433,8 +446,15 @@ public class Thesaurus {
 			w = "PUT";
 		}
 		
-		if (w.equals("TELEVISION")
-		|| w.equals("NINTENDO")) {
+		if (w.equals("GLASS")) {
+			w = "WINDOW";
+		}
+		
+		if (w.equals("LAUNDRY")) {
+			w = "CHUTE";
+		}
+		
+		if (w.equals("TELEVISION")) {
 			w = "TV";
 		}
 		

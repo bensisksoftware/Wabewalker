@@ -4,14 +4,21 @@ public class NPC {
 	public static String kimiState = "";
 	public static String todState = "content";
 	
-	public static void handleReaper(String w) {
-		if (Parser.sentence.contains(Integer.toString(Data.year))) {
+	public static void handleReaper(String a) {
+		if (Parser.sentence.contains(Integer.toString(Data.year)) && Meditate.trancesTranced == 3) {
 			// correct answer
-			Story.printSamadhi();
+			World.disableReaper = true;
+			Player.facingReaper = false;
+			Story.printSamadhi1();
 		} else {
 			// incorrect answer
 			Story.printReaperWrong();
 			Player.facingReaper = false;
+			
+			if (!Player.answers.contains(a))
+				Player.answers.add(a);
+			
+			Data.checkAnswers();
 		}
 	}
 	

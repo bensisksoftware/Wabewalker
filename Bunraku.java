@@ -42,8 +42,8 @@ public class Bunraku extends JFrame {
 			}
 		});
 	}
-
-	public static void main(String[] args) {
+	
+	public static void createFrame() {
 		JFrame frame = new Bunraku();
 		frame.setTitle("Bunraku");
 		frame.setSize(666, 666);
@@ -59,10 +59,10 @@ public class Bunraku extends JFrame {
 		});
 		
 		body.setFocusable(false);
-		
-		Data.setUp();
-		Story.printLocation();
-		Story.newLine();
-		Story.printDesc();
+	}
+
+	public static void main(String[] args) {
+		createFrame();
+		Data.setUpGame();
 	}
 }

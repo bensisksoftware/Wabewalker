@@ -251,7 +251,9 @@ public class Parser {
 				if (World.dark) {
 					if (sentence.get(1).equals("HOLE")) {
 						Action.examine("HOLE");
-					} else {
+					} else if (sentence.get(1).equals("TV")) {
+						Action.examine("TV");
+					} else{
 						Story.printTooDark();
 					}
 				} else {
@@ -312,6 +314,12 @@ public class Parser {
 				break;
 			case "CHEAT":
 				Data.cheat();
+				break;
+			case "DIE":
+				Story.printHow();
+				break;
+			case "SIT":
+				Action.sit(sentence.get(1));
 				break;
 			default:
 				Story.invalid();

@@ -5,19 +5,22 @@ public class Story {
 	public static boolean stopScroll;
 	
 	public static int scrollStop;
-	public static int scrollStopBook = 930;
-	public static int scrollStopPamphlet = 1790;
+	// public static int scrollStopBook = 930;
+	// public static int scrollStopLeaflet = 1790;
+	// public static int scrollStopKimi = 1523;
+	// public static int scrollStopTheater = 333;
 	public static int scrollStopTrance1 = 470;
 	public static int scrollStopTrance2 = 270;
 	public static int scrollStopTrance3 = 1720;
 	
-	private static String help = "This game understands a variety of commands such as LOOK, EXAMINE BOX, or PICK UP THE SHINY PEARL.\nList of shortcuts:\ngo north = n\ngo south = s\ngo east = e\ngo west = w\ngo northeast = ne\ngo northwest = nw\ngo southeast = se\ngo southwest = sw\nup = u\ndown = d\nlook = l\nexamine = x\ninventory = i\nmemory = m\nhelp = h\nwait = z";
+	private static String help = "This game understands a variety of commands such as LOOK, EXAMINE BOX, and PICK UP THE SHINY PEARL.\nList of shortcuts:\ngo north = n\ngo south = s\ngo east = e\ngo west = w\ngo northeast = ne\ngo northwest = nw\ngo southeast = se\ngo southwest = sw\nup = u\ndown = d\nlook = l\nexamine = x\ninventory = i\nmemory = m\nhelp = h\nwait = z";
 	private static String invalid = "That is a sentence I don't understand."; // Frotz copyright?
 	private static String inventory = "Your inventory contains: ";
 	private static String inventoryEmpty = "Your inventory is empty.";
 	private static String missingNoun = "You are missing a noun in that sentence.";
 	private static String notHere = "You can't see that here.";
 	private static String alreadyHave = "You already have that.";
+	private static String alreadyDoing = "You are already doing that.";
 	private static String noExit = "You can't go that way.";
 	private static String locked = "It's locked.";
 	private static String doorBlocking = "The door blocking you way.";
@@ -44,8 +47,8 @@ public class Story {
 	
 	// Reaper
 	private static String seeReaper1 = "Out of the corner of your eye, you see a hooded figure to the north before it vanishes out of sight.";
-	private static String reaperEncounter1 = "A figure in a black robe lurks out from around the corner. Before you can act, it brandishes a long sword and whispers, \"What year did Palu write Post Radius?\"";
-	private static String reaperEncounter2 = "You hear the deck creak behind you. A figure in a black robe lurks out from around the corner. Before you can act, it brandishes a long sword and whispers, \"What year did Palu write Post Radius?\"";
+	private static String reaperEncounter1 = "A figure in a black robe lurks out from around the corner. Before you can act, it brandishes a long sword and whispers, \"What year did the wabewalker write Bunraku?\"";
+	private static String reaperEncounter2 = "You hear the deck creak behind you. A figure in a black robe lurks out from around the corner. Before you can act, it brandishes a long sword and whispers, \"What year did the wabewalker write Bunraku?\"";
 	private static String reaperWhispers = "The cloaked figure whispers...";
 	private static String reaperWrong1 = "\"...Incorrect.\"";
 	private static String reaperWrong2 = "\"No.\"";
@@ -111,19 +114,23 @@ public class Story {
 	public static String tod6 = "\"I apologize. It was inappropriate of me to ask.\"";
 	public static String tod7 = "He looks at you as if he expects you to ask him a question.";
 	public static String tod8 = "\"I can't claim to know what you are talking about.\"";
-	public static String tod9 = "\"You're late. Luckily for us, our target has followed you here. Ambushes are always easier to execute than a hunt. This guy is all yours. Here, take this.\"\nThey hand you a long sword.\n\"One last thing. Check to make sure that he is not a bodhisattva before you finish him. Now go.\"";
+	public static String tod9 = "\"You're late. Luckily for us, our target has followed you here. Ambushes are always easier to execute than a hunt. This one is all yours. Here, take this.\"\nThey hand you a long sword.\n\"One last thing. Be sure they are not awake. Now go.\"";
 	public static String tod10 = "\"The chest won't open until you complete this job. Now go.\"";
 	public static String tod11 = "\"Hmm. That's not right,\" Ichiro mutters while sipping his tea. \"You woke up prematurely. And you looked pretty uncomfortable throughout the hypnosis also. Understand that whatever you just went through wasn't real. I do apologize if you experienced anything unpleasant. I suppose my experiment served its purpose, although I have some improvements to make. Here's the scroll. I hope you somehow find it useful. Thank you again for all of your help.\" He ushers you out.";
 	
 	// TV
-	private static String theaterTV = "Bright white light. Fades. Monk enters scene. He says, \"Konnichiwa. My name is Kiyoshi Mikami. This is my introduction to Shingon video. The name 'Shingon' means 'true word,' referring to the mantra or the chanting that's used in the practice. Shingon was first brought to Japan from China in  A.D. by Kukai. One fundamental principle is the belief that you can attain buddahood in this life without reincarnation. The idea is to break down the mental barrier between yourself and the universe and realize oneness. All of the strength and wisdom of the universe becomes yours after this realization. The practice of prana, mandala, and mantra is called sanmitsu. Prana is the breath, which must precede all else. Mandala is the concept of visualization, and mantra is chanting. Bring those three together as one. Pair mandalas to their sister mantra to enhance their power. Traditional pairings include the Conch Shell with the Celestial Sutra, the Golden Fish with the Mantra of Light, the Endless Knot with the Gohogo Mantra, the Wheel of Dharma with the Mantra of Jambi, the Lotus Flower with the Heart Sutra... The list goes on. This is the process to achieve oneness and to recieve the aid from your deity. You must destroy parts of yourself at times if you are to maintain inner balance. You will start to merge with it and become one with it, and from there, you merge with the universe. Thank you and namaste.\" The monk exits the scene.";
+	private static String theaterTV = "Bright white light. Fills room with glow. Fades. Monk enters scene. He says, \"Konnichiwa. My name is Kiyoshi Mikami. This is my introduction to Shingon video. The name 'Shingon' means 'true word,' referring to the mantra or the chanting that's used in the practice. Shingon was first brought to Japan from China in  A.D. by Kukai. One fundamental principle is the belief that you can attain buddahood in this life without reincarnation. The idea is to break down the mental barrier between yourself and the universe and realize oneness. All of the strength and wisdom of the universe becomes yours after this realization. The practice of prana, mandala, and mantra is called sanmitsu. Prana is the breath, which must precede all else. Mandala is the concept of visualization, and mantra is chanting. Bring those three together as one. Pair mandalas to their sister mantra to enhance their power. Traditional pairings include the Conch Shell with the Celestial Sutra, the Golden Fish with the Mantra of Light, the Endless Knot with the Gohogo Mantra, the Wheel of Dharma with the Mantra of Jambi, the Lotus Flower with the Heart Sutra... The list goes on. This is the process to achieve oneness and to recieve the aid from your deity. You must destroy parts of yourself at times if you are to maintain inner balance. You will start to merge with it and become one with it, and from there, you merge with the universe. Thank you and namaste.\" The monk exits the scene.";
 	
 	// Trance
 	private static String trance1 = "\"How is it when a practitioner goes along a narrow path?\"\n\n\"You will meet a deadly snake on the great road. I advise you not to run into it.\"\n\n\"What if I do run into it?\"\n\n\"You will lose your life.\"\n\n\"What if I don't run into it?\"\n\n\"You have no place to escape from it.\"\n\n\"Precisely at such a time, what then?\"\n\n\"It is lost.\"\n\n\"I wonder where it is gone...\"";
 	private static String trance2 = "\"What will happen when the leaves fall and the trees become bare?\"\n\n\"The golden wind.\"\n\n\"What do you mean?\"\n\n\"The trunk becomes visible in the autumn wind.\"";
 	private static String trance3 = "\"Where are you going?\"\n\n\"I am on pilgrimage, following the wind.\"\n\n\"What are you on pilgrimage for?\"\n\n\"I don't know.\"\n\n\"Non-knowing is most intimate.\"\n\n\"What year did Palu write Post Radius?\"";
 	
-	private static String samadhi = "The cloaked figure stares at you, and eventually lowers its sword. \"Moushiwake arimasen. My upmost apologies. Only a bodhisattva could have found the answer within themself. I believe you and I may walk parallel paths. Let us perform sanmitsu together, and strive to reach the end of this journey. Close your eyes, and I will guide you to samadhi.\"\n\nYou close your eyes. You see 62 images of Sarah Sitkin's artwork. It fades to black.\n\n GAME OVER";
+	private static String samadhi1 = "The cloaked figure pauses, and slowly lowers its sword.\n\"Moushiwake arimasen. My upmost apologies. Only an awakened one could have found the answer within themself. I believe you and I walk parallel paths. Let us perform sanmitsu together, and strive to reach the end of this journey.";
+	private static String samadhi2 = " Please, follow me.\"\n\nThe figure heads off to the east, and disappears to the south.";
+	private static String samadhi3 = " Please, follow me.\"\n\nThe figure heads off to the north, and disappears to the west.";
+	private static String samadhi4 = "\n\nThe figure walks over to the woman in the blue kimono.";
+	private static String samadhi5 = "END.";
 	
 	public static void setScrollbar() {
 		if (stopScroll) {
@@ -132,7 +139,7 @@ public class Story {
 		} else {
 			Bunraku.body.setCaretPosition(Bunraku.body.getDocument().getLength());
 		}
-		System.out.println("body length " + Bunraku.body.getDocument().getLength());
+		// System.out.println("body length " + Bunraku.body.getDocument().getLength());
 	}
 	
 	public static void setScrollStop(int i) {
@@ -220,7 +227,7 @@ public class Story {
 	}
 	
 	public static void printVisualize(String s) {
-		print(nowVisualizing + s);
+		print(nowVisualizing + s + ".");
 	}
 	
 	public static void printNotMemorized() {
@@ -262,6 +269,10 @@ public class Story {
 	
 	public static void printAlreadyHave() {
 		print(alreadyHave);
+	}
+	
+	public static void printAlreadyDoing() {
+		print(alreadyDoing);
 	}
 	
 	public static void printAlreadyOpen() {
@@ -563,6 +574,8 @@ public class Story {
 			Player.heardKimiWisdom = true;
 			Data.updateScore(5);
 		}
+		
+		// setScrollStop(scrollStopKimi);
 	}
 	
 	public static void printKimiWrong() {
@@ -630,17 +643,17 @@ public class Story {
 			
 			if (Player.memory.contains("Fish")) {
 				newLine();
-				print("   The sacred symbol: Fish");
+				print("   The sacred symbol: Golden Fish");
 			}
 			
 			if (Player.memory.contains("Lotus")) {
 				newLine();
-				print("   The sacred symbol: Lotus");
+				print("   The sacred symbol: Lotus Flower");
 			}
 			
 			if (Player.memory.contains("Knot")) {
 				newLine();
-				print("   The sacred symbol: Knot");
+				print("   The sacred symbol: Endless Knot");
 			}
 			
 			if (Player.memory.contains("om")) {
@@ -757,6 +770,7 @@ public class Story {
 	
 	public static void printTheaterTV() {
 		print(theaterTV);
+		// setScrollStop(scrollStopTheater);
 	}
 	
 	public static void printTrance(int t) {
@@ -767,27 +781,44 @@ public class Story {
 		
 		if (t == 1) {
 			print(trance1);
-			setScrollStop(scrollStopTrance1);
+			// setScrollStop(scrollStopTrance1);
 		}
 		
 		if (t == 2) {
 			print(trance2);
-			setScrollStop(scrollStopTrance2);
+			// setScrollStop(scrollStopTrance2);
 		}
 		
 		if (t == 3) {
+			Data.setYear();
 			print(trance3);
 			newParagraph();
 			print("\"" + Data.year + ".\"");
-			setScrollStop(scrollStopTrance3);
+			// setScrollStop(scrollStopTrance3);
 		}
 		
 		newParagraph();
 		printDoneMeditating();
 	}
 	
-	public static void printSamadhi() {
-		print(samadhi);
+	public static void printSamadhi1() {
+		print(samadhi1);
+		
+		switch (Player.getLocation().title) {
+			case "Outside Gallery":
+				print(samadhi2);
+				break;
+			case "Living Room":
+				print(samadhi3);
+				break;
+			case "Overlook":
+				print(samadhi4);
+				break;
+			default:
+				System.out.println("Story.printSamadhi1 error");
+				break;
+		}
+		
 		Data.updateScore(10);
 	}
 }

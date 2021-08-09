@@ -32,11 +32,18 @@ public class Action {
 				break;
 			case "Assembly Room":
 				Player.updateLocation(Room.insideGallery);
-				Story.print("\nTo the west, you see a monk in a faded orange robe. You hear yourself whisper, \"What year did Palu write Post Radius?\" The monk says something that you cannot make out, and you black out. You find yourself sitting in Hisachi Ichiro's House.\n");
-				Player.returnToIsachi();
+				
+				if (Player.dreaming) {
+					Story.print("\nTo the west, you see a monk in a faded orange robe. You hear yourself whisper, \"What year did the wabewalker write Bunraku?\" The monk says something that you cannot make out, and you black out. You find yourself sitting in Hisachi Ichiro's House.\n");
+
+					Player.returnToIsachi();
+				}
 				break;
 			case "Living Room":
 				Player.updateLocation(Room.shrineRoom2);
+				
+				if (!World.disableReaper)
+					World.tripwire = true;
 				break;
 			case "Pond":
 				Player.updateLocation(Room.courtyard);
@@ -115,11 +122,10 @@ public class Action {
 				World.shrineRoom2DoorOpen = false;
 
 				if (World.tripwire) {
+					World.tripwire = false;
 					Story.newLine();
 					Player.facingReaper = true;
 					Story.printReaperEncounter1();
-				} else {
-					World.tripwire = true;
 				}
 				break;
 			case "Courtyard":
@@ -169,11 +175,10 @@ public class Action {
 				break;
 			case "Garden Overlook":
 				Player.updateLocation(Room.cafe);
-				if (!Player.dreaming) {
-					if (!Player.sawReaper1) {
-						Player.sawReaper1 = true;
-						Story.printSeeReaper1();
-					}
+				
+				if (!Player.dreaming && !Player.sawReaper1 && !World.disableReaper) {
+					Player.sawReaper1 = true;
+					Story.printSeeReaper1();
 				}
 				break;
 			case "Outside Gallery":
@@ -692,10 +697,10 @@ public class Action {
 				}
 				break;
 				*/
-			case "PAMPHLET":
-				if (Room.getObjects().contains(Item.pamphlet)) {
-					Item.getPamphlet();
-				} else if (Player.inventory.contains(Item.pamphlet)) {
+			case "LEAFLET":
+				if (Room.getObjects().contains(Item.leaflet)) {
+					Item.getLeaflet();
+				} else if (Player.inventory.contains(Item.leaflet)) {
 					Story.printAlreadyHave();
 				} else {
 					Story.printNotHere();
@@ -729,7 +734,7 @@ public class Action {
 				}
 				break;
 			case "FISH":
-				if (Player.getLocation().title.equals("Pond")) {
+				if (Player.fishing && Player.getLocation().title.equals("Pond")) {
 					reelIn();
 				} else {
 					Story.printNotHere();
@@ -772,6 +777,21 @@ public class Action {
 				break;
 			case "CRANES":
 				moveCranes();
+				break;
+			case "SIGN":
+				Item.takeSign();
+				break;
+			case "SOFA":
+				Item.takeSofa();
+				break;
+			case "PLAQUE":
+				Item.takePlaque();
+				break;
+			case "DOOR":
+				Item.takeDoor();
+				break;
+			case "SAFE":
+				Item.takeSafe();
 				break;
 			default:
 				Story.printNotHere();
@@ -947,10 +967,10 @@ public class Action {
 				}
 				break;
 				*/
-			case "PAMPHLET":
-				if (Player.inventory.contains(Item.pamphlet)) {
-					Player.inventory.remove(Item.pamphlet);
-					Room.getObjects().add(Item.pamphlet);
+			case "LEAFLET":
+				if (Player.inventory.contains(Item.leaflet)) {
+					Player.inventory.remove(Item.leaflet);
+					Room.getObjects().add(Item.leaflet);
 					Story.print("Dropped.");
 				} else {
 					Story.printNotInInventory();
@@ -1026,44 +1046,6 @@ public class Action {
 		}
 	}
 	
-	private static void readSign() {
-		switch (Player.getLocation().title) {
-			case "Sand Exhibit":
-				Story.print(Story.sandExhibitSign);
-				break;
-			case "Shrine Room 2":
-				Story.print(Story.shrineRoom2Sign);
-				break;
-			case "Sitting Room":
-				Story.print(Story.sittingRoomSign);
-				break;
-			case "Inside Gate":
-				Story.print(Story.insideGateSign);
-				break;
-			case "Bottom of Stairs":
-				Story.print(Story.bottomOfStairsSign);
-				break;
-			case "Top of Stairs":
-				Story.printReadKnot();
-				
-				if (!Player.memory.contains("Knot")) {
-					Story.printMemorizeSymbol();
-					Player.memory.add("Knot");
-					Data.updateScore(10);
-				}
-				break;
-			case "Hondo":
-				Story.print(Story.hondoSign);
-				break;
-			case "Shrine Room 3":
-				Story.print(Story.shrineRoom3Sign);
-				break;
-			default:
-				Story.printNotHere();
-				break;
-		}
-	}
-	
 	public static void examine(String w) {
 		switch (w) {
 			case "":
@@ -1078,8 +1060,8 @@ public class Action {
 			case "HANDBOOK":
 				//Item.examineHandbook();
 				break;
-			case "PAMPHLET":
-				Item.examinePamphlet();
+			case "LEAFLET":
+				Item.examineLeaflet();
 				break;
 			case "OM":
 				Item.examineOm();
@@ -1150,7 +1132,7 @@ public class Action {
 				}
 				break;
 			case "SIGN":
-				readSign();
+				Item.examineSign();
 				break;
 			case "ROBE":
 				Story.print("It's a loosely-fit faded " + Player.getRobe() + " robe."); 
@@ -1232,10 +1214,95 @@ public class Action {
 			case "HOLE":
 				examineHole();
 				break;
+			case "WINDOW":
+				Item.examineWindow();
+				break;
+			case "CHUTE":
+				Item.examineChute();
+				break;
+			case "SOFA":
+				Item.examineSofa();
+				break;
+			case "EXHIBIT":
+				Item.examineExhibit();
+				break;
 			default:
 				Story.printNotHere();
 				break;
 		}
+	}
+	
+	public static void tryToWalk(String w) {
+		if (Player.sittingOnGround || Player.sittingOnSofa) {
+			Story.print("You would have to stand up first to do that.");
+		} else {
+			
+		}
+	}
+	
+	public static void tryToSit(String w) {
+		if (Player.sittingOnGround) {
+			if (w.equals("") || w.equals("DOWN") || w.equals("GROUND")) {
+				Story.printAlreadyDoing();
+			} else if (w.equals("SOFA")) {
+				if (Player.getLocation().title.equals("Lounge")) {
+					Story.print("You would have to stand up first to do that.");
+				} else {
+					Story.printNotHere();
+				}
+			} else {
+				Story.invalid();
+			}
+		} else if (Player.sittingOnSofa) {
+			if (w.equals("") || w.equals("DOWN")) {
+				Story.printAlreadyDoing();
+			} else if (w.equals("GROUND")) {
+				Story.print("You would have to stand up first to do that.");
+			} else {
+				Story.invalid();
+			}
+		} else {
+			sit(w);
+		}
+	}
+	
+	public static void sit(String w) {
+		switch (w) {
+			case "":
+				if (Player.getLocation().title.equals("Lounge")) {
+					Player.sittingOnSofa = true;
+					Story.print("You sit on the sofa. It's quite comfortable.");
+				} else {
+					Player.sittingOnGround = true;
+					Story.print("You find a comfortable position to sit on the ground.");
+				}
+				break;
+			case "DOWN":
+				if (Player.getLocation().title.equals("Lounge")) {
+					Player.sittingOnSofa = true;
+					Story.print("You sit on the sofa. It's quite comfortable.");
+				} else {
+					Player.sittingOnGround = true;
+					Story.print("You find a comfortable position to sit on the ground.");
+				}
+				break;
+			case "GROUND":
+				Player.sittingOnGround = true;
+				Story.print("You find a comfortable position to sit on the ground.");
+				break;
+			case "SOFA":
+				if (Player.getLocation().title.equals("Lounge")) {
+					Player.sittingOnSofa = true;
+					Story.print("You sit on the sofa. It's quite comfortable.");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				
+				break;
+		}
+			
 	}
 	
 	public static void examineHole() {
@@ -1272,6 +1339,9 @@ public class Action {
 			case "CHEST":
 				openChest();
 				break;
+			case "BOOK":
+				Item.examineBook();
+				break;
 			default:
 				Story.print("That is not something you can open.");
 				break;
@@ -1305,6 +1375,9 @@ public class Action {
 				break;
 			case "CASE":
 				shutCase();
+				break;
+			case "BOOK":
+				Story.print("It's closed.");
 				break;
 			default:
 				Story.print("That is not something you can shut.");
@@ -1824,13 +1897,11 @@ public class Action {
 						Player.savePurpleInventory();
 						Story.printBlackOut();
 						Player.purpleAtTV = true;
+						Player.updateLocation(Room.masterBedroom);
 						
-						if (Player.greenAtTV) {
-							Player.updateLocation(Room.masterBedroom);
+						if (Player.greenAtTV)
 							Player.restoreGreenInventory();
-						} else {
-							Player.updateLocation(Room.shrineRoom2);
-						}
+						
 					} else {
 						Story.printTapePlaying();
 					}

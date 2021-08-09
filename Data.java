@@ -3,13 +3,11 @@ public class Data {
 	public static int score = 0;
 	public static int maxScore = 200;
 	public static int year = -2137459457;
-	public static int kimisNumber = -19670064;
+	public static int kimisNumber = 19670064;
 	
 	public static boolean gameOver;
 	
-	public static void setUp() {
-		setYear();
-		setKimisNumber();
+	public static void setUpGame() {
 		Thesaurus.addExtraWords();
 		World.OOO = true;
 		Player.orangeAlive = true;
@@ -25,6 +23,9 @@ public class Data {
 		Room.setTempleObjects();
 		Room.setRoomsWithPlaques();
 		resetAllBooleans();
+		Story.printLocation();
+		Story.newLine();
+		Story.printDesc();
 		
 		// test
 		test();
@@ -43,22 +44,17 @@ public class Data {
 	}
 	
 	public static void setYear() {
-		kimisNumber = (int)(Math.random() * 99999999 + 1);
+			year = (int)(Math.random() * 1999 + 1);
+		
+		// resets year to desired range or if player previously guessed it
+		while (year < 101 || Player.answers.contains(year)) {
+			year = (int)(Math.random() * 1999 + 1);
+		}
 	}
 	
-	public static void setKimisNumber() {
-		year = (int)(Math.random() * 5998 + 1);
-		
-		// resets year to desired range
-		while ((year > 1861 && year < 2200)	|| (year < 101)) {
-			//System.out.println("Data.setYear contained undesirable number");
-			year = (int)(Math.random() * 5998 + 1);
-		}
-		
-		// resets year if player previously guessed it
-		while (Player.answers.contains(year)) {
-			System.out.println("Data.setPostRadiusYear contained previous monk answer");
-			year = (int)(Math.random() * 5998 + 1);
+	public static void checkAnswers() {
+		if (Player.answers.size() > 1500) {
+			Player.answers.clear();
 		}
 	}
 	
@@ -111,7 +107,7 @@ public class Data {
 	}
 	
 	private static void addMemory() {
-		Player.memory.add("Lotus");
+		Player.memory.add("Flower");
 		Player.memory.add("Fish");
 		Player.memory.add("Knot");
 		Player.memory.add("om");
@@ -141,6 +137,6 @@ public class Data {
 	}
 	
 	public static void cheat() {
-		//Story.printTrance(3);
+		System.out.println(kimisNumber);
 	}
 }

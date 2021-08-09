@@ -28,6 +28,7 @@ public class World {
 	public static boolean cornOnRod;
 	public static boolean bite;
 	public static boolean theaterTVAtBeginning;
+	public static boolean disableReaper;
 	
 	public static void resetBulbs() {
 		if (Player.orangeAlive && Player.greenAlive && Player.purpleAlive) {

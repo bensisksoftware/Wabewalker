@@ -12,7 +12,7 @@ public class Item {
 	public static String rodTitle = "fishing pole"; 
 	//public static String bookletTitle = "booklet"; 
 	//public static String handbookTitle = "handbook"; 
-	public static String pamphletTitle = "pamphlet"; 
+	public static String leafletTitle = "leaflet"; 
 	public static String cornTitle = "kernel of corn"; 
 	public static String parchmentTitle = "parchment"; 
 	public static String cardTitle = "business card"; 
@@ -40,8 +40,12 @@ public class Item {
 	/** DONT NEED THIS
 	public static String handbookDesc = "Hanzo's\n Handy\n   Fishing\n    Handbook\n\n   Whether you're a novice or a veteran, the fundamentals are the same for everybody. People of all ages and skills can enjoy the pleasures of fishing.\n   First, you need to pick a spot. Talk to local fisherman for tips on locations. Make sure you're not trespassing onto private property!\n   Next you need to decide on a rod. Typically, a medium length pole will be appropriate for most beginners. Pick a rod that's roughly as long as you are tall and that's a comfortable weight for your casting arm.\n   Additionaly, you need to choose the right bait for the fish you're trying to catch. You can either purchase live bait at the local angling shop, or you can gather your own.\n   Once you've gotten everything together and arrive at your spot, you need to bait your hook. While it depends on the kind of bait you're using, in general, you'll want to work the hook through your bait as many times as possible to keep it securely on the hook.\n   Now the fun begins! Cast your line. Most beginners will cast side arm, using the same motion used to skip a stone across water. Bring the rod back to your side and bring it smoothly in the direction you'd like to cast, releasing the line as you point in the right direction.\n   Wait quietly. You can tell if a fish is biting by touch, or by watching a loose line or a bobber.\n   Once you hooked a fish, keep the line tight and reel it in! Decide if you are releasing or keeping the fish. If the fish is too small, toss it bacck gently into the water. If you are going to cook the fish, you may want to consider cleaning the fish at this point, or keeping it alive in an underwater cage for the purpose and cleaning it later.\n   Further reading:\n   Hanzo's Handy Sailing Handbook\n   Hanzo's Handy Yoga Handbook\n   Hanzo's Handy Tea Ceremony Handbook\n   Hanzo's Handy Bunraku Handbook";
 	*/
-	public static String pamphletDesc = "(scroll down)\n\n  The term mantra is traditionally said to be derived from two roots: man, to think; and the action-oriented suffix -tra. Thus a mantra can be considered to be a linguistic device for deepening ones thought, or in the Buddhist context for developing the enlightened mind.\n   They have also been used as magic spells for purposes such as attaining wealth and long life, and eliminating enemies.\n   There is no essential difference between the syllables of mantras and sacred texts, and those of ordinary language. If one understood the workings of mantra, then any sounds could be representative of ultimate reality. Despite this, a collection of syllables and mantras have been written to better acheive this purpose.\n(Below, someone wrote a list that includes drawings.)\n   Emei Mantra: eye, ear, hand, foot, heart, heart, mouth, foot, ear, ear, heart, mouth, hand, foot.\n   Gohogo Mantra: mouth, heart, foot, eye, eye, nose, nose, foot, nose, hand, eye, ear, nose, nose.\n   Heart Sutra: ear, foot, ear, foot, heart, hand, nose, eye, foot, ear, foot, mouth, hand, nose.\n   Luminous Sutra: heart, nose, ear, mouth, mouth, foot, eye, foot, nose, hand, ear, mouth, ear, heart.\n   Mantra of Harmony: eye, foot, ear, foot, mouth, hand, nose, ear, heart, ear, foot, heart, hand, nose.\n   Mantra of Light: eye, hand, heart, mouth, nose, heart, hand, ear, mouth, heart, foot, nose, heart, hand.\n   Mantra of Radiance: ear, heart, foot, hand, nose, eye, mouth, ear, heart, foot, hand, nose, ear, mouth.\n   Sutra of Peace: hand, ear, mouth, heart, foot, nose, heart, hand, heart, hand, heart, mouth, nose, heart.\n   Sutra of Shadow: ear, ear, hand, heart, eye, nose, ear, mouth, heart, eye, hand, mouth, nose, ear.";
-	public static String bookDesc = "(scroll down)\n\n   BUNRAKU\n   Bunraku is Japanese puppet theater that blends elements of storytelling and joruri music to create a powerful performance that has been revered in Japanese culture as an artform for hundreds of years.\n   Three Ningyozukai (puppeteers) manipulate a single ningyo (puppet), the most experienced controlling the head and right hand, the second controlling the left hand, and the third operating the feet and legs.\n   Great care was put into crafting each ningyo's facial mechanics to best emulate the emotions of humans. The main puppeteer has total control of every individual facial feature with one hand.\n   The Ningyozukai perform in full view of the audience, generally wearing black robes. As the actions of the ningyo are the focus, the audience knows to ignore the visible Ningyozukai for the purpose of maximizing their immersion.";
+	
+	// REWRITE
+	public static String bookDesc = "   BUNRAKU\n   Bunraku is a form of Japanese puppet theater that blends elements of music and storytelling to create a powerful performance that has been revered in Japanese culture for hundreds of years.\n   Three puppeteers will manipulate a single puppet: the one with the most experience will control the head and right hand, the second will move the left hand, and the third operates the legs. Great care was crafted into the puppet's facial mechanics to best emulate the emotions of humans.\n   The puppeteers perform in full view of the audience, generally wearing black robes. Over time, the audience begins to ignore the visible puppeteers for the purpose of deepening their immersion.";
+	
+	// COPYRIGHTED
+	public static String leafletDesc = "   Emei Mantra: eye, ear, hand, foot, heart, heart, mouth, foot, ear, ear, heart, mouth, hand, foot.\n   Gohogo Mantra: mouth, heart, foot, eye, eye, nose, nose, foot, nose, hand, eye, ear, nose, nose.\n   Heart Sutra: ear, foot, ear, foot, heart, hand, nose, eye, foot, ear, foot, mouth, hand, nose.\n   Luminous Sutra: heart, nose, ear, mouth, mouth, foot, eye, foot, nose, hand, ear, mouth, ear, heart.\n   Mantra of Harmony: eye, foot, ear, foot, mouth, hand, nose, ear, heart, ear, foot, heart, hand, nose.\n   Mantra of Light: eye, hand, heart, mouth, nose, heart, hand, ear, mouth, heart, foot, nose, heart, hand.\n   Mantra of Radiance: ear, heart, foot, hand, nose, eye, mouth, ear, heart, foot, hand, nose, ear, mouth.\n   Sutra of Peace: hand, ear, mouth, heart, foot, nose, heart, hand, heart, hand, heart, mouth, nose, heart.\n   Sutra of Shadow: ear, ear, hand, heart, eye, nose, ear, mouth, heart, eye, hand, mouth, nose, ear.";
 	
 	public String title;
 	public String desc;
@@ -62,7 +66,7 @@ public class Item {
 	public static Item rod = new Item(rodTitle, rodDesc);
 	public static Item book = new Item(bookTitle, bookDesc);
 	//public static Item handbook = new Item(handbookTitle, handbookDesc);
-	public static Item pamphlet = new Item(pamphletTitle, pamphletDesc);
+	public static Item leaflet = new Item(leafletTitle, leafletDesc);
 	public static Item corn = new Item(cornTitle, cornDesc);
 	public static Item parchment = new Item(parchmentTitle, parchmentDesc);
 	public static Item card = new Item(cardTitle, cardDesc);
@@ -278,15 +282,15 @@ public class Item {
 	/**
 	public static void getHandbook() {
 		Story.printTake(handbookTitle);
-		Player.inventory.add(pamphlet);
+		Player.inventory.add(leaflet);
 		Room.getObjects().remove(handbook);
 	}
 	*/
 	
-	public static void getPamphlet() {
-		Story.printTake(pamphletTitle);
-		Player.inventory.add(pamphlet);
-		Room.getObjects().remove(pamphlet);
+	public static void getLeaflet() {
+		Story.printTake(leafletTitle);
+		Player.inventory.add(leaflet);
+		Room.getObjects().remove(leaflet);
 	}
 	
 	public static void getCorn() {
@@ -387,7 +391,7 @@ public class Item {
 	public static void examineBook() {
 		if (Player.inventory.contains(book) || Room.getObjects().contains(book)) {
 			Story.print(bookDesc);
-			Story.setScrollStop(Story.scrollStopBook);
+			// Story.setScrollStop(Story.scrollStopBook);
 			
 			if (!Player.readBook) {
 				Player.readBook = true;
@@ -506,10 +510,10 @@ public class Item {
 		|| (Player.getLocation().title.equals("Shrine Room 1") && World.jiInSafe && World.shrineRoom1SafeOpen))
 			examineJi();
 		
-		if (Room.getObjects().contains(ra))
+		if (Room.getObjects().contains(ra) || Player.inventory.contains(ra))
 			examineRa();
 		
-		if (Room.getObjects().contains(shi))
+		if (Room.getObjects().contains(shi) || Player.inventory.contains(shi))
 			examineShi();
 	}
 	
@@ -544,13 +548,13 @@ public class Item {
 	}
 	*/
 	
-	public static void examinePamphlet() {
-		if (Player.inventory.contains(pamphlet) || Room.getObjects().contains(pamphlet)) {
-			Story.print(pamphletDesc);
-			Story.setScrollStop(Story.scrollStopPamphlet);
+	public static void examineLeaflet() {
+		if (Player.inventory.contains(leaflet) || Room.getObjects().contains(leaflet)) {
+			Story.print(leafletDesc);
+			// Story.setScrollStop(Story.scrollStopLeaflet);
 			
-			if (!Player.readPamphlet) {
-				Player.readPamphlet = true;
+			if (!Player.readLeaflet) {
+				Player.readLeaflet = true;
 				Data.updateScore(5);
 			}
 		} else {
@@ -558,9 +562,91 @@ public class Item {
 		}
 	}
 	
+	public static void examineSign() {
+		switch (Player.getLocation().title) {
+			case "Sand Exhibit":
+				Story.print(Story.sandExhibitSign);
+				break;
+			case "Shrine Room 2":
+				Story.print(Story.shrineRoom2Sign);
+				break;
+			case "Sitting Room":
+				Story.print(Story.sittingRoomSign);
+				break;
+			case "Inside Gate":
+				Story.print(Story.insideGateSign);
+				break;
+			case "Bottom of Stairs":
+				Story.print(Story.bottomOfStairsSign);
+				break;
+			case "Top of Stairs":
+				Story.printReadKnot();
+				
+				if (!Player.memory.contains("Knot")) {
+					Story.printMemorizeSymbol();
+					Player.memory.add("Knot");
+					Data.updateScore(10);
+				}
+				break;
+			case "Hondo":
+				Story.print(Story.hondoSign);
+				break;
+			case "Shrine Room 3":
+				Story.print(Story.shrineRoom3Sign);
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
 	public static void examineCorn() {
 		if (Player.inventory.contains(corn) || Room.getObjects().contains(corn)) {
 			Story.print(cornDesc);
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void examineWindow() {
+		switch (Player.getLocation().title) {
+			case "Hallway":
+				Story.print("There's shit behind it.");
+				break;
+			case "Master Bedroom":
+				Story.print("You're on the second story.");
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void examineChute() {
+		switch (Player.getLocation().title) {
+			case "Hallway":
+				Story.print("It's a damn chute.");
+				break;
+			case "Closet":
+				Story.print("It's a damn chute.");
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void examineSofa() {
+		if (Player.getLocation().title.equals("Lounge")) {
+			Story.print("Its red cushions look comfortable.");
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void examineExhibit() {
+		if (Player.getLocation().title.equals("Sand Exhibit")) {
+			Story.print("Its a sand exhibit.");
 		} else {
 			Story.printNotHere();
 		}
@@ -763,6 +849,46 @@ public class Item {
 			default:
 				Story.invalid();
 				break;
+		}
+	}
+	
+	public static void takeSign() {
+		if (Room.hasSign()) {
+			Story.printCantTake();
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void takeDoor() {
+		if (Room.hasDoor()) {
+			Story.printCantTake();
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void takeSafe() {
+		if (Room.hasSafe()) {
+			Story.printCantTake();
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void takeSofa() {
+		if (Player.getLocation().title.equals("Lounge")) {
+			Story.printCantTake();
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void takePlaque() {
+		if (Room.roomsWithPlaques.contains(Player.getLocation()) || (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box))) {
+			Story.printCantTake();
+		} else {
+			Story.printNotHere();
 		}
 	}
 }

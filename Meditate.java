@@ -76,10 +76,19 @@ public class Meditate {
 			case "LOTUS":
 				visualize("LOTUS");
 				break;
+			case "FLOWER":
+				visualize("LOTUS");
+				break;
 			case "FISH":
 				visualize("FISH");
 				break;
+			case "GOLDEN":
+				visualize("FISH");
+				break;
 			case "KNOT":
+				visualize("KNOT");
+				break;
+			case "ENDLESS":
 				visualize("KNOT");
 				break;
 			case "OM":
@@ -117,6 +126,7 @@ public class Meditate {
 		visualizingKnot = false;
 		chantInputs.clear();
 		Story.printDoneMeditating();
+		Story.newParagraph();
 	}
 	
 	public static void visualize(String n) {

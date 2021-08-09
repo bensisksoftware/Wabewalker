@@ -87,12 +87,12 @@ public class Room {
 	public static String intro = "You bought a ticket to the Adachi Museum of Art.\n\nThis is the introduction.\n\nBUNRAKU\n\nCopyright (C) 2021 by Benjamin, Inc. All rights reserved.\n\nBUNRAKU is a trademark of Benjamin, Inc.\n\nRelease 1\n\n";
 	public static String gardenPatioDesc = "The celebrated White Gravel and Pine Tree Garden of the Adachi Museum expands before you. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the south is the Adachi Museum of Art.";
 	public static String cobbleSquareDesc = "Your sandles clack on the cobblestone tiles. The garden expands to the north. There are rooms to the east and west of you. To the south is a hut.";
-	public static String teaRoomDesc = "You are standing in a room designed for drinking tea. There are a few benches here. There is an exit to the east.";
-	public static String acBookDesc = "There is a large blue book here, titled: \"MAGICK Liber ABA, by Aleister Crowley.\"";
+	public static String teaRoomDesc = "You are standing in a room designed for drinking tea. There is an exit to the east.";
+	// public static String acBookDesc = "There is a large blue book here, titled: \"MAGICK Liber ABA, by Aleister Crowley.\"";
 	public static String sandExhibitDesc = "This room displays a sand exhibit. To the south lies a door. Mounted on the door is a plaque. Beside the door is a sign.";
 	public static String thatchedHutDesc = "You are in a thatched hut. There is a Chippendale mirror standing here. To the southeast is a lovely hallway. The cobble square is to the north.";
 	public static String gardenOverlookDesc = "The White Gravel and Pine Tree Garden of the Adachi Museum expands to the south. Part of you yearns to stroll through the sand, but you know better than to disturb the cherished landscape. To the west is a room. To the east is a jungle path. The thatched hut is to the northwest.";
-	public static String loungeDesc = "A comfy red sofa lines the wall. Above it, built into the wall, is a metal safe. On the safe is a plaque. There is an exit to the east.";
+	public static String loungeDesc = "A red sofa lines the wall. Above it, built into the wall, is an iron safe. On the safe is a metal plaque. There is an exit to the east.";
 	public static String cafeDesc = "The cafe is empty. There's a masked woman in a blue kimono staring at you from behind the glass. There are paths to the west and to the north.";
 	public static String outsideGalleryDesc = "The entrance to the gallery is here to the east. The cafe is to the south.";
 	public static String shrineRoom1Desc = "Beautiful shrine. There's a TV here. There's a safe with a plaque here.";
@@ -102,11 +102,11 @@ public class Room {
 	public static String livingRoomDesc = "A masked woman in a blue kimono is standing outside the window. You see the shrine room north of here. To the east, a gentle breeze flows in, and you see a deck area.";
 	public static String pondDesc = "The trickling of water sounds nice. You see some fish swimming. There are hallways to the west and north.";
 	public static String courtyardDesc = "Sunny courtyard. A door is to the east. There's a plaque next to it. A winding stone staircase leads to the northeast. A hallway extends south.";
-	public static String landingDesc = "You are halfway up the stairs. It ascends to the southeast, and descends to the southwest.";
+	public static String landingDesc = "You stop at a landing that is halfway up the winding staircase. It ascends to the southeast, and descends to the southwest.";
 	public static String hallwayDesc = "There's a laundry chute here with a button. There is a plaque here. There is a glass pane with a shelf behind it and this constitutes the laundry chute.";
 	public static String sittingRoomDesc = "A quaint room. Sign here. There are rooms to the east and west, as well as a hallway to the north.";
 	public static String libraryDesc = "A gentle breeze flows in through the window. There is a Chippendale mirror standing here. There is a safe with a plaque on the wall.";
-	public static String masterBedroomDesc = "This is a small masterBedroom. A red book, a blue book, and a black book stand on the shelf. Hung on the wall is a fishing pole. There's a TV here.";
+	public static String masterBedroomDesc = "This is the master bedroom. There's a TV here.";
 	public static String closetDesc = "This is a small closet. Above is a chute that comes out from the ceiling.";
 	public static String darkPassagewayDesc = "This is a dark passageway. There is a way to the north. Light from the shrine room emits through the doorway to the east. On the south wall, a beam of light is shining through a small hole.";
 	public static String mannequinRoomDesc = "It's dark here, but you can see what look to be mannequins. There are passageways to the east and south.";
@@ -300,7 +300,7 @@ public class Room {
 		//masterBedroomObjects.add(Item.booklet); 
 		sittingRoomObjects.add(Item.phone); 
 		//sittingRoomObjects.add(Item.handbook); 
-		libraryObjects.add(Item.pamphlet); 
+		libraryObjects.add(Item.leaflet); 
 		closetObjects.add(Item.corn); 
 		mannequinRoomObjects.add(Item.parchment); 
 	}
@@ -319,7 +319,7 @@ public class Room {
 		roomsWithPlaques.add(courtyard);
 		roomsWithPlaques.add(hallway);
 		roomsWithPlaques.add(library);
-		roomsWithPlaques.add(hondo);
+		roomsWithPlaques.add(hamlet);
 		roomsWithPlaques.add(creakyDeck);
 	}
 	
@@ -495,5 +495,36 @@ public class Room {
 	
 	public static void removeScroll() {
 		location.get(0).scrollCount--;
+	}
+	
+	public static boolean hasSign() {
+		if (Player.getLocation().title.equals("Sand Exhibit") || Player.getLocation().title.equals("Sitting Room")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean hasDoor() {
+		if (Player.getLocation().title.equals("Sand Exhibit") 
+			|| Player.getLocation().title.equals("Shrine Room 1")
+			|| Player.getLocation().title.equals("Shrine Room 2")
+			|| Player.getLocation().title.equals("Dark Passageway")
+			|| Player.getLocation().title.equals("Courtyard")
+			|| Player.getLocation().title.equals("Closet")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean hasSafe() {
+		if (Player.getLocation().title.equals("Shrine Room 1") 
+			|| Player.getLocation().title.equals("Lounge")
+			|| Player.getLocation().title.equals("Library")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
