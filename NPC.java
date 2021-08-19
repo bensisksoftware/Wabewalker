@@ -140,6 +140,8 @@ public class NPC {
 			case "content":
 				if (w.equals("ASK")) {
 					askTod();
+				} else if (w.equals("HI")) {
+					Story.print("He smiles.");
 				} else if (w.equals("ICHIRO")) {
 					Story.print(Story.tod2);
 				} else if (w.equals("POWER")) {

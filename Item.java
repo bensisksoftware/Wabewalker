@@ -12,7 +12,7 @@ public class Item {
 	public static String rodTitle = "fishing pole"; 
 	//public static String bookletTitle = "booklet"; 
 	//public static String handbookTitle = "handbook"; 
-	public static String leafletTitle = "leaflet"; 
+	public static String cryptogramTitle = "cryptogram"; 
 	public static String cornTitle = "kernel of corn"; 
 	public static String parchmentTitle = "parchment"; 
 	public static String cardTitle = "business card"; 
@@ -45,7 +45,7 @@ public class Item {
 	public static String bookDesc = "   BUNRAKU\n   Bunraku is a form of Japanese puppet theater that blends elements of music and storytelling to create a powerful performance that has been revered in Japanese culture for hundreds of years.\n   Three puppeteers will manipulate a single puppet: the one with the most experience will control the head and right hand, the second will move the left hand, and the third operates the legs. Great care was crafted into the puppet's facial mechanics to best emulate the emotions of humans.\n   The puppeteers perform in full view of the audience, generally wearing black robes. Over time, the audience begins to ignore the visible puppeteers for the purpose of deepening their immersion.";
 	
 	// COPYRIGHTED
-	public static String leafletDesc = "   Emei Mantra: eye, ear, hand, foot, heart, heart, mouth, foot, ear, ear, heart, mouth, hand, foot.\n   Gohogo Mantra: mouth, heart, foot, eye, eye, nose, nose, foot, nose, hand, eye, ear, nose, nose.\n   Heart Sutra: ear, foot, ear, foot, heart, hand, nose, eye, foot, ear, foot, mouth, hand, nose.\n   Luminous Sutra: heart, nose, ear, mouth, mouth, foot, eye, foot, nose, hand, ear, mouth, ear, heart.\n   Mantra of Harmony: eye, foot, ear, foot, mouth, hand, nose, ear, heart, ear, foot, heart, hand, nose.\n   Mantra of Light: eye, hand, heart, mouth, nose, heart, hand, ear, mouth, heart, foot, nose, heart, hand.\n   Mantra of Radiance: ear, heart, foot, hand, nose, eye, mouth, ear, heart, foot, hand, nose, ear, mouth.\n   Sutra of Peace: hand, ear, mouth, heart, foot, nose, heart, hand, heart, hand, heart, mouth, nose, heart.\n   Sutra of Shadow: ear, ear, hand, heart, eye, nose, ear, mouth, heart, eye, hand, mouth, nose, ear.";
+	public static String cryptogramDesc = "   Emei Mantra: eye, ear, hand, foot, heart, heart, mouth, foot, ear, ear, heart, mouth, hand, foot.\n   Gohogo Mantra: mouth, heart, foot, eye, eye, nose, nose, foot, nose, hand, eye, ear, nose, nose.\n   Heart Sutra: ear, foot, ear, foot, heart, hand, nose, eye, foot, ear, foot, mouth, hand, nose.\n   Luminous Sutra: heart, nose, ear, mouth, mouth, foot, eye, foot, nose, hand, ear, mouth, ear, heart.\n   Mantra of Harmony: eye, foot, ear, foot, mouth, hand, nose, ear, heart, ear, foot, heart, hand, nose.\n   Mantra of Light: eye, hand, heart, mouth, nose, heart, hand, ear, mouth, heart, foot, nose, heart, hand.\n   Mantra of Radiance: ear, heart, foot, hand, nose, eye, mouth, ear, heart, foot, hand, nose, ear, mouth.\n   Sutra of Peace: hand, ear, mouth, heart, foot, nose, heart, hand, heart, hand, heart, mouth, nose, heart.\n   Sutra of Shadow: ear, ear, hand, heart, eye, nose, ear, mouth, heart, eye, hand, mouth, nose, ear.";
 	
 	public String title;
 	public String desc;
@@ -66,7 +66,7 @@ public class Item {
 	public static Item rod = new Item(rodTitle, rodDesc);
 	public static Item book = new Item(bookTitle, bookDesc);
 	//public static Item handbook = new Item(handbookTitle, handbookDesc);
-	public static Item leaflet = new Item(leafletTitle, leafletDesc);
+	public static Item cryptogram = new Item(cryptogramTitle, cryptogramDesc);
 	public static Item corn = new Item(cornTitle, cornDesc);
 	public static Item parchment = new Item(parchmentTitle, parchmentDesc);
 	public static Item card = new Item(cardTitle, cardDesc);
@@ -119,8 +119,8 @@ public class Item {
 				return Room.hallwayObjects.get(i).title;
 			case "Sitting Room":
 				return Room.sittingRoomObjects.get(i).title;
-			case "Library":
-				return Room.libraryObjects.get(i).title;
+			case "Study":
+				return Room.studyObjects.get(i).title;
 			case "Master Bedroom":
 				return Room.masterBedroomObjects.get(i).title;
 			case "Closet":
@@ -137,10 +137,10 @@ public class Item {
 				return Room.insideGateObjects.get(i).title;
 			case "Island":
 				return Room.islandObjects.get(i).title;
-			case "Bottom of Stairs":
-				return Room.bottomOfStairsObjects.get(i).title;
-			case "Top of Stairs":
-				return Room.topOfStairsObjects.get(i).title;
+			case "Bottom of Mountain":
+				return Room.bottomOfMountainObjects.get(i).title;
+			case "Top of Mountain":
+				return Room.topOfMountainObjects.get(i).title;
 			case "Hamlet":
 				return Room.hamletObjects.get(i).title;
 			case "Hondo":
@@ -156,7 +156,7 @@ public class Item {
 			case "Overlook":
 				return Room.overlookObjects.get(i).title;
 			default:
-				System.out.println("Item.getTitleOfObjectInList() error");
+				System.out.println("getTitleOfObjectInList() error");
 				return null;
 		}
 	}
@@ -171,7 +171,7 @@ public class Item {
 		if (Room.getObjects().contains(om) || (Player.getLocation().title.equals("Lounge") && World.loungeSafeOpen && World.omInSafe))
 			getOm();
 		
-		if (Room.getObjects().contains(ni) || (Player.getLocation().title.equals("Library") && World.librarySafeOpen && World.niInSafe))
+		if (Room.getObjects().contains(ni) || (Player.getLocation().title.equals("Study") && World.studySafeOpen && World.niInSafe))
 			getNi();
 		
 		if (Room.getObjects().contains(go) || (Player.getLocation().title.equals("Creaky Deck") && World.creakyDeckOpen && World.goInCase))
@@ -282,45 +282,90 @@ public class Item {
 	/**
 	public static void getHandbook() {
 		Story.printTake(handbookTitle);
-		Player.inventory.add(leaflet);
+		Player.inventory.add(cryptogram);
 		Room.getObjects().remove(handbook);
 	}
 	*/
 	
-	public static void getLeaflet() {
-		Story.printTake(leafletTitle);
-		Player.inventory.add(leaflet);
-		Room.getObjects().remove(leaflet);
+	public static void getCryptogram() {
+		if (Room.getObjects().contains(cryptogram)) {
+			Story.printTake(cryptogramTitle);
+			Player.inventory.add(cryptogram);
+			Room.getObjects().remove(cryptogram);
+		} else if (Player.inventory.contains(cryptogram)) {
+			Story.printAlreadyHave();
+		} else {
+			Story.printNotHere();
+		}
 	}
 	
 	public static void getCorn() {
-		Story.printTake(cornTitle);
-		Player.inventory.add(corn);
-		Room.getObjects().remove(corn);
+		if (Room.getObjects().contains(corn)) {
+			Story.printTake(cornTitle);
+			Player.inventory.add(corn);
+			Room.getObjects().remove(corn);
+		} else if (Player.inventory.contains(corn)) {
+			Story.printAlreadyHave();
+		} else {
+			Story.printNotHere();
+		}
 	}
 	
 	public static void getParchment() {
-		Story.printTake(parchmentTitle);
-		Player.inventory.add(parchment);
-		Room.getObjects().remove(parchment);
+		if (Room.getObjects().contains(parchment)) {
+			Story.printTake(parchmentTitle);
+			Player.inventory.add(parchment);
+			Room.getObjects().remove(parchment);
+		} else if (Player.inventory.contains(parchment)) {
+			Story.printAlreadyHave();
+		} else {
+			Story.printNotHere();
+		}
 	}
 	
 	public static void getCard() {
-		Story.printTake(cardTitle);
-		Player.inventory.add(card);
-		Room.getObjects().remove(card);
+		if (Room.getObjects().contains(card)) {
+			Story.printTake(cardTitle);
+			Player.inventory.add(card);
+			Room.getObjects().remove(card);
+		} else if (Player.inventory.contains(card)) {
+			Story.printAlreadyHave();
+		} else {
+			Story.printNotHere();
+		}
 	}
 	
 	public static void getPhone() {
-		Story.printTake(phoneTitle);
-		Player.inventory.add(phone);
-		Room.getObjects().remove(phone);
+		if (Room.getObjects().contains(phone)) {
+			Story.printTake(phoneTitle);
+			Player.inventory.add(phone);
+			Room.getObjects().remove(phone);
+		} else if (Player.inventory.contains(phone)) {
+			Story.printAlreadyHave();
+		} else {
+			Story.printNotHere();
+		}
 	}
 	
 	public static void getBox() {
-		Story.printTake(boxTitle);
-		Player.inventory.add(box);
-		Room.getObjects().remove(box);
+		if (Room.getObjects().contains(box)) {
+			Story.printTake(boxTitle);
+			Player.inventory.add(box);
+			Room.getObjects().remove(box);
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void getSword() {
+		if (Player.inventory.contains(sword)) {
+			Story.printAlreadyHave();
+		} else if (Room.getObjects().contains(sword)) {
+			Player.inventory.add(sword);
+			Story.print("Taken.");
+		} else {
+			Story.printNotHere();
+		}
 	}
 	
 	public static void dropScroll() {
@@ -416,7 +461,7 @@ public class Item {
 	}
 	
 	public static void examineNi() {
-		if (Room.getObjects().contains(ni) || Player.inventory.contains(ni) || (Player.getLocation().title.equals("Library") && World.librarySafeOpen && World.niInSafe)) {
+		if (Room.getObjects().contains(ni) || Player.inventory.contains(ni) || (Player.getLocation().title.equals("Study") && World.studySafeOpen && World.niInSafe)) {
 			Story.print(ni.desc);
 		
 			if (!Player.memory.contains("ni")) {
@@ -493,11 +538,34 @@ public class Item {
 		}
 	}
 	
+	public static void attemptToExamineScroll() {
+		if (Player.getLocation().equals(Room.hallway)) {
+			// Hallway is the only location where a scroll can be seen but not accessible. For this reason, this condition is necessary
+			if (World.getScrollCount() == 0) {
+				if (World.raDropped) {
+					Story.printNotHere();
+				} else {
+					Story.print("The glass panel prevents you from getting to the scroll.");
+				}
+			} else {
+				Story.print("Which one?");
+			}
+		} else {
+			if (World.getScrollCount() == 0) {
+				Story.printNotHere();
+			} else if (World.getScrollCount() > 1) {
+				Story.print("Which one?");
+			} else {
+				examineScroll();
+			}
+		}
+	}
+	
 	public static void examineScroll() {
 		if (Room.getObjects().contains(om) || Player.inventory.contains(om) || (Player.getLocation().title.equals("Lounge") && World.loungeSafeOpen && World.omInSafe))
 			examineOm();
 		
-		if (Room.getObjects().contains(ni) || Player.inventory.contains(ni) || (Player.getLocation().title.equals("Library") && World.librarySafeOpen && World.niInSafe))
+		if (Room.getObjects().contains(ni) || Player.inventory.contains(ni) || (Player.getLocation().title.equals("Study") && World.studySafeOpen && World.niInSafe))
 			examineNi();
 		
 		if (Room.getObjects().contains(go) || Player.inventory.contains(go) || (Player.getLocation().title.equals("Creaky Deck") && World.creakyDeckOpen && World.goInCase))
@@ -548,13 +616,13 @@ public class Item {
 	}
 	*/
 	
-	public static void examineLeaflet() {
-		if (Player.inventory.contains(leaflet) || Room.getObjects().contains(leaflet)) {
-			Story.print(leafletDesc);
-			// Story.setScrollStop(Story.scrollStopLeaflet);
+	public static void examineCryptogram() {
+		if (Player.inventory.contains(cryptogram) || Room.getObjects().contains(cryptogram)) {
+			Story.print(cryptogramDesc);
+			// Story.setScrollStop(Story.scrollStopCryptogram);
 			
-			if (!Player.readLeaflet) {
-				Player.readLeaflet = true;
+			if (!Player.readCryptogram) {
+				Player.readCryptogram = true;
 				Data.updateScore(5);
 			}
 		} else {
@@ -570,16 +638,13 @@ public class Item {
 			case "Shrine Room 2":
 				Story.print(Story.shrineRoom2Sign);
 				break;
-			case "Sitting Room":
-				Story.print(Story.sittingRoomSign);
-				break;
 			case "Inside Gate":
 				Story.print(Story.insideGateSign);
 				break;
-			case "Bottom of Stairs":
-				Story.print(Story.bottomOfStairsSign);
+			case "Bottom of Mountain":
+				Story.print(Story.bottomOfMountainSign);
 				break;
-			case "Top of Stairs":
+			case "Halfway up Mountain":
 				Story.printReadKnot();
 				
 				if (!Player.memory.contains("Knot")) {
@@ -600,6 +665,14 @@ public class Item {
 		}
 	}
 	
+	public static void examineLever() {
+		if (Player.getLocation().title.equals("Hallway")) {
+			Story.print("It's a wooden lever protruding from the west wall.");
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
 	public static void examineCorn() {
 		if (Player.inventory.contains(corn) || Room.getObjects().contains(corn)) {
 			Story.print(cornDesc);
@@ -610,11 +683,14 @@ public class Item {
 	
 	public static void examineWindow() {
 		switch (Player.getLocation().title) {
-			case "Hallway":
-				Story.print("There's shit behind it.");
-				break;
 			case "Master Bedroom":
 				Story.print("You're on the second story.");
+				break;
+			case "Hallway":
+				examineChute();
+				break;
+			case "Living Room":
+				Story.print("A masked woman in a blue kimono is standing outside the west window.");
 				break;
 			default:
 				Story.printNotHere();
@@ -633,6 +709,59 @@ public class Item {
 			default:
 				Story.printNotHere();
 				break;
+		}
+	}
+	
+	public static void examineChest() {
+		if (Player.getLocation().title.equals("Assembly Room")) {
+			Story.print("It's gold and there's a plaque on the front of it.");
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void examineFigure() {
+		if (Player.getLocation().title.equals("Assembly Room")) {
+			Story.print("They are wearing black hooded robes.");
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void examineBed() {
+		if (Player.getLocation().title.equals("Master Bedroom")) {
+			Story.print("The bed looks quite comfortable.");
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void examineMannequin() {
+		if (Player.getLocation().title.equals("Mannequin Room")) {
+			Player.examinedMannequin = true;
+			
+			Story.print("It's difficult to see in the dark, but these mannequins are garbed in traditional Japanese clothing.");
+			
+			if (!Player.tookParchment) {
+				Story.print(" One of them is holding a parchment.");
+			}
+			
+			if (!Player.examinedMannequin) {
+				Room.mannequinRoomObjects.add(parchment);
+			}
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void examineCranes() {
+		// if at overlook or shrine1 w right screen
+		if (Player.getLocation().title.equals("Overlook")) {
+			Story.print("The cranes are colorful and on a hinge thing where you can maybe move it hint hint.");
+		} else if (Player.getLocation().title.equals("Shrine Room 1") && Player.purpleAlive) {
+			Story.print("The oragami cranes on the TV are so colorful and encompass the whole screen");
+		} else {
+			Story.printNotHere();
 		}
 	}
 	
@@ -705,7 +834,7 @@ public class Item {
 					Story.print("The Chippendale mirror casts your reflection back at you. Your loosely kept hair goes well with your faded orange robe.");
 				}
 				break;
-			case "Library":
+			case "Study":
 				Story.print("The Chippendale mirror casts your reflection back at you. Your loosely kept hair goes well with your faded green robe.");
 				break;
 			case "Overlook":
@@ -733,7 +862,7 @@ public class Item {
 	}
 	
 	public static void getMirror() {
-		if (Player.getLocation().title.equals("Thatched Hut") || Player.getLocation().title.equals("Library") || Player.getLocation().title.equals("Overlook")) {
+		if (Player.getLocation().title.equals("Thatched Hut") || Player.getLocation().title.equals("Study") || Player.getLocation().title.equals("Overlook")) {
 			Story.print("The mirror is too heavy to move.");
 		} else {
 			Story.printNotHere();
@@ -769,7 +898,7 @@ public class Item {
 			
 				break;
 			default:
-				System.out.println("Item.examineTV() error");
+				System.out.println("examineTV() error");
 				break;
 		}
 		
@@ -810,7 +939,7 @@ public class Item {
 			case "Lounge":
 				Story.print("It has a metal plaque bolted on it.");
 				break;
-			case "Library":
+			case "Study":
 				Story.print("It has a metal plaque bolted on it.");
 				break;
 			default:
@@ -868,6 +997,14 @@ public class Item {
 		}
 	}
 	
+	public static void takeWindow() {
+		if (Room.hasWindow()) {
+			Story.printInteresting();
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
 	public static void takeSafe() {
 		if (Room.hasSafe()) {
 			Story.printCantTake();
@@ -885,8 +1022,16 @@ public class Item {
 	}
 	
 	public static void takePlaque() {
-		if (Room.roomsWithPlaques.contains(Player.getLocation()) || (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box))) {
+		if (Room.roomsWithPlaques.contains(Player.getLocation()) || (Player.inventory.contains(box) || Room.getObjects().contains(box))) {
 			Story.printCantTake();
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void openWindow() {
+		if (Room.hasWindow()) {
+			Story.print("It won't budge.");
 		} else {
 			Story.printNotHere();
 		}

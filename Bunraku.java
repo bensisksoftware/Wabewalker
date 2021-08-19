@@ -46,7 +46,7 @@ public class Bunraku extends JFrame {
 	public static void createFrame() {
 		JFrame frame = new Bunraku();
 		frame.setTitle("Bunraku");
-		frame.setSize(666, 666);
+		frame.setSize(999, 777);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setVisible(true);	

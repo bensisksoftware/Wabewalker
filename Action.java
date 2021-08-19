@@ -70,12 +70,15 @@ public class Action {
 				Player.updateLocation(Room.insideGate);
 				break;
 			case "Inside Gate":
-				Player.updateLocation(Room.bottomOfStairs);
+				Player.updateLocation(Room.bottomOfMountain);
 				break;
-			case "Bottom of Stairs":
-				Player.updateLocation(Room.topOfStairs);
+			case "Bottom of Mountain":
+				Player.updateLocation(Room.halfwayUpMountain);
 				break;
-			case "Top of Stairs":
+			case "Halfway up Mountain":
+				Player.updateLocation(Room.topOfMountain);
+				break;
+			case "Top of Mountain":
 				Player.updateLocation(Room.hondo);
 				break;
 			case "Hondo":
@@ -141,14 +144,17 @@ public class Action {
 			case "Inside Gate":
 				Player.updateLocation(Room.outsideGate);
 				break;
-			case "Bottom of Stairs":
+			case "Bottom of Mountain":
 				Player.updateLocation(Room.insideGate);
 				break;
-			case "Top of Stairs":
-				Player.updateLocation(Room.bottomOfStairs);
+			case "Halfway up Mountain":
+				Player.updateLocation(Room.bottomOfMountain);
+				break;
+			case "Top of Mountain":
+				Player.updateLocation(Room.halfwayUpMountain);
 				break;
 			case "Hondo":
-				Player.updateLocation(Room.topOfStairs);
+				Player.updateLocation(Room.topOfMountain);
 				break;
 			case "Shrine Room 3":
 				Player.updateLocation(Room.hondo);
@@ -203,7 +209,7 @@ public class Action {
 				}
 				Player.updateLocation(Room.masterBedroom);
 				break;
-			case "Library":
+			case "Study":
 				Player.updateLocation(Room.sittingRoom);
 				break;
 			case "Dark Passageway":
@@ -221,7 +227,7 @@ public class Action {
 				Player.updateLocation(Room.island);
 				break;
 			case "Hamlet":
-				Player.updateLocation(Room.topOfStairs);
+				Player.updateLocation(Room.topOfMountain);
 				break;
 			case "Overlook":
 				Player.updateLocation(Room.creakyDeck);
@@ -276,7 +282,7 @@ public class Action {
 					Story.print("You can't take the corded phone with you, so you leave it.");
 					Story.newParagraph();
 				}
-				Player.updateLocation(Room.library);
+				Player.updateLocation(Room.study);
 				break;
 			case "Master Bedroom":
 				Player.updateLocation(Room.sittingRoom);
@@ -289,7 +295,7 @@ public class Action {
 				Player.updateLocation(Room.insideGate);
 				World.islandOpen = false;
 				break;
-			case "Top of Stairs":
+			case "Top of Mountain":
 				Player.updateLocation(Room.hamlet);
 				
 				if (World.XOO && !Player.metIsachi){
@@ -388,8 +394,11 @@ public class Action {
 			case "Landing":
 				Player.updateLocation(Room.hallway);
 				break;
-			case "Bottom of Stairs":
-				Player.updateLocation(Room.topOfStairs);
+			case "Bottom of Mountain":
+				Player.updateLocation(Room.halfwayUpMountain);
+				break;
+			case "Halfway up Mountain":
+				Player.updateLocation(Room.topOfMountain);
 				break;
 			default:
 				System.out.println("Action.goUp() error");
@@ -405,8 +414,11 @@ public class Action {
 			case "Hallway":
 				Player.updateLocation(Room.landing);
 				break;
-			case "Top of Stairs":
-				Player.updateLocation(Room.bottomOfStairs);
+			case "Halfway up Mountain":
+				Player.updateLocation(Room.bottomOfMountain);
+				break;
+			case "Top of Mountain":
+				Player.updateLocation(Room.halfwayUpMountain);
 				break;
 			default:
 				System.out.println("Action.goDown() error");
@@ -489,7 +501,10 @@ public class Action {
 					Story.printNoExit();
 				}
 				break;
-			case "FISHING":
+			case "BACK":
+				Room.checkPreviousLocation();
+				break;
+			case "ROD": // (go fishing)
 				if (Player.inventory.contains(Item.rod)) {
 					goFishing();
 				} else {
@@ -497,6 +512,125 @@ public class Action {
 				}
 			default:
 				System.out.println("Action.go() error");
+				break;
+		}
+	}
+	
+	public static void goBack() {
+		switch (Player.previousLocation) {
+			case "Garden Patio":
+				Player.updateLocation(Room.gardenPatio);
+				break;
+			case "Cobble Square":
+				Player.updateLocation(Room.cobbleSquare);
+				break;
+			case "Tea Room":
+				Player.updateLocation(Room.teaRoom);
+				break;
+			case "Sand Exhibit":
+				Player.updateLocation(Room.sandExhibit);
+				break;
+			case "Thatched Hut":
+				Player.updateLocation(Room.thatchedHut);
+				break;
+			case "Garden Overlook":
+				Player.updateLocation(Room.gardenOverlook);
+				break;
+			case "Lounge":
+				Player.updateLocation(Room.lounge);
+				break;
+			case "Cafe":
+				Player.updateLocation(Room.cafe);
+				break;
+			case "Outside Gallery":
+				Player.updateLocation(Room.outsideGallery);
+				break;
+			case "Shrine Room 1":
+				Player.updateLocation(Room.shrineRoom1);
+				break;
+			case "Inside Gallery":
+				Player.updateLocation(Room.insideGallery);
+				break;
+			case "Assembly Room":
+				Player.updateLocation(Room.assemblyRoom);
+				break;
+			case "Shrine Room 2":
+				Player.updateLocation(Room.shrineRoom2);
+				break;
+			case "Living Room":
+				Player.updateLocation(Room.livingRoom);
+				break;
+			case "Pond":
+				Player.updateLocation(Room.pond);
+				break;
+			case "Courtyard":
+				Player.updateLocation(Room.courtyard);
+				break;
+			case "Landing":
+				Player.updateLocation(Room.landing);
+				break;
+			case "Hallway":
+				Player.updateLocation(Room.hallway);
+				break;
+			case "Sitting Room":
+				Player.updateLocation(Room.sittingRoom);
+				break;
+			case "Study":
+				Player.updateLocation(Room.study);
+				break;
+			case "Master Bedroom":
+				Player.updateLocation(Room.masterBedroom);
+				break;
+			case "Closet":
+				Player.updateLocation(Room.closet);
+				break;
+			case "Dark Passageway":
+				Player.updateLocation(Room.darkPassageway);
+				break;
+			case "Mannequin Room":
+				Player.updateLocation(Room.mannequinRoom);
+				break;
+			case "Theater":
+				Player.updateLocation(Room.theater);
+				break;
+			case "Outside Gate":
+				Player.updateLocation(Room.outsideGate);
+				break;
+			case "Inside Gate":
+				Player.updateLocation(Room.insideGate);
+				break;
+			case "Island":
+				Player.updateLocation(Room.island);
+				break;
+			case "Bottom of Mountain":
+				Player.updateLocation(Room.bottomOfMountain);
+				break;
+			case "Top of Mountain":
+				Player.updateLocation(Room.topOfMountain);
+				break;
+			case "Hamlet":
+				Player.updateLocation(Room.hamlet);
+				break;
+			case "Hondo":
+				Player.updateLocation(Room.hondo);
+				break;
+			case "Balcony":
+				Player.updateLocation(Room.balcony);
+				break;
+			case "Shrine Room 3":
+				Player.updateLocation(Room.shrineRoom3);
+				break;
+			case "Trinket Shop":
+				Player.updateLocation(Room.trinketShop);
+				break;
+			case "Creaky Deck":
+				Player.updateLocation(Room.creakyDeck);
+				break;
+			case "Overlook":
+				Player.updateLocation(Room.overlook);
+				break;
+			default:
+				System.out.println("Action.goBack() error");
 				break;
 		}
 	}
@@ -532,29 +666,24 @@ public class Action {
 	public static void passTime() {
 		Story.printPassTime();
 		
-		if (World.cornOnRod && Player.fishing && (Data.moves == (Player.startedFishing + 6))) {
-			Story.printBite();
-			World.bite = true;
-			World.cornOnRod = false;
-		}
-		
-		if (World.bite && (Data.moves > (Player.startedFishing + 6))) {
-			Story.print("\nYou no longer feel a tug on the line.");
-			World.bite = false;
-		}
+		World.checkRod();
 	}
 	
 	private static void reelIn() {
-		Story.print("You reel in the line.");
-		
-		if (World.bite) {
-			catchFish();
+		if (Player.fishing) {
+			Story.print("You reel in the line.");
+			
+			if (World.bite) {
+				catchFish();
+			} else {
+				Story.print(" You didn't catch anything.");
+			}
+			
+			Player.startedFishing = 0;
+			World.bite = false;
 		} else {
-			Story.print(" You didn't catch anything.");
+			Story.printHow();
 		}
-		
-		Player.startedFishing = 0;
-		World.bite = false;
 	}
 	
 	private static void catchFish() {
@@ -596,7 +725,7 @@ public class Action {
 				}
 				break;
 			case "NI":
-				if (Room.getObjects().contains(Item.ni) || (Player.getLocation().title.equals("Library") && World.librarySafeOpen && World.niInSafe)) {
+				if (Room.getObjects().contains(Item.ni) || (Player.getLocation().title.equals("Study") && World.studySafeOpen && World.niInSafe)) {
 					Item.getNi();
 				} else if (Player.inventory.contains(Item.ni)) {
 					Story.printAlreadyHave();
@@ -697,41 +826,17 @@ public class Action {
 				}
 				break;
 				*/
-			case "LEAFLET":
-				if (Room.getObjects().contains(Item.leaflet)) {
-					Item.getLeaflet();
-				} else if (Player.inventory.contains(Item.leaflet)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
+			case "CRYPTOGRAM":
+				Item.getCryptogram();
 				break;
 			case "CORN":
-				if (Room.getObjects().contains(Item.corn)) {
-					Item.getCorn();
-				} else if (Player.inventory.contains(Item.corn)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
+				Item.getCorn();
 				break;
 			case "PARCHMENT":
-				if (Room.getObjects().contains(Item.parchment)) {
-					Item.getParchment();
-				} else if (Player.inventory.contains(Item.parchment)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
+				Item.getParchment();
 				break;
 			case "CARD":
-				if (Room.getObjects().contains(Item.card)) {
-					Item.getCard();
-				} else if (Player.inventory.contains(Item.card)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
+				Item.getCard();
 				break;
 			case "FISH":
 				if (Player.fishing && Player.getLocation().title.equals("Pond")) {
@@ -741,35 +846,21 @@ public class Action {
 				}
 				break;
 			case "PHONE":
-				if (Room.getObjects().contains(Item.phone)) {
-					Item.getPhone();
-				} else if (Player.inventory.contains(Item.phone)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
+				Item.getPhone();
 				break;
 			case "BOX":
-				if (Room.getObjects().contains(Item.box)) {
-					Item.getBox();
-				} else {
-					Story.printNotHere();
-				}
+				Item.getBox();
 				break;
 			case "MIRROR":
 				Item.getMirror();
 				break;
 			case "SWORD":
-				if (Player.inventory.contains(Item.sword)) {
-					Story.printAlreadyHave();
-				} else if (Room.getObjects().contains(Item.sword)) {
-					Player.inventory.add(Item.sword);
-					Story.print("Taken.");
-				} else {
-					Story.printNotHere();
-				}
+				Item.getSword();
 				break;
 			case "WOMAN":
+				Story.printCantTake();
+				break;
+			case "MANNEQUIN":
 				Story.printCantTake();
 				break;
 			case "TV":
@@ -793,6 +884,11 @@ public class Action {
 			case "SAFE":
 				Item.takeSafe();
 				break;
+			case "WINDOW":
+				Item.takeWindow();
+				break;
+			case "JUNK":
+				
 			default:
 				Story.printNotHere();
 				break;
@@ -967,10 +1063,10 @@ public class Action {
 				}
 				break;
 				*/
-			case "LEAFLET":
-				if (Player.inventory.contains(Item.leaflet)) {
-					Player.inventory.remove(Item.leaflet);
-					Room.getObjects().add(Item.leaflet);
+			case "CRYPTOGRAM":
+				if (Player.inventory.contains(Item.cryptogram)) {
+					Player.inventory.remove(Item.cryptogram);
+					Room.getObjects().add(Item.cryptogram);
 					Story.print("Dropped.");
 				} else {
 					Story.printNotInInventory();
@@ -1049,7 +1145,10 @@ public class Action {
 	public static void examine(String w) {
 		switch (w) {
 			case "":
-				Story.printMissingNoun();
+				look();
+				break;
+			case "AROUND":
+				look();
 				break;
 			case "BOOK":
 				Item.examineBook();
@@ -1060,8 +1159,8 @@ public class Action {
 			case "HANDBOOK":
 				//Item.examineHandbook();
 				break;
-			case "LEAFLET":
-				Item.examineLeaflet();
+			case "CRYPTOGRAM":
+				Item.examineCryptogram();
 				break;
 			case "OM":
 				Item.examineOm();
@@ -1085,26 +1184,7 @@ public class Action {
 				Item.examineShi();				
 				break;
 			case "SCROLL":
-				if (Player.getLocation().equals(Room.hallway)) {
-					// Hallway is the only location where a scroll can be seen but not accessible. For this reason, this condition is necessary
-					if (World.getScrollCount() == 0) {
-						if (World.raDropped) {
-							Story.printNotHere();
-						} else {
-							Story.print("The glass panel prevents you from getting to the scroll.");
-						}
-					} else {
-						Story.print("Which one?");
-					}
-				} else {
-					if (World.getScrollCount() == 0) {
-						Story.printNotHere();
-					} else if (World.getScrollCount() > 1) {
-						Story.print("Which one?");
-					} else {
-						Item.examineScroll();
-					}
-				}
+				Item.attemptToExamineScroll();
 				break;
 			case "ROD":
 				Item.examineRod();
@@ -1170,14 +1250,7 @@ public class Action {
 				Item.examineBox();
 				break;
 			case "CRANES":
-				// if at overlook or shrine1 w right screen
-				if (Player.getLocation().title.equals("Overlook")) {
-					Story.print("The cranes are colorful and on a hinge thing where you can maybe move it hint hint.");
-				} else if (Player.getLocation().title.equals("Shrine Room 1") && Player.purpleAlive) {
-					Story.print("The oragami cranes on the TV are so colorful and encompass the whole screen");
-				} else {
-					Story.printNotHere();
-				}
+				Item.examineCranes();
 				break;
 			case "MEMORY":
 				Story.printMemory();
@@ -1192,18 +1265,10 @@ public class Action {
 				Story.print("There's nothing special about it.");
 				break;
 			case "CHEST":
-				if (Player.getLocation().title.equals("Assembly Room")) {
-					Story.print("It's gold and there's a plaque on the front of it.");
-				} else {
-					Story.printNotHere();
-				}
+				Item.examineChest();
 				break;
 			case "FIGURE":
-				if (Player.getLocation().title.equals("Assembly Room")) {
-					Story.print("They are wearing black hooded robes.");
-				} else {
-					Story.printNotHere();
-				}
+				Item.examineFigure();
 				break;
 			case "CASE":
 				Item.examineCase();
@@ -1225,6 +1290,15 @@ public class Action {
 				break;
 			case "EXHIBIT":
 				Item.examineExhibit();
+				break;
+			case "LEVER":
+				Item.examineLever();
+				break;
+			case "BED":
+				Item.examineBed();
+				break;
+			case "MANNEQUIN":
+				Item.examineMannequin();
 				break;
 			default:
 				Story.printNotHere();
@@ -1314,6 +1388,8 @@ public class Action {
 			}
 			
 			Player.sawReaper2 = true;
+		} else if (Player.getLocation().title.equals("Closet")) {
+			Story.print("You can't see anything special about the hole in the ceiling.");
 		} else {
 			Story.printNotHere();
 		}
@@ -1341,6 +1417,9 @@ public class Action {
 				break;
 			case "BOOK":
 				Item.examineBook();
+				break;
+			case "WINDOW":
+				Item.openWindow();
 				break;
 			default:
 				Story.print("That is not something you can open.");
@@ -1550,13 +1629,13 @@ public class Action {
 					}
 				}
 				break;
-			case "Library":
-				if (World.librarySafeOpen) {
+			case "Study":
+				if (World.studySafeOpen) {
 					Story.printAlreadyOpen();
 				} else {
 					if (World.XOX) {
 						Story.print("The safe swings open, revealing a fancy scroll.");
-						World.librarySafeOpen = true;
+						World.studySafeOpen = true;
 					} else {
 						Story.printLocked();
 					}
@@ -1587,10 +1666,10 @@ public class Action {
 					Story.printAlreadyOpen();
 				}
 				break;
-			case "Library":
-				if (World.librarySafeOpen) {
+			case "Study":
+				if (World.studySafeOpen) {
 					Story.print("The safe slams shut.");
-					World.librarySafeOpen = false;
+					World.studySafeOpen = false;
 				} else {
 					Story.printAlreadyOpen();
 				}
@@ -1660,21 +1739,6 @@ public class Action {
 			case "Theater":
 				Story.print("Which button?");
 				break;
-			case "Hallway":
-				if (World.OOO && !World.raDropped) {
-					Story.printActivateHallway();
-					World.raDropped = true;
-					Room.closetObjects.add(Item.ra);
-					Room.closet.scrollCount++;
-					
-					if (!Player.pushedHallwayButton) {
-						Player.pushedHallwayButton = true;
-						Data.updateScore(5);
-					}
-				} else {
-					Story.print("You push the button, but nothing happens.");
-				}
-				break;
 			case "Creaky Deck":
 				if (World.XXO && !World.creakyDeckOpen) {
 					Story.printActivateCreakyDeck();
@@ -1695,71 +1759,59 @@ public class Action {
 				Story.printMissingNoun();
 				break;
 			case "TASSEL":
-				if (Player.getLocation().title.equals("Island")) {
-					pullTassel();
-				} else {
-					Story.printNotHere();
-				}
+				pullTassel();
 				break;
 			case "CRANES":
 				moveCranes();
 				break;
 			case "IN":
-				if (Player.fishing) {
-					reelIn();
-				}
+				reelIn();
 				break;
 			case "ROD":
-				if (Player.fishing) {
-					reelIn();
-				}
+				reelIn();
+				break;
+			case "LEVER":
+				pullLever();
 				break;
 			default:
-				Story.printInteresting();
+				Story.printNotHere();
 				break;
 		}
 	}
 	
-	public static void reel(String n) {
-		switch (n) {
-			case "":
-				if (Player.fishing) {
-					reelIn();
-				} else {
-					Story.printHow();
+	private static void pullLever() {
+		if (Player.getLocation().title.equals("Hallway")) {
+			if (World.OOO && !World.raDropped) {
+				Story.printActivateHallway();
+				World.raDropped = true;
+				Room.closetObjects.add(Item.ra);
+				Room.closet.scrollCount++;
+				
+				if (!Player.pulledHallwayLever) {
+					Player.pulledHallwayLever = true;
+					Data.updateScore(5);
 				}
-				break;
-			case "IN":
-				if (Player.fishing) {
-					reelIn();
-				} else {
-					Story.printHow();
-				}
-				break;
-			case "ROD":
-				if (Player.fishing) {
-					reelIn();
-				} else {
-					Story.printHow();
-				}
-				break;
-			default:
-				Story.printInteresting();
-				break;
+			} else {
+				Story.print("You pull the lever, but nothing happens.");
+			}
 		}
 	}
 	
 	private static void pullTassel() {
-		if (World.islandOpen) {
-			Story.print("You pull the tassel, but nothing happens. The gate is already open.");
-		} else {
-			World.islandOpen = true;
-			Story.printTassel();
-			
-			if (!Player.openedGate) {
-				Player.openedGate = true;
-				Data.updateScore(5);
+		if (Player.getLocation().title.equals("Island")) {
+			if (World.islandOpen) {
+				Story.print("You pull the tassel, but nothing happens. The gate is already open.");
+			} else {
+				World.islandOpen = true;
+				Story.printTassel();
+				
+				if (!Player.openedGate) {
+					Player.openedGate = true;
+					Data.updateScore(5);
+				}
 			}
+		} else {
+			Story.printNotHere();
 		}
 	}
 	
@@ -1860,67 +1912,16 @@ public class Action {
 	public static void pressPlay() {
 		switch (Player.getLocation().title) {
 			case "Shrine Room 1":
-				if (Player.purpleAlive) {
-					Player.saveOrangeInventory();
-					Story.printBlackOut();
-					Player.orangeAtTV = true;
-					
-					if (Player.purpleAtTV) {
-						Player.updateLocation(Room.island);
-						Player.restorePurpleInventory();
-					} else {
-						Player.updateLocation(Room.outsideGate);
-					}
-				} else {
-					Story.printTapePlaying();
-				}
+				Player.playPurple();
 				break;
 			case "Master Bedroom":
-				if (Player.orangeAlive) {
-					Player.saveGreenInventory();
-					Story.printBlackOut();
-					Player.greenAtTV = true;
-					
-					if (Player.orangeAtTV) {
-						Player.updateLocation(Room.shrineRoom1);
-						Player.restoreOrangeInventory();
-					} else {
-						Player.updateLocation(Room.gardenPatio);
-					}
-				} else {
-					Story.printTapePlaying();
-				}
+				Player.playOrange();
 				break;
 			case "Island":
-				if (World.islandOpen) {
-					if (Player.greenAlive) {
-						Player.savePurpleInventory();
-						Story.printBlackOut();
-						Player.purpleAtTV = true;
-						Player.updateLocation(Room.masterBedroom);
-						
-						if (Player.greenAtTV)
-							Player.restoreGreenInventory();
-						
-					} else {
-						Story.printTapePlaying();
-					}
-				} else {
-					Story.print("You can't reach the TV behind the gate.");
-				}
+				Player.playGreen();
 				break;
 			case "Theater":
-				if (World.theaterTVAtBeginning) {
-					Story.printTheaterTV();
-					World.theaterTVAtBeginning = false;
-					
-					if (!Player.playedTheaterTV) {
-						Player.playedTheaterTV = true;
-						Data.updateScore(5);
-					}
-				} else {
-					Story.printTapePlaying();
-				}
+				World.playTheater();
 				break;
 			default:
 				Story.printNotHere();
@@ -1954,10 +1955,14 @@ public class Action {
 	}
 	
 	public static void moveCranes() {
-		Story.printMoveCranes();
-		Story.newLine();
-		Player.facingReaper = true;
-		Story.printReaperEncounter2();
+		if (Player.getLocation().title.equals("Overlook")) {
+			Story.printMoveCranes();
+			Story.newLine();
+			Player.facingReaper = true;
+			Story.printReaperEncounter2();		
+		} else {
+			Story.printNotHere();
+		}
 	}
 	
 	public static void dial(String n) {

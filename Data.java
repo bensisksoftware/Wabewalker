@@ -44,7 +44,7 @@ public class Data {
 	}
 	
 	public static void setYear() {
-			year = (int)(Math.random() * 1999 + 1);
+		year = (int)(Math.random() * 1999 + 1);
 		
 		// resets year to desired range or if player previously guessed it
 		while (year < 101 || Player.answers.contains(year)) {
@@ -94,7 +94,7 @@ public class Data {
 		World.shrineRoom1SafeOpen = false;
 		World.shrineRoom2DoorOpen = false;
 		World.courtyardDoorOpen = false;
-		World.librarySafeOpen = false;
+		World.studySafeOpen = false;
 		World.creakyDeckOpen = false;
 		World.boxOpen = false;
 		World.cornOnRod = false;
@@ -130,13 +130,13 @@ public class Data {
 	}
 	
 	public static void test() {
-		// Player.updateLocation(Room.library);
+		// Player.updateLocation(Room.study);
 		//World.XOO = true;
 		//addMemory();
 		//addItems();
 	}
 	
 	public static void cheat() {
-		System.out.println(kimisNumber);
+		System.out.println(year);
 	}
 }

@@ -29,14 +29,18 @@ public class Player {
 	public static boolean openedSandExhibitDoor;
 	public static boolean gotTodPoints;
 	public static boolean readBook;
-	public static boolean readLeaflet;
-	public static boolean pushedHallwayButton;
+	public static boolean readCryptogram;
+	public static boolean pulledHallwayLever;
 	public static boolean openedCloset;
 	public static boolean openedShrineRoom2Door;
 	public static boolean sittingOnGround;
 	public static boolean sittingOnSofa;
+	public static boolean tookParchment;
+	public static boolean examinedMannequin;
 	
 	public static int startedFishing = 0;
+	
+	public static String previousLocation = "";
 	
 	public static ArrayList<String> memory = new ArrayList<String>();
 	public static ArrayList<String> answers = new ArrayList<>();
@@ -49,7 +53,16 @@ public class Player {
 		return Room.location.get(0);
 	}
 	
+	public static String getPreviousLocation() {
+		return previousLocation;
+	}
+	
+	public static void updatePreviousLocation(String p) {
+		previousLocation = p;
+	}
+	
 	public static void updateLocation(Room r) {
+		updatePreviousLocation(getLocation().title);
 		Room.location.clear();
 		Room.location.add(r);
 		Bunraku.header1.setText(Player.getLocation().title);
@@ -58,6 +71,7 @@ public class Player {
 		if (!Room.visited.contains(Player.getLocation())) {
 			Story.newLine();
 			Story.printDesc();
+			Story.printDesc2();
 		}
 		
 		addVisited();
@@ -171,6 +185,7 @@ public class Player {
 		NPC.scheduled = false;
 		World.tripwire = false;
 		World.cornOnRod = false;
+		tookParchment = false;
 			
 		if (!getLocation().equals(Room.island))
 			inventory.clear();
@@ -184,7 +199,7 @@ public class Player {
 		Room.landingObjects.clear(); 
 		Room.hallwayObjects.clear(); 
 		Room.sittingRoomObjects.clear(); 
-		Room.libraryObjects.clear(); 
+		Room.studyObjects.clear(); 
 		Room.masterBedroomObjects.clear(); 
 		Room.closetObjects.clear(); 
 		Room.darkPassagewayObjects.clear();
@@ -213,8 +228,8 @@ public class Player {
 		Room.outsideGateObjects.clear();
 		Room.insideGateObjects.clear(); 
 		Room.islandObjects.clear(); 
-		Room.bottomOfStairsObjects.clear(); 
-		Room.topOfStairsObjects.clear(); 
+		Room.bottomOfMountainObjects.clear(); 
+		Room.topOfMountainObjects.clear(); 
 		Room.hamletObjects.clear(); 
 		Room.hondoObjects.clear(); 
 		Room.balconyObjects.clear(); 
@@ -271,6 +286,62 @@ public class Player {
 		
 		for (int i = 0; i < purpleSavedInventory.size(); i++) {
 			inventory.add(purpleSavedInventory.get(i));
+		}
+	}
+	
+	public static void playOrange() {
+		if (orangeAlive) {
+			saveGreenInventory();
+			inventory.clear();
+			Story.printBlackOut();
+			greenAtTV = true;
+			
+			if (orangeAtTV) {
+				updateLocation(Room.shrineRoom1);
+				restoreOrangeInventory();
+			} else {
+				updateLocation(Room.gardenPatio);
+			}
+		} else {
+			Story.printTapePlaying();
+		}
+	}
+	
+	public static void playGreen() {
+		if (World.islandOpen) {
+			if (greenAlive) {
+				savePurpleInventory();
+				inventory.clear();
+				Story.printBlackOut();
+				purpleAtTV = true;
+				updateLocation(Room.masterBedroom);
+				
+				if (greenAtTV)
+					restoreGreenInventory();
+				
+			} else {
+				Story.printTapePlaying();
+			}
+		} else {
+			Story.print("You can't reach the TV behind the gate.");
+		}
+	}
+	
+	public static void playPurple() {
+		if (purpleAlive) {
+			saveOrangeInventory();
+			inventory.clear();
+			Story.printBlackOut();
+			orangeAtTV = true;
+			
+			if (purpleAtTV) {
+				updateLocation(Room.island);
+				restorePurpleInventory();
+			} else {
+				updateLocation(Room.outsideGate);
+			}
+		} else {
+			Story.printTapePlaying();
 		}
 	}
 	
@@ -362,7 +433,7 @@ public class Player {
 				return "green";
 			case "Sitting Room":
 				return "green";
-			case "Library":
+			case "Study":
 				return "green";
 			case "Master Bedroom":
 				return "green";
@@ -380,9 +451,9 @@ public class Player {
 				return "purple";
 			case "Island":
 				return "purple";
-			case "Bottom of Stairs":
+			case "Bottom of Mountain":
 				return "purple";
-			case "Top of Stairs":
+			case "Top of Mountain":
 				return "purple";
 			case "Hamlet":
 				return "purple";

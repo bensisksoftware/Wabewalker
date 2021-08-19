@@ -22,13 +22,15 @@ public class World {
 	public static boolean shrineRoom1SafeOpen;
 	public static boolean shrineRoom2DoorOpen;
 	public static boolean courtyardDoorOpen;
-	public static boolean librarySafeOpen;
+	public static boolean studySafeOpen;
 	public static boolean creakyDeckOpen;
 	public static boolean boxOpen;
 	public static boolean cornOnRod;
 	public static boolean bite;
 	public static boolean theaterTVAtBeginning;
 	public static boolean disableReaper;
+	
+	public static int fishWait = 3;
 	
 	public static void resetBulbs() {
 		if (Player.orangeAlive && Player.greenAlive && Player.purpleAlive) {
@@ -110,8 +112,8 @@ public class World {
 				if (loungeSafeOpen && omInSafe)
 					totalScrolls++;
 				break;
-			case "Library":
-				if (librarySafeOpen && niInSafe)
+			case "Study":
+				if (studySafeOpen && niInSafe)
 					totalScrolls++;
 				break;
 			case "Creaky Deck":
@@ -123,5 +125,32 @@ public class World {
 		}
 		
 		return totalScrolls;
+	}
+	
+	public static void checkRod() {
+		if (cornOnRod && Player.fishing && (Data.moves == (Player.startedFishing + fishWait))) {
+			Story.printBite();
+			bite = true;
+			cornOnRod = false;
+		}
+		
+		if (bite && (Data.moves > (Player.startedFishing + fishWait))) {
+			Story.print("\nYou no longer feel a tug on the line.");
+			bite = false;
+		}
+	}
+	
+	public static void playTheater() {
+		if (theaterTVAtBeginning) {
+			Story.printTheaterTV();
+			theaterTVAtBeginning = false;
+			
+			if (!Player.playedTheaterTV) {
+				Player.playedTheaterTV = true;
+				Data.updateScore(5);
+			}
+		} else {
+			Story.printTapePlaying();
+		}
 	}
 }

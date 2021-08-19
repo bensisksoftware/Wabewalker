@@ -7,15 +7,25 @@ public class Thesaurus {
 		extraWords.add("THE");
 		extraWords.add("A");
 		extraWords.add("AN");
+		extraWords.add("AT");
+		extraWords.add("OUT");
+		extraWords.add("OLD");
+		extraWords.add("THROUGH");
 		extraWords.add("SOME");
 		extraWords.add("ALL");
 		extraWords.add("TO");
 		extraWords.add("ON");
 		extraWords.add("WITH");
+		extraWords.add("CAN");
+		extraWords.add("I");
+		extraWords.add("HAVE");
+		extraWords.add("FOR");
 		extraWords.add("IT");
 		extraWords.add("ABOUT");
+		extraWords.add("DOZEN");
 		extraWords.add("SAY");
 		extraWords.add("THAT");
+		extraWords.add("WOODEN");
 	}
 	
 	public static String translate(String w) {
@@ -28,6 +38,11 @@ public class Thesaurus {
 		|| w.equals("CRUSH")
 		|| w.equals("DESTROY")
 		|| w.equals("RUB")
+		|| w.equals("JUNK")
+		|| w.equals("COBWEBS")
+		|| w.equals("COBWEB")
+		|| w.equals("WEBS")
+		|| w.equals("WEB")
 		|| w.equals("KISS")
 		|| w.equals("TOUCH")) {
 			w = "UNUSED";
@@ -103,7 +118,9 @@ public class Thesaurus {
 			w = "CRANES";
 		}
 		
-		if (w.equals("BANNER")) {
+		if (w.equals("CARVING")
+			|| w.equals("BANNER")
+			|| w.equals("STONE")) {
 			w = "SIGN";
 		}
 		
@@ -115,11 +132,13 @@ public class Thesaurus {
 			w = "POND";
 		}
 
-		if (w.equals("KERNEL")) {
+		if (w.equals("KERNEL")
+			|| w.equals("BAIT")) {
 			w = "CORN";
 		}
 		
 		if (w.equals("POLE")
+			|| w.equals("FISHING")
 			|| w.equals("HOOK")
 			|| w.equals("LINE")) {
 			w = "ROD";
@@ -163,6 +182,7 @@ public class Thesaurus {
 		}
 		
 		if (w.equals("WALK")
+		|| w.equals("STROLL")
 		|| w.equals("RUN")) {
 			w = "GO";
 		}
@@ -226,6 +246,9 @@ public class Thesaurus {
 		if (w.equals("X")
 			|| w.equals("READ")
 			|| w.equals("INVESTIGATE")
+			|| w.equals("L")
+			|| w.equals("SEARCH")
+			|| w.equals("LOOK")
 			|| w.equals("CHECK")){
 			w = "EXAMINE";
 		}
@@ -234,10 +257,6 @@ public class Thesaurus {
 			|| w.equals("COMBAT")
 			|| w.equals("HIT")){
 			w = "FIGHT";
-		}
-		
-		if (w.equals("L")){
-			w = "LOOK";
 		}
 		
 		if (w.equals("UNLOCK")){
@@ -262,6 +281,16 @@ public class Thesaurus {
 		if (w.equals("THROW")
 		|| w.equals("TOSS")) {
 			w = "DROP";
+		}
+		
+		if (w.equals("HELLO")
+		|| w.equals("AHOY")
+		|| w.equals("HOWDY")
+		|| w.equals("BONJOUR")
+		|| w.equals("HEY")
+		|| w.equals("KONNICHIWA")
+		|| w.equals("GREETINGS")) {
+			w = "HI";
 		}
 		
 		if (w.equals("OK")
@@ -346,6 +375,7 @@ public class Thesaurus {
 		
 		if (w.equals("FREE")
 		|| w.equals("LATTER")
+		|| w.equals("DIALPAD")
 		|| w.equals("CONSULT")
 		|| w.equals("CONSULTATION")) {
 			w = "PHONE";
@@ -423,13 +453,24 @@ public class Thesaurus {
 			w = "SCROLL";
 		}
 		
-		if (w.equals("YANK")) {
+		if (w.equals("YANK")
+			|| w.equals("REEL")
+			|| w.equals("TUG")) {
 			w = "PULL";
+		}
+		
+		if (w.equals("FOUR-POSTER")
+			|| w.equals("FOURPOSTER")) {
+			w = "BED";
 		}
 		
 		if (w.equals("SWALLOW")
 		|| w.equals("CONSUME")) {
 			w = "EAT";
+		}
+		
+		if (w.equals("MANNEQUINS")) {
+			w = "MANNEQUIN";
 		}
 		
 		if (w.equals("M")) {
@@ -440,13 +481,13 @@ public class Thesaurus {
 			w = "HELP";
 		}
 		
-		if (w.equals("BAIT")
-		|| w.equals("HOOK")
+		if (w.equals("HOOK")
 		|| w.equals("ATTACH")) {
 			w = "PUT";
 		}
 		
-		if (w.equals("GLASS")) {
+		if (w.equals("GLASS")
+		|| w.equals("PANE")) {
 			w = "WINDOW";
 		}
 		
@@ -454,8 +495,14 @@ public class Thesaurus {
 			w = "CHUTE";
 		}
 		
-		if (w.equals("TELEVISION")) {
+		if (w.equals("TELEVISION")
+		|| w.equals("SET")) {
 			w = "TV";
+		}
+		
+		if (w.equals("ALTAR")
+		|| w.equals("BUTSUDAN")) {
+			w = "SHRINE";
 		}
 		
 		if (w.equals("HERE")
@@ -468,7 +515,6 @@ public class Thesaurus {
 		|| w.equals("HINT")
 		|| w.equals("MAP")
 		|| w.equals("WORLD")
-		|| w.equals("SHRINE")
 		|| w.equals("HONDO")) {
 			w = "TEMPLE";
 		}

@@ -6,7 +6,7 @@ public class Story {
 	
 	public static int scrollStop;
 	// public static int scrollStopBook = 930;
-	// public static int scrollStopLeaflet = 1790;
+	// public static int scrollStopCryptogram = 1790;
 	// public static int scrollStopKimi = 1523;
 	// public static int scrollStopTheater = 333;
 	public static int scrollStopTrance1 = 470;
@@ -15,6 +15,7 @@ public class Story {
 	
 	private static String help = "This game understands a variety of commands such as LOOK, EXAMINE BOX, and PICK UP THE SHINY PEARL.\nList of shortcuts:\ngo north = n\ngo south = s\ngo east = e\ngo west = w\ngo northeast = ne\ngo northwest = nw\ngo southeast = se\ngo southwest = sw\nup = u\ndown = d\nlook = l\nexamine = x\ninventory = i\nmemory = m\nhelp = h\nwait = z";
 	private static String invalid = "That is a sentence I don't understand."; // Frotz copyright?
+	private static String unused = "You don't need to do that in this game.";
 	private static String inventory = "Your inventory contains: ";
 	private static String inventoryEmpty = "Your inventory is empty.";
 	private static String missingNoun = "You are missing a noun in that sentence.";
@@ -36,14 +37,13 @@ public class Story {
 	private static String doneMeditating = "Your concentration breaks. You are no longer meditating.";
 	private static String notMemorized = "You don't have that memorized.";
 	private static String notMeditating = "Despite your best efforts, you become distracted and give up. That sort of thing is best done while meditating.";
-	private static String activateHallway = "You push the button and hear a beep. The shelf behind the glass slides. The scroll that was on the shelf falls down the laundry chute.";
-	private static String activateCreakyDeck = "You push the button and hear a beep. The wooden plank slides up, revealing a cool secret cabinet. In the cabinet is a frosty scroll.";
+	private static String activateHallway = "You pull the lever and hear a mechanism activate the laundry chute. The shelf behind the glass swings down on a hinge, and the crumpled scroll falls down the laundry chute.";
+	private static String activateCreakyDeck = "You push the button and hear a mechanism activate within the cabinet. The wooden plank swings open, revealing a frosty scroll.";
 	private static String pullTassel = "You pull the tassel, and the gate of the thing creaks as it raises up, revealing a TV.";
 	private static String gate = "It's a gate, but you notice a tassel!";
-	private static String cornOnRod = "You put that corn on the hook boy!";
+	private static String cornOnRod = "You attach the kernel of corn to the hook of the fishing pole.";
 	private static String cast = "You cast your line. It lands in the pond with a plop.";
-	private static String hallwayDescRaDropped = "There is a scroll on the shelf behind the glass pane.";
-	private static String hallwayDescRaNotDropped = "There is nothing on the shelf behind the glass pane.";
+	private static String hallwayDescRaNotDropped = " Behind the glass pane of the laundry chute, you can see a crumpled scroll sitting on a shelf.";
 	
 	// Reaper
 	private static String seeReaper1 = "Out of the corner of your eye, you see a hooded figure to the north before it vanishes out of sight.";
@@ -58,33 +58,32 @@ public class Story {
 	private static String reaperKill3 = "Fast as lightning, it stabs the sword into your stomach.";
 	
 	// plaques
-	private static String plaqueDesc = "The square metal plaque has an orange bulb, a green bulb, and a purple bulb.";
-	private static String plaqueSandExhibit = "Scratched into the metal are arrows pointing at the orange bulb and the green bulb.";
-	private static String plaqueLounge = "Scratched into the metal are arrows pointing at the orange bulb and the green bulb.";
-	private static String plaqueShrineRoom1 = "Scratched into the metal are arrows pointing at the orange bulb and the purple bulb.";
-	private static String plaqueAssemblyRoom = "Unlike the other plaques, this one has no scratch marks.";
-	private static String plaqueShrineRoom2 = "Scratched into the metal are arrows pointing at the orange bulb and the green bulb.";
-	private static String plaqueCourtyard = "Scratched into the metal are arrows pointing at the green bulb and the purple bulb.";
-	private static String plaqueHallway = "Scratched into the metal are arrows pointing at all three bulbs.";
-	private static String plaqueLibrary = "Scratched into the metal is an arrow pointing at the green bulb.";
-	private static String plaqueHondo = "Scratched into the metal are arrows pointing at the green bulb and the purple bulb.";
-	private static String plaqueTrinketShop = "Scratched into the metal are arrows pointing at all three bulbs.";
-	private static String plaqueCreakyDeck = "Scratched into the metal of the jewelled box is an arrow pointing at the purple bulb.";
-	private static String OOO = "All three bulbs are glowing.";
-	private static String OOX = "The orange bulb and the green bulb are glowing.";
-	private static String OXO = "The orange bulb and the purple bulb are glowing.";
-	private static String XOO = "The green bulb and the purple bulb are glowing.";
-	private static String XXO = "The purple bulb is glowing.";
-	private static String XOX = "The green bulb is glowing.";
-	private static String OXX = "The orange bulb is glowing.";
+	private static String plaqueDesc = "The square metal plaque has three colored bulbs: orange, green, and purple.";
+	private static String plaqueSandExhibit = "\nScratched into the metal are arrows pointing at the orange bulb and the green bulb.";
+	private static String plaqueLounge = "\nScratched into the metal are arrows pointing at the orange bulb and the green bulb.";
+	private static String plaqueShrineRoom1 = "\nScratched into the metal are arrows pointing at the orange bulb and the purple bulb.";
+	private static String plaqueAssemblyRoom = "\nUnlike the other plaques, this one has no scratch marks.";
+	private static String plaqueShrineRoom2 = "\nScratched into the metal are arrows pointing at the orange bulb and the green bulb.";
+	private static String plaqueCourtyard = "\nScratched into the metal are arrows pointing at the green bulb and the purple bulb.";
+	private static String plaqueHallway = "\nScratched into the metal are arrows pointing at all three bulbs.";
+	private static String plaquestudy = "\nScratched into the metal is an arrow pointing at the green bulb.";
+	private static String plaqueHondo = "\nScratched into the metal are arrows pointing at the green bulb and the purple bulb.";
+	private static String plaqueTrinketShop = "\nScratched into the metal are arrows pointing at all three bulbs.";
+	private static String plaqueCreakyDeck = "\nScratched into the metal of the jewelled box is an arrow pointing at the purple bulb.";
+	private static String OOO = "\nAll three bulbs are glowing.";
+	private static String OOX = "\nThe orange bulb and the green bulb are glowing.";
+	private static String OXO = "\nThe orange bulb and the purple bulb are glowing.";
+	private static String XOO = "\nThe green bulb and the purple bulb are glowing.";
+	private static String XXO = "\nThe purple bulb is glowing.";
+	private static String XOX = "\nThe green bulb is glowing.";
+	private static String OXX = "\nThe orange bulb is glowing.";
 	
 	// signs
 	public static String sandExhibitSign = "The sign reads: \"Avalokitesvara Shrine.\"";
-	public static String shrineRoom2Sign = "The banner reads: \"Altar of Samantabhadra.\"";
-	public static String sittingRoomSign = "The sign reads: \"Would you like some green tea? Please don't hesitate to ask. 300 yen.\"";
+	public static String shrineRoom2Sign = "The carving reads: \"Altar of Samantabhadra.\"";
 	public static String insideGateSign = "The stone carving reads: \"Commemoration: 2800 years of service.\"";
-	public static String bottomOfStairsSign = "The stone carving reads: \"The 33rd Stone Monument.\"";
-	public static String hondoSign = "The basin reads: \"Tanigumisan\" (Kegon-ji Temple)";
+	public static String bottomOfMountainSign = "The stone carving reads: \"The 33rd Stone Monument.\"";
+	public static String hondoSign = "The basin reads: \"Kegon-ji Temple\"";
 	public static String shrineRoom3Sign = "The banner reads: \"Butsudan of Kannon.\"";
 	
 	// kimi
@@ -97,7 +96,7 @@ public class Story {
 	private static String kimiAnythingElse = "\"OK, you're all set for a session next Sunday. Is there anything else I can help you with today?\"";
 	private static String kimiSorry = "\"I'm sorry, but there's probably not much we can get done over the phone for that service. Is there anything else I can help you with today?\"";
 	private static String kimiSchOrPho = "\"Excellent. It's never too late to gain control over your mind. Were you calling to schedule an appointment for an in-depth lesson, or for a free phone consultation?\"";
-	private static String kimiWisdom = "\"Very well. I am always eager to share this treasured wisdom. As a henro of Saigoku Kannon, I can only speak of the tradition I know. For today's consultation, I'll brief you on our method of meditation. There are countless methods, but Sensei Kukai systematized the process and focused on the core elements in order to produce a result similar to what is written in the Amitayurdhyana Sutra. Those core elements are the visualization, and the spoken mantra. Do not underestimate the value of any of the three elements, as they are all critical to shaping your mind to recieve the image Kukai writes so much about. You will find that breathing must always be consistent to allow your visualizations and mantras to dance freely. The powerful combination a symbol and a mantra will open the gates of your mind and reveal to you what was hiding behind the curtain. The Shingon are also particular about which visualization and mantra should be meditated upon at each temple. For example, a henro will chant the Heart Sutra at an altar of Samantabhadra, the Mantra of Light at a butsudan of Kannon, and the Gohogo Mantra at an Avalokitesvara shrine. These are the rites of a Shingon henro, and when practiced with sincerety, the henro will be one step closer towards enlightenment. I would be happy to speak more about this with you in person, but unfortunately I don't have anymore openings for an appointment. Is there anything else I can help you with today?\"";
+	private static String kimiWisdom = "\"Very well. I am always eager to share this treasured wisdom. As a henro of Saigoku Kannon, I can only speak of the tradition I know. For today's consultation, I'll brief you on our method of meditation. There are countless methods, but Sensei Kukai systematized the process and focused on the core elements in order to produce a result similar to what is written in the Amitayurdhyana Sutra. Those core elements are the visualization, and the spoken mantra. Do not underestimate the value of any of those two elements, as they are critical to shaping your mind to recieve the image Kukai writes so much about. The powerful combination a symbol and a mantra will open the gates of your mind and reveal to you what was hiding behind the curtain. The Shingon are also particular about which visualization and mantra should be meditated upon at each temple. For example, a henro will chant the Heart Sutra at an altar of Samantabhadra, the Mantra of Light at a butsudan of Kannon, and the Gohogo Mantra at an Avalokitesvara shrine. These are the rites of a Shingon henro, and when practiced with sincerety, the henro will be one step closer towards enlightenment. I would be happy to speak more about this with you in person, but unfortunately I don't have anymore openings for an appointment. Is there anything else I can help you with today?\"";
 	private static String kimiWrong = "\"Hmm. You might have the wrong number. I offer healing and learning services. If this is not what you called for, I'm sorry. Is there anything else I can help you with today?\"";
 	private static String kimiBye = "\"Dewa mata.\" Kimi hangs up.";
 	private static String kimiNoSch = "\"Oops! Unfortunately I don't have anymore openings. Is there anything else I can help you with today?\"";
@@ -119,12 +118,12 @@ public class Story {
 	public static String tod11 = "\"Hmm. That's not right,\" Ichiro mutters while sipping his tea. \"You woke up prematurely. And you looked pretty uncomfortable throughout the hypnosis also. Understand that whatever you just went through wasn't real. I do apologize if you experienced anything unpleasant. I suppose my experiment served its purpose, although I have some improvements to make. Here's the scroll. I hope you somehow find it useful. Thank you again for all of your help.\" He ushers you out.";
 	
 	// TV
-	private static String theaterTV = "Bright white light. Fills room with glow. Fades. Monk enters scene. He says, \"Konnichiwa. My name is Kiyoshi Mikami. This is my introduction to Shingon video. The name 'Shingon' means 'true word,' referring to the mantra or the chanting that's used in the practice. Shingon was first brought to Japan from China in  A.D. by Kukai. One fundamental principle is the belief that you can attain buddahood in this life without reincarnation. The idea is to break down the mental barrier between yourself and the universe and realize oneness. All of the strength and wisdom of the universe becomes yours after this realization. The practice of prana, mandala, and mantra is called sanmitsu. Prana is the breath, which must precede all else. Mandala is the concept of visualization, and mantra is chanting. Bring those three together as one. Pair mandalas to their sister mantra to enhance their power. Traditional pairings include the Conch Shell with the Celestial Sutra, the Golden Fish with the Mantra of Light, the Endless Knot with the Gohogo Mantra, the Wheel of Dharma with the Mantra of Jambi, the Lotus Flower with the Heart Sutra... The list goes on. This is the process to achieve oneness and to recieve the aid from your deity. You must destroy parts of yourself at times if you are to maintain inner balance. You will start to merge with it and become one with it, and from there, you merge with the universe. Thank you and namaste.\" The monk exits the scene.";
+	private static String theaterTV = "Bright white light. Fills room with glow. Fades. Clair de Lune by Isao Tomita plays softly. Monk enters scene. He says, \"Konnichiwa. My name is Kiyoshi Mikami. This is my introduction to Shingon video. The name 'Shingon' means 'true word,' referring to the mantra or the chanting that's used in the practice. Shingon was first brought to Japan from China in  A.D. by Kukai. One fundamental principle is the belief that you can attain buddahood in this life without reincarnation. The idea is to break down the mental barrier between yourself and the universe and realize oneness. All of the strength and wisdom of the universe becomes yours after this realization. The practice of mandala and mantra is called sanmitsu. Mandala is the concept of visualization, and mantra is chanting. Bring them together as one. Pair mandalas to their sister mantra to enhance their power. Traditional pairings include the Conch Shell with the Celestial Sutra, the Golden Fish with the Mantra of Light, the Endless Knot with the Gohogo Mantra, the Wheel of Dharma with the Mantra of Jambi, the Lotus Flower with the Heart Sutra... The list goes on. This is the process to achieve oneness and to recieve the aid from your deity. You must destroy parts of yourself at times if you are to maintain inner balance. You will start to merge with it and become one with it, and from there, you merge with the universe. Thank you and namaste.\" The monk exits the scene.";
 	
 	// Trance
 	private static String trance1 = "\"How is it when a practitioner goes along a narrow path?\"\n\n\"You will meet a deadly snake on the great road. I advise you not to run into it.\"\n\n\"What if I do run into it?\"\n\n\"You will lose your life.\"\n\n\"What if I don't run into it?\"\n\n\"You have no place to escape from it.\"\n\n\"Precisely at such a time, what then?\"\n\n\"It is lost.\"\n\n\"I wonder where it is gone...\"";
 	private static String trance2 = "\"What will happen when the leaves fall and the trees become bare?\"\n\n\"The golden wind.\"\n\n\"What do you mean?\"\n\n\"The trunk becomes visible in the autumn wind.\"";
-	private static String trance3 = "\"Where are you going?\"\n\n\"I am on pilgrimage, following the wind.\"\n\n\"What are you on pilgrimage for?\"\n\n\"I don't know.\"\n\n\"Non-knowing is most intimate.\"\n\n\"What year did Palu write Post Radius?\"";
+	private static String trance3 = "\"Where are you going?\"\n\n\"I am on pilgrimage, following the wind.\"\n\n\"What are you on pilgrimage for?\"\n\n\"I don't know.\"\n\n\"Non-knowing is most intimate.\"\n\n\"...\"\n\n\"What year did Palu write Post Radius?\"";
 	
 	private static String samadhi1 = "The cloaked figure pauses, and slowly lowers its sword.\n\"Moushiwake arimasen. My upmost apologies. Only an awakened one could have found the answer within themself. I believe you and I walk parallel paths. Let us perform sanmitsu together, and strive to reach the end of this journey.";
 	private static String samadhi2 = " Please, follow me.\"\n\nThe figure heads off to the east, and disappears to the south.";
@@ -196,11 +195,7 @@ public class Story {
 	public static void printDesc2() {
 		switch (Player.getLocation().title) {
 			case "Hallway":
-				newLine();
-				
-				if (World.raDropped) {
-					print(hallwayDescRaDropped);
-				} else {
+				if (!World.raDropped) {
 					print(hallwayDescRaNotDropped);
 				}
 				break;
@@ -212,6 +207,10 @@ public class Story {
 	
 	public static void printHelp() {
 		print(help);
+	}
+	
+	public static void printUnused() {
+		print(unused);
 	}
 	
 	public static void printNowMeditating() {
@@ -389,8 +388,8 @@ public class Story {
 			case "Hallway":
 				print(plaqueHallway);
 				break;
-			case "Library":
-				print(plaqueLibrary);
+			case "Study":
+				print(plaquestudy);
 				break;
 			case "Hamlet":
 				print(plaqueHondo);
@@ -446,6 +445,21 @@ public class Story {
 		print("The tape is already playing.");
 	}
 	
+	public static void printDance() {
+		int d = (int)(Math.random() * 3 + 1);
+		
+		if (d == 1)
+			print("You do a little jig.");
+		
+		if (d == 2)
+			print("You bust a move.");
+		
+		if (d == 3)
+			print("You attempt a breakdance, but fail.");
+		
+		System.out.println(d);
+	}
+	
 	public static void printRewind(String c) {
 		switch (c) {
 			case "orange":
@@ -489,7 +503,7 @@ public class Story {
 	}
 	
 	public static void printBlackOut() {
-		print("You black out and wake up.");
+		print("You wake up.");
 		newParagraph();
 	}
 	

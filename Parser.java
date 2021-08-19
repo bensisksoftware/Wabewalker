@@ -9,24 +9,16 @@ public class Parser {
 	
 	public static void submitInput() {
 		Data.moves++;
-		
 		Story.newParagraph();
-		
 		Story.printInput();
-		
 		setInput();
-		
 		resetInput();
 		
 		if (validInput()) {
 			eraseSpaces();
-			
 			createSentence();
-			
 			passInput();
-			
 			Story.setScrollbar();
-			
 			Data.printToCMD();
 		}
 	}
@@ -125,8 +117,8 @@ public class Parser {
 	public static void passInput() {
 		if (Player.facingReaper) {
 			NPC.handleReaper(sentence.get(0));
-		} else if (sentence.get(0).equals("UNUSED")) {
-			Story.print("You don't need to do that in this game.");
+		} else if (sentence.contains("UNUSED")) {
+			Story.printUnused();
 		} else if (Data.gameOver) { 
 			Data.handleGameOver(sentence.get(0));
 		} else if (Player.onPhone) {
@@ -244,9 +236,6 @@ public class Parser {
 			case "DROP":
 				Action.drop(sentence.get(1));
 				break;
-			case "LOOK":
-				Action.look();
-				break;
 			case "EXAMINE":
 				if (World.dark) {
 					if (sentence.get(1).equals("HOLE")) {
@@ -306,9 +295,6 @@ public class Parser {
 					Story.print("You're not holding an item that can do that.");
 				}
 				break;
-			case "REEL":
-				Action.reel(sentence.get(1));
-				break;
 			case "FIGHT":
 				Action.fight(sentence.get(1));
 				break;
@@ -320,6 +306,12 @@ public class Parser {
 				break;
 			case "SIT":
 				Action.sit(sentence.get(1));
+				break;
+			case "DANCE":
+				Story.printDance();
+				break;
+			case "BACK":
+				Room.checkPreviousLocation();
 				break;
 			default:
 				Story.invalid();
