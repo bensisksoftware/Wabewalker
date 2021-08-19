@@ -131,10 +131,10 @@ public class Item {
 				return Room.mannequinRoomObjects.get(i).title;
 			case "Theater":
 				return Room.theaterObjects.get(i).title;
-			case "Outside Gate":
-				return Room.outsideGateObjects.get(i).title;
-			case "Inside Gate":
-				return Room.insideGateObjects.get(i).title;
+			case "Forest":
+				return Room.forestObjects.get(i).title;
+			case "Gate":
+				return Room.gateObjects.get(i).title;
 			case "Island":
 				return Room.islandObjects.get(i).title;
 			case "Bottom of Mountain":
@@ -638,8 +638,8 @@ public class Item {
 			case "Shrine Room 2":
 				Story.print(Story.shrineRoom2Sign);
 				break;
-			case "Inside Gate":
-				Story.print(Story.insideGateSign);
+			case "Gate":
+				Story.print(Story.gateSign);
 				break;
 			case "Bottom of Mountain":
 				Story.print(Story.bottomOfMountainSign);
@@ -754,12 +754,12 @@ public class Item {
 		}
 	}
 	
-	public static void examineCranes() {
+	public static void examineBirds() {
 		// if at overlook or shrine1 w right screen
 		if (Player.getLocation().title.equals("Overlook")) {
-			Story.print("The cranes are colorful and on a hinge thing where you can maybe move it hint hint.");
+			Story.print("The birds are colorful and on a hinge thing where you can maybe move it hint hint.");
 		} else if (Player.getLocation().title.equals("Shrine Room 1") && Player.purpleAlive) {
-			Story.print("The oragami cranes on the TV are so colorful and encompass the whole screen");
+			Story.print("The oragami birds on the TV are so colorful and encompass the whole screen");
 		} else {
 			Story.printNotHere();
 		}
@@ -837,7 +837,7 @@ public class Item {
 			case "Study":
 				Story.print("The Chippendale mirror casts your reflection back at you. Your loosely kept hair goes well with your faded green robe.");
 				break;
-			case "Overlook":
+			case "Trinket Shop":
 				Story.print("The Chippendale mirror casts your reflection back at you. Your loosely kept hair goes well with your faded purple robe.");
 				break;
 			default:
@@ -862,7 +862,7 @@ public class Item {
 	}
 	
 	public static void getMirror() {
-		if (Player.getLocation().title.equals("Thatched Hut") || Player.getLocation().title.equals("Study") || Player.getLocation().title.equals("Overlook")) {
+		if (Player.getLocation().title.equals("Thatched Hut") || Player.getLocation().title.equals("Study") || Player.getLocation().title.equals("Trinket Shop")) {
 			Story.print("The mirror is too heavy to move.");
 		} else {
 			Story.printNotHere();
@@ -875,7 +875,7 @@ public class Item {
 		switch (Player.getLocation().title) {
 			case "Shrine Room 1":
 				if (Player.purpleAlive) {
-					Story.print("a colorful array of oragami cranes.");
+					Story.print("a colorful array of oragami birds.");
 				} else {
 					Story.print("a snowy overlook.");
 				}
@@ -920,10 +920,13 @@ public class Item {
 				Story.print("It's a wooden sliding door on the east wall.");
 				break;
 			case "Courtyard":
-				Story.print("There's nothing special about it.");
+				Story.printNothingSpecial();
 				break;
 			case "Closet":
-				Story.print("There's nothing special about it.");
+				Story.printNothingSpecial();
+				break;
+			case "Hamlet":
+				Story.printNothingSpecial();
 				break;
 			default:
 				Story.printNotHere();
@@ -981,6 +984,14 @@ public class Item {
 		}
 	}
 	
+	public static void examineBasin() {
+		if (Player.getLocation().title.equals("Hondo")) {
+			Story.print(Story.hondoSign);
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
 	public static void takeSign() {
 		if (Room.hasSign()) {
 			Story.printCantTake();
@@ -1032,6 +1043,62 @@ public class Item {
 	public static void openWindow() {
 		if (Room.hasWindow()) {
 			Story.print("It won't budge.");
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void takeLattice() {
+		if (Player.getLocation().title.equals("Island")) {
+			Story.printCantTake();
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void examineLattice() {
+		if (Player.getLocation().title.equals("Island")) {
+			Story.printNothingSpecial();
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void openLattice() {
+		if (Player.getLocation().title.equals("Island")) {
+			Story.printCantOpen();
+		} else {
+			Story.printNotHere();
+		}
+	}
+	
+	public static void examineShrine() {
+		switch (Player.getLocation().title) {
+			case "Shrine Room 1":
+				Story.print(Story.shrine1Desc);
+				break;
+			case "Shrine Room 2":
+				Story.print(Story.shrine2Desc);
+				break;
+			case "Shrine Room 3":
+				Story.print(Story.shrine3Desc);
+				break;
+			case "Island":
+				if (World.islandOpen) {
+					Story.print(Story.hokuraOpen);
+				} else {
+					Story.print(Story.hokuraClosed);
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void examineSnow() {
+		if (Player.getArea().equals("temple")) {
+			Story.printNothingSpecial();
 		} else {
 			Story.printNotHere();
 		}

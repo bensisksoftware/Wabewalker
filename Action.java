@@ -64,12 +64,12 @@ public class Action {
 				Player.updateLocation(Room.mannequinRoom);
 				break;
 			case "Master Bedroom":
-				Player.updateLocation(Room.outsideGate);
+				Player.updateLocation(Room.forest);
 				break;
-			case "Outside Gate":
-				Player.updateLocation(Room.insideGate);
+			case "Forest":
+				Player.updateLocation(Room.gate);
 				break;
-			case "Inside Gate":
+			case "Gate":
 				Player.updateLocation(Room.bottomOfMountain);
 				break;
 			case "Bottom of Mountain":
@@ -141,11 +141,11 @@ public class Action {
 			case "Mannequin Room":
 				Player.updateLocation(Room.darkPassageway);
 				break;
-			case "Inside Gate":
-				Player.updateLocation(Room.outsideGate);
+			case "Gate":
+				Player.updateLocation(Room.forest);
 				break;
 			case "Bottom of Mountain":
-				Player.updateLocation(Room.insideGate);
+				Player.updateLocation(Room.gate);
 				break;
 			case "Halfway up Mountain":
 				Player.updateLocation(Room.bottomOfMountain);
@@ -223,7 +223,7 @@ public class Action {
 			case "Mannequin Room":
 				Player.updateLocation(Room.theater);
 				break;
-			case "Inside Gate":
+			case "Gate":
 				Player.updateLocation(Room.island);
 				break;
 			case "Hamlet":
@@ -292,7 +292,7 @@ public class Action {
 				break;
 			case "Island":
 				Story.print("You hear the wooden gate slam shut behind you\n");
-				Player.updateLocation(Room.insideGate);
+				Player.updateLocation(Room.gate);
 				World.islandOpen = false;
 				break;
 			case "Top of Mountain":
@@ -511,7 +511,7 @@ public class Action {
 					Story.printHow();
 				}
 			default:
-				System.out.println("Action.go() error");
+				Story.invalid();
 				break;
 		}
 	}
@@ -593,11 +593,11 @@ public class Action {
 			case "Theater":
 				Player.updateLocation(Room.theater);
 				break;
-			case "Outside Gate":
-				Player.updateLocation(Room.outsideGate);
+			case "Forest":
+				Player.updateLocation(Room.forest);
 				break;
-			case "Inside Gate":
-				Player.updateLocation(Room.insideGate);
+			case "Gate":
+				Player.updateLocation(Room.gate);
 				break;
 			case "Island":
 				Player.updateLocation(Room.island);
@@ -866,8 +866,8 @@ public class Action {
 			case "TV":
 				Story.printCantTake();
 				break;
-			case "CRANES":
-				moveCranes();
+			case "BIRDS":
+				moveBirds();
 				break;
 			case "SIGN":
 				Item.takeSign();
@@ -887,8 +887,9 @@ public class Action {
 			case "WINDOW":
 				Item.takeWindow();
 				break;
-			case "JUNK":
-				
+			case "TASSEL":
+				pullTassel();
+				break;
 			default:
 				Story.printNotHere();
 				break;
@@ -1214,6 +1215,9 @@ public class Action {
 			case "SIGN":
 				Item.examineSign();
 				break;
+			case "BASIN":
+				Item.examineBasin();
+				break;
 			case "ROBE":
 				Story.print("It's a loosely-fit faded " + Player.getRobe() + " robe."); 
 				break;
@@ -1249,20 +1253,20 @@ public class Action {
 			case "BOX":
 				Item.examineBox();
 				break;
-			case "CRANES":
-				Item.examineCranes();
+			case "BIRDS":
+				Item.examineBirds();
 				break;
 			case "MEMORY":
 				Story.printMemory();
 				break;
 			case "SHRINE":
-				Story.printExamineShrine();
+				Item.examineShrine();
 				break;
 			case "TASSEL":
 				Story.print("The tassel is hanging from the gate.");
 				break;
 			case "TEA":
-				Story.print("There's nothing special about it.");
+				Story.printNothingSpecial();
 				break;
 			case "CHEST":
 				Item.examineChest();
@@ -1299,6 +1303,12 @@ public class Action {
 				break;
 			case "MANNEQUIN":
 				Item.examineMannequin();
+				break;
+			case "LATTICE":
+				Item.examineLattice();
+				break;
+			case "SNOW":
+				Item.examineSnow();
 				break;
 			default:
 				Story.printNotHere();
@@ -1389,7 +1399,7 @@ public class Action {
 			
 			Player.sawReaper2 = true;
 		} else if (Player.getLocation().title.equals("Closet")) {
-			Story.print("You can't see anything special about the hole in the ceiling.");
+			Story.printNothingSpecial();
 		} else {
 			Story.printNotHere();
 		}
@@ -1421,8 +1431,11 @@ public class Action {
 			case "WINDOW":
 				Item.openWindow();
 				break;
+			case "Lattice":
+				Item.openLattice();
+				break;
 			default:
-				Story.print("That is not something you can open.");
+				Story.printCantOpen();
 				break;
 		}
 	}
@@ -1761,8 +1774,8 @@ public class Action {
 			case "TASSEL":
 				pullTassel();
 				break;
-			case "CRANES":
-				moveCranes();
+			case "BIRDS":
+				moveBirds();
 				break;
 			case "IN":
 				reelIn();
@@ -1800,13 +1813,13 @@ public class Action {
 	private static void pullTassel() {
 		if (Player.getLocation().title.equals("Island")) {
 			if (World.islandOpen) {
-				Story.print("You pull the tassel, but nothing happens. The gate is already open.");
+				Story.print("You pull the tassel, but nothing happens. The barrier is already open.");
 			} else {
 				World.islandOpen = true;
 				Story.printTassel();
 				
-				if (!Player.openedGate) {
-					Player.openedGate = true;
+				if (!Player.openedHokura) {
+					Player.openedHokura = true;
 					Data.updateScore(5);
 				}
 			}
@@ -1945,8 +1958,8 @@ public class Action {
 			case "":
 				Story.printMissingNoun();
 				break;
-			case "CRANES":
-				moveCranes();
+			case "BIRDS":
+				moveBirds();
 				break;
 			default:
 				Story.invalid();
@@ -1954,9 +1967,9 @@ public class Action {
 		}
 	}
 	
-	public static void moveCranes() {
+	public static void moveBirds() {
 		if (Player.getLocation().title.equals("Overlook")) {
-			Story.printMoveCranes();
+			Story.printMoveBirds();
 			Story.newLine();
 			Player.facingReaper = true;
 			Story.printReaperEncounter2();		

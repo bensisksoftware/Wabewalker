@@ -23,7 +23,7 @@ public class Player {
 	public static boolean metIsachi;
 	public static boolean playedTheaterTV;
 	public static boolean baitedRod;
-	public static boolean openedGate;
+	public static boolean openedHokura;
 	public static boolean examinedCard;
 	public static boolean heardKimiWisdom;
 	public static boolean openedSandExhibitDoor;
@@ -115,7 +115,7 @@ public class Player {
 					} else {
 						inventory.clear();
 						Story.printBlackOut();
-						Player.updateLocation(Room.outsideGate);
+						Player.updateLocation(Room.forest);
 					}
 				} else {
 					// no ningyo
@@ -225,8 +225,8 @@ public class Player {
 		
 		purpleSavedInventory.clear();
 		
-		Room.outsideGateObjects.clear();
-		Room.insideGateObjects.clear(); 
+		Room.forestObjects.clear();
+		Room.gateObjects.clear(); 
 		Room.islandObjects.clear(); 
 		Room.bottomOfMountainObjects.clear(); 
 		Room.topOfMountainObjects.clear(); 
@@ -338,7 +338,7 @@ public class Player {
 				updateLocation(Room.island);
 				restorePurpleInventory();
 			} else {
-				updateLocation(Room.outsideGate);
+				updateLocation(Room.forest);
 			}
 		} else {
 			Story.printTapePlaying();
@@ -445,9 +445,9 @@ public class Player {
 				return "green";
 			case "Theater":
 				return "green";
-			case "Outside Gate":
+			case "Forest":
 				return "purple";
-			case "Inside Gate":
+			case "Gate":
 				return "purple";
 			case "Island":
 				return "purple";
@@ -522,5 +522,91 @@ public class Player {
 			c++;
 		
 		return c;
+	}
+	
+	public static String getArea() {
+		switch (getLocation().title) {
+			case "Garden Patio":
+				return "garden";
+			case "Cobble Square":
+				return "garden";
+			case "Tea Room":
+				return "garden";
+			case "Sand Exhibit":
+				return "garden";
+			case "Thatched Hut":
+				return "garden";
+			case "Garden Overlook":
+				return "garden";
+			case "Lounge":
+				return "garden";
+			case "Cafe":
+				return "garden";
+			case "Outside Gallery":
+				return "garden";
+			case "Shrine Room 1":
+				return "garden";
+			case "Inside Gallery":
+				return "garden";
+			case "Assembly Room":
+				return "garden";
+			case "Shrine Room 2":
+				return "house";
+			case "Living Room":
+				return "house";
+			case "Pond":
+				return "house";
+			case "Courtyard":
+				return "house";
+			case "Landing":
+				return "house";
+			case "Hallway":
+				return "house";
+			case "Sitting Room":
+				return "house";
+			case "Study":
+				return "house";
+			case "Master Bedroom":
+				return "house";
+			case "Closet":
+				return "house";
+			case "Dark Passageway":
+				return "house";
+			case "Mannequin Room":
+				return "house";
+			case "Theater":
+				return "house";
+			case "Forest":
+				return "temple";
+			case "Gate":
+				return "temple";
+			case "Island":
+				return "temple";
+			case "Bottom of Mountain":
+				return "temple";
+			case "Halfway up Mountain":
+				return "temple";
+			case "Top of Mountain":
+				return "temple";
+			case "Hamlet":
+				return "temple";
+			case "Hisachi Ichiro's House":
+				return "temple";
+			case "Hondo":
+				return "temple";
+			case "Balcony":
+				return "temple";
+			case "Shrine Room 3":
+				return "temple";
+			case "Trinket Shop":
+				return "temple";
+			case "Creaky Deck":
+				return "temple";
+			case "Overlook":
+				return "temple";
+			default:
+				System.out.println("Player.getArea() error");
+				return null;
+		}
 	}
 }

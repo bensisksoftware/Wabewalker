@@ -40,7 +40,12 @@ public class Story {
 	private static String activateHallway = "You pull the lever and hear a mechanism activate the laundry chute. The shelf behind the glass swings down on a hinge, and the crumpled scroll falls down the laundry chute.";
 	private static String activateCreakyDeck = "You push the button and hear a mechanism activate within the cabinet. The wooden plank swings open, revealing a frosty scroll.";
 	private static String pullTassel = "You pull the tassel, and the gate of the thing creaks as it raises up, revealing a TV.";
-	private static String gate = "It's a gate, but you notice a tassel!";
+	public static String hokuraClosed = "The hokura is made of a dark wood, and is nearly as tall as you are. The front opening is closed off by a cedar lattice barrier, behind which is a television set. Hanging from the hokura's curved roof is a tassel, swaying in the wind.";
+	public static String hokuraOpen = "The hokura is made of a dark wood, and is nearly as tall as you are. A television set rests inside. Hanging from the hokura's curved roof is a tassel, swaying in the wind.";
+	public static String shrine1Desc = " desc";
+	public static String shrine2Desc = "Recessed in the north wall of this quiet room is a beautifully gilded altar. Above it hangs a wooden carving.";
+	public static String shrine3Desc = " desc";
+	public static String gate = "It's a gate.";
 	private static String cornOnRod = "You attach the kernel of corn to the hook of the fishing pole.";
 	private static String cast = "You cast your line. It lands in the pond with a plop.";
 	private static String hallwayDescRaNotDropped = " Behind the glass pane of the laundry chute, you can see a crumpled scroll sitting on a shelf.";
@@ -81,7 +86,7 @@ public class Story {
 	// signs
 	public static String sandExhibitSign = "The sign reads: \"Avalokitesvara Shrine.\"";
 	public static String shrineRoom2Sign = "The carving reads: \"Altar of Samantabhadra.\"";
-	public static String insideGateSign = "The stone carving reads: \"Commemoration: 2800 years of service.\"";
+	public static String gateSign = "The stone carving reads: \"Commemoration: 2800 years of service.\"";
 	public static String bottomOfMountainSign = "The stone carving reads: \"The 33rd Stone Monument.\"";
 	public static String hondoSign = "The basin reads: \"Kegon-ji Temple\"";
 	public static String shrineRoom3Sign = "The banner reads: \"Butsudan of Kannon.\"";
@@ -184,6 +189,10 @@ public class Story {
 		print("Nothing happens.");
 	}
 	
+	public static void printNothingSpecial() {
+		print("There's nothing special about it.");
+	}
+	
 	public static void print(String s) {
 		Bunraku.body.append(s);
 	}
@@ -197,6 +206,13 @@ public class Story {
 			case "Hallway":
 				if (!World.raDropped) {
 					print(hallwayDescRaNotDropped);
+				}
+				break;
+			case "Island":
+				if (World.islandOpen) {
+					print(Room.islandOpen);
+				} else {
+					print(Room.islandClosed);
 				}
 				break;
 			default:
@@ -292,6 +308,10 @@ public class Story {
 	
 	public static void printLocked() {
 		print(locked);
+	}
+	
+	public static void printCantOpen() {
+		print("That is not something you can open.");
 	}
 	
 	public static void printObjects() {
@@ -469,7 +489,7 @@ public class Story {
 				print("The image on the screen becomes distorted. The pool of blood reenters monk. Figure enters scene. Monk rises. Figure leaves backwards. Monk leaves.");
 				break;
 			case "purple":
-				print("The image on the screen becomes distorted. The figure enters the scene. Purple monk rises up and spins around. Colorful oragami cranes cover the screen.");
+				print("The image on the screen becomes distorted. The figure enters the scene. Purple monk rises up and spins around. Colorful oragami birds cover the screen.");
 				break;
 			case "theater":
 				print("The image on the screen becomes distorted. A monk enters and exits the scene.");
@@ -507,8 +527,8 @@ public class Story {
 		newParagraph();
 	}
 	
-	public static void printMoveCranes() {
-		print("The cranes move to the side, revealing a masked woman in a blue kimono.");
+	public static void printMoveBirds() {
+		print("The birds move to the side, revealing a masked woman in a blue kimono.");
 	}
 	
 	public static void printGameOver() {
@@ -713,23 +733,6 @@ public class Story {
 	
 	public static void printAlreadyMemorizedSymbol() {
 		print("The sacred symbol is already memorized.");
-	}
-	
-	public static void printExamineShrine() {
-		switch (Player.getLocation().title) {
-			case "Shrine Room 1":
-				Story.print("Beautiful shrine. TV in front.");
-				break;
-			case "Shrine Room 2":
-				Story.print("Beautiful shrine. Banner above.");
-				break;
-			case "Shrine Room 3":
-				Story.print("Beautiful shrine.");
-				break;
-			default:
-				printNotHere();
-				break;
-		}
 	}
 	
 	public static void printOpenBox() {

@@ -109,19 +109,29 @@ public class Thesaurus {
 		}
 		
 		if (w.equals("BULBS")
-			|| w.equals("BULB")) {
+			|| w.equals("BULB")
+			|| w.equals("PLAQUES")
+			|| (w.equals("POST") && Player.getLocation().title.equals("Hamlet"))) {
 			w = "PLAQUE";
 		}
 		
-		if (w.equals("CRANE")
+		if (w.equals("BIRD")
 			|| w.equals("ORAGAMI")) {
-			w = "CRANES";
+			w = "BIRDS";
 		}
 		
 		if (w.equals("CARVING")
 			|| w.equals("BANNER")
+			|| w.equals("SLATE")
+			|| w.equals("MEMORIAL")
+			|| w.equals("INSCRIPTION")
 			|| w.equals("STONE")) {
 			w = "SIGN";
+		}
+		
+		if (w.equals("CEDAR")
+			|| w.equals("BARRIER")) {
+			w = "LATTICE";
 		}
 		
 		if (w.equals("CHIPPENDALE")) {
@@ -501,6 +511,7 @@ public class Thesaurus {
 		}
 		
 		if (w.equals("ALTAR")
+		|| w.equals("HOKURA")
 		|| w.equals("BUTSUDAN")) {
 			w = "SHRINE";
 		}

@@ -30,8 +30,8 @@ public class Room {
 	public static ArrayList<String> darkPassagewayExits = new ArrayList<String>();
 	public static ArrayList<String> mannequinRoomExits = new ArrayList<String>(); 
 	public static ArrayList<String> theaterExits = new ArrayList<String>(); 
-	public static ArrayList<String> outsideGateExits = new ArrayList<String>();
-	public static ArrayList<String> insideGateExits = new ArrayList<String>(); 
+	public static ArrayList<String> forestExits = new ArrayList<String>();
+	public static ArrayList<String> gateExits = new ArrayList<String>(); 
 	public static ArrayList<String> islandExits = new ArrayList<String>(); 
 	public static ArrayList<String> bottomOfMountainExits = new ArrayList<String>(); 
 	public static ArrayList<String> halfwayUpMountainExits = new ArrayList<String>(); 
@@ -69,8 +69,8 @@ public class Room {
 	public static ArrayList<Item> darkPassagewayObjects = new ArrayList<Item>();
 	public static ArrayList<Item> mannequinRoomObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> theaterObjects = new ArrayList<Item>(); 
-	public static ArrayList<Item> outsideGateObjects = new ArrayList<Item>();
-	public static ArrayList<Item> insideGateObjects = new ArrayList<Item>(); 
+	public static ArrayList<Item> forestObjects = new ArrayList<Item>();
+	public static ArrayList<Item> gateObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> islandObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> bottomOfMountainObjects = new ArrayList<Item>(); 
 	public static ArrayList<Item> halfwayUpMountainObjects = new ArrayList<Item>(); 
@@ -112,20 +112,22 @@ public class Room {
 	public static String darkPassagewayDesc = "You are in a dark passageway, with paths leading north and east. On the south wall, a beam of light is shining through a small hole.";
 	public static String mannequinRoomDesc = "This is a dark room. Assembled in various positions are a dozen mannequins that crowd the room. There are passageways to the east and south.";
 	public static String theaterDesc = "This room looks like someone attempted to convert it into a home theater, but had abandoned the project halfway through. There is various junk covered in cobwebs scattered about. Nestled in the corner is an old television set. There is a passageway to the west.";
-	public static String outsideGateDesc = "A huge, snowy mountain looms before you. You see a path through the gate to the north.";
-	public static String insideGateDesc = "The path up the mountain leads north. Beside the path is a stone monument with an inscription carved into it. To the east is a bridge extending over a frozen pond. In the middle of the pond is a small man-made island. There is also a path leading south.";
-	public static String islandDesc = "There is a thing here with a gate. Through the gate you see a TV. The bridge extends west over the frozen pond.";
-	public static String bottomOfMountainDesc = "You are at the bottom of a large stair. Stone carving here. To the north, you can just make out a temple. There is a path to the south.";
-	public static String halfwayUpMountainDesc = "You are halfway up the snowy mountain. There is a wooden sign here. Paths leading north and south.";
-	public static String topOfMountainDesc = "You are at the top of mountain path. To the north is a large temple. To the west you can see residents' quarters.";
-	public static String hamletDesc = "There is a house here. In the front, is a wooden post with a plaque on it. There is a path to the east.";
+	public static String forestDesc = "You are in the middle of a vast forest, surrounded by tall pine trees in every direction. There is a stone path that leads north toward an enormous, open gate. Looming behind the gate in the distance is a huge, snowy mountain.";
+	public static String gateDesc = "You are beneath the main gate that appears to be hundreds of years old. A stone path leads north and south. A narrow stone bridge extends east over a frozen pond, reaching a man-made island in the center. There is a memorial stone here with an inscription carved into the face of it.";
+	public static String islandDesc = "You are on a small man-made island in the center of a frozen pond, connected only by a bridge to the west. Built on the center of the island is a small hokura shrine.";
+	public static String islandClosed = " Inside the hokura, behind a lattice barrier, is a television set.";
+	public static String islandOpen = " Inside the hokura is a television set.";
+	public static String bottomOfMountainDesc = "You are at the bottom of a long stone staircase leading north up the mountain. A stone path leads south. There is a slate here with an inscription carved into the face of it.";
+	public static String halfwayUpMountainDesc = "You are halfway up the snowy mountain. The stone path ascends to the north, and descends to the south. Peeking out of the snow on the ground is a wooden sign.";
+	public static String topOfMountainDesc = "You are at the top of mountain path. A large, old temple stands just north of here. To the west you can see residents' quarters. A stone path descends the mountain to the south.";
+	public static String hamletDesc = "There is a modest house at the west end of this hamlet. Beside its front door is a wooden post with a plaque on it. There is a pathway to the east.";
 	public static String todsHouseDesc = "You are sitting on a cushion in a warm house. There's a cup of hot tea on a table in front of you. Hisachi Ichiro sits on the opposite side.";
-	public static String hondoDesc = "This is the main area of the temple. Basin here. To the northeast you see a balcony. To the north you can see a magnificent golden shrine. A trinket shop is to the northwest.";
-	public static String balconyDesc = "The balcony extends along the edge of the temple. The deck continues to the north and southeast.";
+	public static String hondoDesc = "You are in the main hall of the temple, which branches off in many directions. There is a balcony to the northwest, a storefront to the northeast, and a magnificent golden shrine to the north. In the center of the hondo rests a large basin.";
+	public static String balconyDesc = "The balcony extends along the west edge of the temple, overlooking a vast forest. The deck continues to the north and southeast.";
 	public static String shrineRoom3Desc = "This is a magnificent golden shrine. Banner above. There is an exit to the south.";
-	public static String trinketShopDesc = "There is an exit to the southwest.";
-	public static String creakyDeckDesc = "The deck creaks beneath your feet. There is a wooden box here with a button and a plaque. There are walkways to the west and south.";
-	public static String overlookDesc = "There is a mirror here, and hanging oragami cranes. There is a way to the east.";
+	public static String trinketShopDesc = "This small trinket shop is very bare, and seems to be closed for the season. A Chippendale mirror is positioned in the corner of the shop. From here you can see the Hondo to the southwest.";
+	public static String creakyDeckDesc = "The deck creaks beneath your feet, voicing its venerable age. There is a box plaque button. The deck continues to the west and to the south.";
+	public static String overlookDesc = "You are on the west end of the temple where the deck overlooks a vast forest, enveloped by falling snowflakes. Thousands of colorful oragami birds are strung here from the ceiling, forming a curtain of rainbow paper that veils the far end of the deck. The deck only leads east from here.";
 	
 	public String title;
 	public String desc;
@@ -161,8 +163,8 @@ public class Room {
 	public static Room darkPassageway = new Room("Dark Passageway", darkPassagewayDesc);
 	public static Room mannequinRoom = new Room("Mannequin Room", mannequinRoomDesc); 
 	public static Room theater = new Room("Theater", theaterDesc); 
-	public static Room outsideGate = new Room("Outside Gate", outsideGateDesc);
-	public static Room insideGate = new Room("Inside Gate", insideGateDesc); 
+	public static Room forest = new Room("Forest", forestDesc);
+	public static Room gate = new Room("Gate", gateDesc); 
 	public static Room island = new Room("Island", islandDesc); 
 	public static Room bottomOfMountain = new Room("Bottom of Mountain", bottomOfMountainDesc); 
 	public static Room halfwayUpMountain = new Room("Halfway Up Mountain", halfwayUpMountainDesc); 
@@ -202,8 +204,8 @@ public class Room {
 		rooms.add(darkPassageway);
 		rooms.add(mannequinRoom); 
 		rooms.add(theater); 
-		rooms.add(outsideGate);
-		rooms.add(insideGate); 
+		rooms.add(forest);
+		rooms.add(gate); 
 		rooms.add(island); 
 		rooms.add(bottomOfMountain); 
 		rooms.add(halfwayUpMountain); 
@@ -269,10 +271,10 @@ public class Room {
 		mannequinRoomExits.add("E"); 
 		mannequinRoomExits.add("S"); 
 		theaterExits.add("W"); 
-		outsideGateExits.add("N");
-		insideGateExits.add("N"); 
-		insideGateExits.add("E"); 
-		insideGateExits.add("S"); 
+		forestExits.add("N");
+		gateExits.add("N"); 
+		gateExits.add("E"); 
+		gateExits.add("S"); 
 		islandExits.add("W"); 
 		bottomOfMountainExits.add("N"); 
 		bottomOfMountainExits.add("S"); 
@@ -380,14 +382,16 @@ public class Room {
 				return mannequinRoomExits;
 			case "Theater":
 				return theaterExits;
-			case "Outside Gate":
-				return outsideGateExits;
-			case "Inside Gate":
-				return insideGateExits;
+			case "Forest":
+				return forestExits;
+			case "Gate":
+				return gateExits;
 			case "Island":
 				return islandExits;
 			case "Bottom of Mountain":
 				return bottomOfMountainExits;
+			case "Halfway up Mountain":
+				return halfwayUpMountainExits;
 			case "Top of Mountain":
 				return topOfMountainExits;
 			case "Hamlet":
@@ -462,14 +466,16 @@ public class Room {
 				return mannequinRoomObjects;
 			case "Theater":
 				return theaterObjects;
-			case "Outside Gate":
-				return outsideGateObjects;
-			case "Inside Gate":
-				return insideGateObjects;
+			case "Forest":
+				return forestObjects;
+			case "Gate":
+				return gateObjects;
 			case "Island":
 				return islandObjects;
 			case "Bottom of Mountain":
 				return bottomOfMountainObjects;
+			case "Halfway up Mountain":
+				return halfwayUpMountainObjects;
 			case "Top of Mountain":
 				return topOfMountainObjects;
 			case "Hamlet":
@@ -516,7 +522,8 @@ public class Room {
 			|| Player.getLocation().title.equals("Shrine Room 2")
 			|| Player.getLocation().title.equals("Dark Passageway")
 			|| Player.getLocation().title.equals("Courtyard")
-			|| Player.getLocation().title.equals("Closet")) {
+			|| Player.getLocation().title.equals("Closet")
+			|| Player.getLocation().title.equals("Hamlet")) {
 			return true;
 		} else {
 			return false;
@@ -557,7 +564,7 @@ public class Room {
 	private static boolean previousLocationIsValid() {
 		if (Player.previousLocation.equals("Hisachi Ichiro's House")
 		|| (Player.previousLocation.equals("Outside Gallery") && Player.getLocation().title.equals("Master Bedroom"))
-		|| (Player.previousLocation.equals("Living Room") && Player.getLocation().title.equals("Outside Gate"))
+		|| (Player.previousLocation.equals("Living Room") && Player.getLocation().title.equals("Forest"))
 		|| (Player.previousLocation.equals("Overlook") && Player.getLocation().title.equals("Garden Patio"))
 		|| (Player.previousLocation.equals("Shrine Room 2") && Player.getLocation().title.equals("Dark Passageway") && !World.shrineRoom2DoorOpen)
 		|| (Player.previousLocation.equals("Dark Passageway") && Player.getLocation().title.equals("Shrine Room 2") && !World.shrineRoom2DoorOpen)
