@@ -19,18 +19,16 @@ public class Parser {
 			createSentence();
 			passInput();
 			Story.setScrollbar();
-			Data.printToCMD();
 		}
 	}
 	
-	private static void setInput() {
+	public static void setInput() {
 		input.setLength(0);
-		input.append(Bunraku.inputBox.getText().toUpperCase());
+		input.append(Wabewalker.inputBox.getText().toUpperCase());
 	}
 	
-	private static void resetInput() {
-		// erase inputBox
-		Bunraku.inputBox.setText("");
+	public static void resetInput() {
+		Wabewalker.inputBox.setText("");
 	}
 	
 	private static boolean validInput() {
@@ -115,7 +113,11 @@ public class Parser {
 	}
 	
 	public static void passInput() {
-		if (Player.facingReaper) {
+		if (Story.restartRestoreOrQuit) {
+			Story.handleQuestion(sentence.get(0));
+		} else if  (Data.yesOrNo) {
+			Data.yesOrNo(sentence.get(0));
+		} else if (Player.facingReaper) {
 			NPC.handleReaper(sentence.get(0));
 		} else if (sentence.contains("UNUSED")) {
 			Story.printUnused();
@@ -131,16 +133,24 @@ public class Parser {
 			NPC.handleTod(sentence.get(0));
 		} else if (Player.meditating) {
 			Meditate.handleMeditating(sentence.get(0));
-			Meditate.checkShrine();
 		} else {
 			handleInput(sentence.get(0));
 		}
 	}
 	
 	public static void handleInput(String w) {
+		if (!w.equals("HINT"))
+			Data.hint = 1;
+		
 		switch (w) {
 			case "HELP":
 				Story.printHelp();
+				break;
+			case "BRIEF":
+				Story.brief(true);
+				break;
+			case "VERBOSE":
+				Story.brief(false);
 				break;
 			case "MEDITATE":
 				Action.meditate();
@@ -149,28 +159,28 @@ public class Parser {
 				if (Room.getExits().contains("N")) {
 					Action.goNorth();
 				} else {
-					Story.printNoExit();
+					Room.noExit("NORTH");
 				}
 				break;
 			case "SOUTH":
 				if (Room.getExits().contains("S")) {
 					Action.goSouth();
 				} else {
-					Story.printNoExit();
+					Room.noExit("SOUTH");
 				}
 				break;
 			case "EAST":
 				if (Room.getExits().contains("E")) {
 					Action.goEast();
 				} else {
-					Story.printNoExit();
+					Room.noExit("EAST");
 				}	
 				break;
 			case "WEST":
 				if (Room.getExits().contains("W")) {
 					Action.goWest();
 				} else {
-					Story.printNoExit();
+					Room.noExit("WEST");
 				}
 				break;
 			case "NORTHEAST":
@@ -237,17 +247,7 @@ public class Parser {
 				Action.drop(sentence.get(1));
 				break;
 			case "EXAMINE":
-				if (World.dark) {
-					if (sentence.get(1).equals("HOLE")) {
-						Action.examine("HOLE");
-					} else if (sentence.get(1).equals("TV")) {
-						Action.examine("TV");
-					} else{
-						Story.printTooDark();
-					}
-				} else {
-					Action.examine(sentence.get(1));
-				}
+				Action.attemptToExamine(sentence.get(1));
 				break;
 			case "OPEN":
 				Action.open(sentence.get(1));
@@ -273,8 +273,14 @@ public class Parser {
 			case "PUT":
 				Action.put(sentence.get(1));
 				break;
+			case "SAY":
+				Action.say();
+				break;
 			case "CAST":
 				Action.cast(sentence.get(1));
+				break;
+			case "HIDE":
+				Story.print("Despite your best efforts to hide yourself, you end up completely exposed.");
 				break;
 			case "REWIND":
 				Action.pressRewind();
@@ -289,7 +295,7 @@ public class Parser {
 				Action.move(sentence.get(1));
 				break;
 			case "DIAL":	
-				if (Player.inventory.contains(Item.phone)) {
+				if (Player.inventory.contains(Item.Phone.getTitle())) {
 					Action.dial(sentence.get(1));
 				} else {
 					Story.print("You're not holding an item that can do that.");
@@ -310,13 +316,54 @@ public class Parser {
 			case "DANCE":
 				Story.printDance();
 				break;
+			case "SLEEP":
+				Story.print("You're wide awake, and full of energy!");
+				break;
+			case "EAT":
+				Action.eat(sentence.get(1));
+				break;
 			case "BACK":
 				Room.checkPreviousLocation();
+				break;
+			case "EXIT":
+				Action.exit(sentence.get(1));
+				break;
+			case "ENTER":
+				Action.enter(sentence.get(1));
+				break;
+			case "DESTROY":
+				Action.destroy(sentence.get(1));
+				break;
+			case "CREDITS":
+				Story.printCredits();
+				break;
+			case "HINT":
+				Story.printHint(sentence.get(1));
+				break;
+			case "KNOCK":
+				Item.door.knock();
+				break;
+			case "CLIMB":
+				Story.print("You quickly find out that you are a terrible climber.");
+				break;
+			case "FOLLOW":
+				Story.print("Try using a direction instead. For example, you can type GO NORTH.");
+				break;
+			case "RESTART":
+				Data.confirmNewGame();
+				break;
+			case "SAVE":
+				Data.attemptToSaveGame();
+				break;
+			case "RESTORE":
+				Data.attemptToRestoreGame();
 				break;
 			default:
 				Story.invalid();
 				break;
 		}
+		
+		World.eventAtEnd();
 	}
 }
 

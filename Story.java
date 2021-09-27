@@ -2,20 +2,17 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Story {
-	public static boolean stopScroll;
+	public static boolean brief;
+	public static boolean mustPressKey;
+	public static boolean restartRestoreOrQuit;
 	
-	public static int scrollStop;
-	// public static int scrollStopBook = 930;
-	// public static int scrollStopCryptogram = 1790;
-	// public static int scrollStopKimi = 1523;
-	// public static int scrollStopTheater = 333;
-	public static int scrollStopTrance1 = 470;
-	public static int scrollStopTrance2 = 270;
-	public static int scrollStopTrance3 = 1720;
+	public static String key = "";
 	
-	private static String help = "This game understands a variety of commands such as LOOK, EXAMINE BOX, and PICK UP THE SHINY PEARL.\nList of shortcuts:\ngo north = n\ngo south = s\ngo east = e\ngo west = w\ngo northeast = ne\ngo northwest = nw\ngo southeast = se\ngo southwest = sw\nup = u\ndown = d\nlook = l\nexamine = x\ninventory = i\nmemory = m\nhelp = h\nwait = z";
-	private static String invalid = "That is a sentence I don't understand."; // Frotz copyright?
-	private static String unused = "You don't need to do that in this game.";
+	public static String intro1 = "WABEWALKER\nCopyright (C) 2021 by Benjamin Sisk. All rights reserved.\nVersion 1.0.7";
+	public static String intro2 = "Your admission ticket to the Adachi Museum of Art cost you 2,300 yen--a modest price to experience a full day of Japanese gardens and masterpiece paintings. It's not long before you navigate through the hallways and find yourself outside at the main attraction.";
+	private static String help = "This game understands a variety of commands such as LOOK, EXAMINE SWORD, and PICK UP THE SHINY CROWN.\nList of shortcuts:\nGo north = N\nGo south = S\nGo east = E\nGo west = W\nGo northeast = NE\nGo northwest = NW\nGo southeast = SE\nGo southwest = SW\nGo up = U\nGo down = D\nLook = L\nExamine = X\nInventory = I\nMemory = M\nWait = Z\nHelp = H\nType HINT to get a nudge in the right direction\nType CREDITS to view the game's credits\nType BRIEF to hide the description of your surroundings each time upon re-entering\nType VERBOSE to see the description of your surroundings each time upon re-entering (This is the default)\nRecommended: save after every achievenemt.\nNote: This parser allows interaction with one item at a time, not multiple.";
+	private static String invalid = "I beg your pardon?";
+	private static String unused = "Nothing happens.";
 	private static String inventory = "Your inventory contains: ";
 	private static String inventoryEmpty = "Your inventory is empty.";
 	private static String missingNoun = "You are missing a noun in that sentence.";
@@ -24,36 +21,37 @@ public class Story {
 	private static String alreadyDoing = "You are already doing that.";
 	private static String noExit = "You can't go that way.";
 	private static String locked = "It's locked.";
-	private static String doorBlocking = "The door blocking you way.";
+	private static String doorBlocking = "The door is blocking you way.";
 	private static String alreadyOpen = "It's already open.";
 	private static String alreadyShut = "It's already closed.";
 	private static String shutDoor = "The door slams shut.";
 	private static String tooDark = "It's too dark to adequately examine.";
 	private static String woman = "Her stillness is inhuman, like a mannequin. You feel a strong sense of foreboding from the sight of her.";
 	private static String nowMeditating = "You close your eyes, and the world around becomes quiet. You are now meditating.";
-	private static String nowVisualizing = "You are now visualizing the sacred ";
+	private static String nowVisualizing = "You are now visualizing the sacred symbol of the ";
 	private static String alreadyMeditating = "You are meditating.";
 	private static String alreadyVisualizing = "You are.";
 	private static String doneMeditating = "Your concentration breaks. You are no longer meditating.";
 	private static String notMemorized = "You don't have that memorized.";
 	private static String notMeditating = "Despite your best efforts, you become distracted and give up. That sort of thing is best done while meditating.";
-	private static String activateHallway = "You pull the lever and hear a mechanism activate the laundry chute. The shelf behind the glass swings down on a hinge, and the crumpled scroll falls down the laundry chute.";
-	private static String activateCreakyDeck = "You push the button and hear a mechanism activate within the cabinet. The wooden plank swings open, revealing a frosty scroll.";
-	private static String pullTassel = "You pull the tassel, and the gate of the thing creaks as it raises up, revealing a TV.";
+	private static String activateHallway = "You pull the lever and hear a mechanism activate the laundry chute. The shelf behind the glass swings down on a hinge, and the crumpled scroll falls down the chute.";
+	private static String activateCreakyDeck = "You push the button and hear a mechanism activate within the tall wooden box. A secret compartment flips open, revealing a frosty scroll.";
+	private static String pullTassel = "When you pull the tassel, you a hear a mechanism activate within the hokura. The lattice barrier swings open, revealing a television set.";
 	public static String hokuraClosed = "The hokura is made of a dark wood, and is nearly as tall as you are. The front opening is closed off by a cedar lattice barrier, behind which is a television set. Hanging from the hokura's curved roof is a tassel, swaying in the wind.";
 	public static String hokuraOpen = "The hokura is made of a dark wood, and is nearly as tall as you are. A television set rests inside. Hanging from the hokura's curved roof is a tassel, swaying in the wind.";
-	public static String shrine1Desc = " desc";
+	public static String shrine1Desc = "The shrine is decorated in red velvet, with an old television set resting in the center.";
 	public static String shrine2Desc = "Recessed in the north wall of this quiet room is a beautifully gilded altar. Above it hangs a wooden carving.";
-	public static String shrine3Desc = " desc";
-	public static String gate = "It's a gate.";
+	public static String shrine3Desc = "This is a magnificent golden shrine, decorated with candles and brown cloth. There is a banner hanging above.";
+	public static String gate = "The enormouos wooden gate appears to be hundreds of years old.";
 	private static String cornOnRod = "You attach the kernel of corn to the hook of the fishing pole.";
 	private static String cast = "You cast your line. It lands in the pond with a plop.";
-	private static String hallwayDescRaNotDropped = " Behind the glass pane of the laundry chute, you can see a crumpled scroll sitting on a shelf.";
+	public static String hallwayDescRaNotDropped = " Behind the glass pane of the laundry chute, you can see a crumpled scroll sitting on a shelf.";
 	
 	// Reaper
 	private static String seeReaper1 = "Out of the corner of your eye, you see a hooded figure to the north before it vanishes out of sight.";
-	private static String reaperEncounter1 = "A figure in a black robe lurks out from around the corner. Before you can act, it brandishes a long sword and whispers, \"What year did the wabewalker write Bunraku?\"";
-	private static String reaperEncounter2 = "You hear the deck creak behind you. A figure in a black robe lurks out from around the corner. Before you can act, it brandishes a long sword and whispers, \"What year did the wabewalker write Bunraku?\"";
+	private static String reaperEncounter1 = "A figure in a black, hooded cloak lurks out from behind you. Before you can act, it brandishes a long sword and whispers, \"What year did the Wabewalker write Bunraku?\"";
+	private static String reaperEncounter2 = "A figure in a black, hooded cloak lurks out from around the corner. Before you can act, it brandishes a long sword and whispers, \"What year did the Wabewalker write Bunraku?\"";
+	private static String reaperEncounter3 = "You hear the deck creak behind you. A figure in a black, hooded cloak lurks out from around the corner. Before you can act, it brandishes a long sword and whispers, \"What year did the Wabewalker write Bunraku?\"";
 	private static String reaperWhispers = "The cloaked figure whispers...";
 	private static String reaperWrong1 = "\"...Incorrect.\"";
 	private static String reaperWrong2 = "\"No.\"";
@@ -62,19 +60,19 @@ public class Story {
 	private static String reaperKill2 = "With one swift motion, it slices your head clean off.";
 	private static String reaperKill3 = "Fast as lightning, it stabs the sword into your stomach.";
 	
-	// plaques
-	private static String plaqueDesc = "The square metal plaque has three colored bulbs: orange, green, and purple.";
-	private static String plaqueSandExhibit = "\nScratched into the metal are arrows pointing at the orange bulb and the green bulb.";
-	private static String plaqueLounge = "\nScratched into the metal are arrows pointing at the orange bulb and the green bulb.";
-	private static String plaqueShrineRoom1 = "\nScratched into the metal are arrows pointing at the orange bulb and the purple bulb.";
-	private static String plaqueAssemblyRoom = "\nUnlike the other plaques, this one has no scratch marks.";
-	private static String plaqueShrineRoom2 = "\nScratched into the metal are arrows pointing at the orange bulb and the green bulb.";
-	private static String plaqueCourtyard = "\nScratched into the metal are arrows pointing at the green bulb and the purple bulb.";
-	private static String plaqueHallway = "\nScratched into the metal are arrows pointing at all three bulbs.";
-	private static String plaquestudy = "\nScratched into the metal is an arrow pointing at the green bulb.";
-	private static String plaqueHondo = "\nScratched into the metal are arrows pointing at the green bulb and the purple bulb.";
-	private static String plaqueTrinketShop = "\nScratched into the metal are arrows pointing at all three bulbs.";
-	private static String plaqueCreakyDeck = "\nScratched into the metal of the jewelled box is an arrow pointing at the purple bulb.";
+	// panels
+	private static String panelDesc = "The square metal panel has three colored bulbs: orange, green, and purple.";
+	private static String panelSandExhibit = "\nArrows are scratched into the metal, pointing at the orange bulb and the green bulb.";
+	private static String panelLounge = "\nArrows are scratched into the metal, pointing at the orange bulb and the green bulb.";
+	private static String panelShrineRoom1 = "\nArrows are scratched into the metal, pointing at the orange bulb and the purple bulb.";
+	private static String panelAssemblyRoom = "\nUnlike the other panels, this one has no scratch marks.";
+	private static String panelShrineRoom2 = "\nAn arrow is scratched into the metal, pointing at the green bulb.";
+	private static String panelCourtyard = "\nArrows are scratched into the metal, pointing at the green bulb and the purple bulb.";
+	private static String panelHallway = "\nArrows are scratched into the metal, pointing at all three bulbs.";
+	private static String panelStudy = "\nArrows are scratched into the metal, pointing at the orange bulb and the green bulb.";
+	private static String panelHamlet = "\nArrows are scratched into the metal panel on the wooden post, pointing at the green bulb and the purple bulb.";
+	private static String panelJewelledCase = "\nArrows are scratched into the metal panel on the jewelled case, pointing at all three bulbs.";
+	private static String panelCreakyDeck = "\nAn arrow is scratched into the metal panel on the wooden box, pointing at the purple bulb.";
 	private static String OOO = "\nAll three bulbs are glowing.";
 	private static String OOX = "\nThe orange bulb and the green bulb are glowing.";
 	private static String OXO = "\nThe orange bulb and the purple bulb are glowing.";
@@ -86,13 +84,13 @@ public class Story {
 	// signs
 	public static String sandExhibitSign = "The sign reads: \"Avalokitesvara Shrine.\"";
 	public static String shrineRoom2Sign = "The carving reads: \"Altar of Samantabhadra.\"";
-	public static String gateSign = "The stone carving reads: \"Commemoration: 2800 years of service.\"";
-	public static String bottomOfMountainSign = "The stone carving reads: \"The 33rd Stone Monument.\"";
+	public static String gateSign = "The memorial stone inscription reads: \"Commemoration: 2800 years of service.\"";
+	public static String bottomOfMountainSign = "The slate inscription reads: \"The 33rd Stone Monument.\"";
 	public static String hondoSign = "The basin reads: \"Kegon-ji Temple\"";
 	public static String shrineRoom3Sign = "The banner reads: \"Butsudan of Kannon.\"";
 	
 	// kimi
-	private static String kimiMoshi = "\"Moshi moshi. This is Kimi, therapist and meditation instructor. What can I do for you?\"";
+	private static String kimiMoshi = "You hear a ringing tone. Someone at the other end picks up the phone.\n\"Moshi moshi. This is Kimi, therapist and meditation instructor. What can I do for you?\"";
 	private static String kimiBiz = "\"Haha. Is this a business call or a personal one?\"";
 	private static String kimiRight = "\"Then you've called the right number! Is it a remedy you seek? Or knowledge?\"";
 	private static String kimiRemOrKno = "\"Is it a remedy you seek? Or knowledge?\"";
@@ -107,49 +105,65 @@ public class Story {
 	private static String kimiNoSch = "\"Oops! Unfortunately I don't have anymore openings. Is there anything else I can help you with today?\"";
 	
 	// tod
-	public static String tod1 = "A monk wearing glasses and a purple robe peers out his window.\n\"What the heck did you do?\"\nHe exits his house and walks on his porch.\n\"My power has been out for three days, but suddenly it turns back on when you show up at my door. Well... if you didn't do anything, this remains quite a mystery. Maybe you have just brought good luck to me! Please, come in to my home and let me make you a cup of tea\"\nYou both go in his house.\n\"The tea should have cooled off by now,\" he says. \"It's nice to have some company over every now and then. My name is Hisachi Ichiro, by the way.\"";
-	public static String tod2 = "\"Upon finishing my journey as a henro, I felt a deep connection to the woods here at Kegon-Ji. I suppose I felt that it was the purpose of my life to remain here and maintain this temple. This simple life has brought me peace, and I am happy.\"";
-	public static String tod3 = "\"Curiously, three days ago my power had been cut off. That same morning, I noticed that someone had installed a wooden post beside my slate with a strange metal plaque. The correlation was obvious. The device was somehow interfering with my electricity. None of the other residents were much help with solving this conundrum. There was also a scroll I found at my door that day. Although it seems irrelevant, it still adds to my confusion. But with your appearance today, suddenly my lights turned back on, and my heater started humming again. Curious, indeed.\"";
+	public static String tod1 = "A monk wearing glasses and a purple robe peers out his window.\n\"What the heck did you do?\"\nHe exits his house and walks onto his porch.\n\"My power has been out for three days, but suddenly it turns back on when you show up at my door. Well... if you didn't do anything, this remains quite a mystery. Maybe you have just brought good luck to me! Please, come inside and let me make you a cup of tea.\"\nHe ushers you inside his home.";
+	public static String tod2 = "\"Upon finishing my journey as a henro, I felt a deep connection to the woods here at Kegon-ji. I suppose I felt that it was the purpose of my life to remain here and maintain this temple. This simple life has brought me peace, and I am happy.\"";
+	public static String tod3 = "\"Curiously, three days ago my power had been cut off. That same morning, I noticed that someone had installed a wooden post beside my slate with a strange metal panel. The correlation was obvious. The device was somehow interfering with my electricity. None of the other residents were much help with solving this conundrum. There was also a scroll I found at my door that day. Although it seems irrelevant, it still adds to my confusion. But with your appearance today, suddenly my lights turned back on, and my heater started humming again. Curious, indeed.\"";
 	public static String tod4a = "\"It was left at my door three days ago. It seems to be a Shingon scroll portraying a sacred syllable for a mantra. I have derived no meaning from it but I keep it regardless. I see your interest in the scroll. Perhaps you will find a better use with it than I, but I will not part with it so quickly. Perhaps you would do me one last favor in exchange for the scroll? Apart from maintaining the temple grounds, I aspire to help Shingon disciples to reach a greater depth in their mind during their medatative practice, namely by the use of hypnosis. A light sedative, which I have used as an ingredient in the tea that you've been ";
-	public static String tod4b = "neglecting";
-	public static String tod4c = "enjoying";
-	public static String tod4d = " goes a little way in helping my hypnosis kick off. Will you allow me to put you in a light trance so I can test my method? In return, you may have the scroll. What do you say?\"";
+	public static String tod4b = "neglecting,";
+	public static String tod4c = "enjoying,";
+	public static String tod4d = " goes a long way in helping my hypnosis kick off. Will you allow me to put you in a light trance so I can test my method? In return, you may have the scroll. What do you say?\"";
 	public static String tod5 = "\"Excellent. Now, if I could just have you close your eyes for me. I want you to focus on my voice. I am going to count to five. When I get to five, you will settle into a deep meditative dream state.\nOne.\nYou feel yourself starting to slip away.\nTwo.\nYou still hear my voice, but you feel you are moving very far away.\nT h r e e . . .\nYou are very far away.\nF  o  u  r  .  .  .\nEverything is black. You are removed.\nF   i   v   e   .   .   .\"\n\n";
 	public static String tod6 = "\"I apologize. It was inappropriate of me to ask.\"";
 	public static String tod7 = "He looks at you as if he expects you to ask him a question.";
 	public static String tod8 = "\"I can't claim to know what you are talking about.\"";
-	public static String tod9 = "\"You're late. Luckily for us, our target has followed you here. Ambushes are always easier to execute than a hunt. This one is all yours. Here, take this.\"\nThey hand you a long sword.\n\"One last thing. Be sure they are not awake. Now go.\"";
-	public static String tod10 = "\"The chest won't open until you complete this job. Now go.\"";
-	public static String tod11 = "\"Hmm. That's not right,\" Ichiro mutters while sipping his tea. \"You woke up prematurely. And you looked pretty uncomfortable throughout the hypnosis also. Understand that whatever you just went through wasn't real. I do apologize if you experienced anything unpleasant. I suppose my experiment served its purpose, although I have some improvements to make. Here's the scroll. I hope you somehow find it useful. Thank you again for all of your help.\" He ushers you out.";
+	public static String tod9 = "\"You're late. Luckily for us, our target has followed you here. Ambushes are always easier to execute than a hunt. This one is all yours. Here, take this.\"\nThey hand you a long sword.\n\"One last thing. Make sure that they are not the Wabewalker before you kill them. Now go.\"";
+	public static String tod10 = "\"The chest won't open until you complete this task. Now go.\"";
+	public static String tod11 = "\"Hmm. That's not right,\" Ichiro mutters while sipping his tea. \"You woke up prematurely. And you looked pretty uncomfortable throughout the hypnosis also. Understand that whatever you just went through wasn't real, and there was nothing for you to learn from that, rest assured. I do apologize if you experienced anything unpleasant. I suppose my experiment served its purpose, although I have some improvements to make. Here's the scroll. I hope you somehow find it useful. Thank you again for all of your help.\" Ichiro tucks a stained scroll into your samue, and ushers you out.";
 	
 	// TV
-	private static String theaterTV = "Bright white light. Fills room with glow. Fades. Clair de Lune by Isao Tomita plays softly. Monk enters scene. He says, \"Konnichiwa. My name is Kiyoshi Mikami. This is my introduction to Shingon video. The name 'Shingon' means 'true word,' referring to the mantra or the chanting that's used in the practice. Shingon was first brought to Japan from China in  A.D. by Kukai. One fundamental principle is the belief that you can attain buddahood in this life without reincarnation. The idea is to break down the mental barrier between yourself and the universe and realize oneness. All of the strength and wisdom of the universe becomes yours after this realization. The practice of mandala and mantra is called sanmitsu. Mandala is the concept of visualization, and mantra is chanting. Bring them together as one. Pair mandalas to their sister mantra to enhance their power. Traditional pairings include the Conch Shell with the Celestial Sutra, the Golden Fish with the Mantra of Light, the Endless Knot with the Gohogo Mantra, the Wheel of Dharma with the Mantra of Jambi, the Lotus Flower with the Heart Sutra... The list goes on. This is the process to achieve oneness and to recieve the aid from your deity. You must destroy parts of yourself at times if you are to maintain inner balance. You will start to merge with it and become one with it, and from there, you merge with the universe. Thank you and namaste.\" The monk exits the scene.";
+	private static String theaterTV = "A bright white light fills the theater room with a blinding glow. As your eyes adjust, the song \"Clair de lune\" by Isao Tomita begins to play softly from the television. The screen displays a backdrop of a luscious sanctuary. An elderly monk walks onto the screen.\n\"Konnichiwa. My name is Kiyoshi Mikami. This is my introduction to Shingon video. The name 'Shingon' means 'true word,' referring to the mantra or the chanting that's used in the practice. Shingon was first brought to Japan from China in 806 A.D. by Kukai. One fundamental principle is the belief that you can attain buddahood in this life without reincarnation. The idea is to break down the mental barrier between yourself and the universe, and realize oneness. All of the strength and wisdom of the universe becomes yours after this realization. The practice of mandala and mantra is called sanmitsu. Mandala is the concept of visualization, and mantra is chanting. Bring them together as one. Pair mandalas to their sister mantra to enhance their power. Traditional pairings include the Conch Shell with the Celestial Sutra, the Golden Fish with the Mantra of Light, the Endless Knot with the Gohogo Mantra, the Wheel of Dharma with the Mantra of Jambi, the Lotus Flower with the Heart Sutra... The list goes on. This is the process to achieve oneness and to recieve the aid from your deity. You must destroy parts of yourself at times if you are to maintain inner balance. You will start to merge with it and become one with it, and from there, you merge with the universe. Thank you, and namaste.\"\nThe monk exits the scene, and the screen goes black.";
+
+	private static String trance1 = "\"Where am I?\"\n\n\"The dimensionless dimension. The placeless place.\"\n\n\"How did I get here? A moment ago I was in a shrine room.\"\n\n\"What do you know of the shrine room?\"\n\n\"I know what it looked like, and how it felt.\"\n\n\"You mean to say, that your perception of the room is all you know about it?\"\n\n\"Yes, nothing beyond that.\"\n\n\"Where do perceptions appear?\"\n\n\"My perceptions appear in my consciousness.\"\n\n\"The room appears in consciousness, like how a movie appears on a television screen.\"\n\n\"Yes.\"\n\n\"Why then did you say that you were in a room, when in fact the room is appearing in you?\"";
+	private static String trance2 = "\"My spirit has wandered from body to body, and I strive to reach the end of this journey.\"\n\n\"Listen. It is not true that you have wandered at all.\"\n\n\"But I have experienced it myself: an endless cycle of death and rebirth.\"\n\n\"You are the witness of the wandering experience. The witness never wanders.\"\n\n\"I understand that my perceptions appear on the screen of consciousness. But my consciousness is bound to my body. If my body wanders, how could I not wander with it?\"\n\n\"Tell me, what part the television screen moves with the events of a movie? Tell me, what part of the spirit is wandering?\"\n\n\"The spirit is formless. It has no parts I can discern.\"\n\n\"If something is formless, can it ever be limited to a body?\"";
+	private static String trance3 = "\"How do I escape the cycle of rebirth?\"\n\n\"You must ask the right question.\"\n\n\"What is the right question?\"\n\n\"...\"\n\n\"What year did the Wabewalker write Bunraku?\"";
 	
-	// Trance
-	private static String trance1 = "\"How is it when a practitioner goes along a narrow path?\"\n\n\"You will meet a deadly snake on the great road. I advise you not to run into it.\"\n\n\"What if I do run into it?\"\n\n\"You will lose your life.\"\n\n\"What if I don't run into it?\"\n\n\"You have no place to escape from it.\"\n\n\"Precisely at such a time, what then?\"\n\n\"It is lost.\"\n\n\"I wonder where it is gone...\"";
-	private static String trance2 = "\"What will happen when the leaves fall and the trees become bare?\"\n\n\"The golden wind.\"\n\n\"What do you mean?\"\n\n\"The trunk becomes visible in the autumn wind.\"";
-	private static String trance3 = "\"Where are you going?\"\n\n\"I am on pilgrimage, following the wind.\"\n\n\"What are you on pilgrimage for?\"\n\n\"I don't know.\"\n\n\"Non-knowing is most intimate.\"\n\n\"...\"\n\n\"What year did Palu write Post Radius?\"";
-	
-	private static String samadhi1 = "The cloaked figure pauses, and slowly lowers its sword.\n\"Moushiwake arimasen. My upmost apologies. Only an awakened one could have found the answer within themself. I believe you and I walk parallel paths. Let us perform sanmitsu together, and strive to reach the end of this journey.";
-	private static String samadhi2 = " Please, follow me.\"\n\nThe figure heads off to the east, and disappears to the south.";
+	private static String samadhi1 = "The cloaked figure hesitates, but then slowly lowers its sword.\n\"Moushiwake arimasen. My upmost apologies. Only the Wabewalker could have found the answer within themself.";
+	private static String samadhi2 = "  Please, follow me.\"\n\nThe figure heads off to the east, and disappears to the south.";
 	private static String samadhi3 = " Please, follow me.\"\n\nThe figure heads off to the north, and disappears to the west.";
-	private static String samadhi4 = "\n\nThe figure walks over to the woman in the blue kimono.";
-	private static String samadhi5 = "END.";
+	private static String samadhi4 = "\"\nThe figure walks across the deck to the woman in the blue kimono.";
+	private static String samadhi5 = "The hooded figure is here, standing beside the ";
+	private static String samadhi6 = "\"Trust that all the trials you have gone through were designed to lead us to this precise moment. Know that I am not speaking to you--the one dressed in a ";
+	private static String samadhi7 = "--but the one who has witnessed all of your lives.\" \nThe cloaked figure sheathes its sword. \n\"Right now, there is someone looking through a screen, playing this game, Wabewalker. For a time, this player forgot who they are, as they played puppet master in this world. This player may also believe that I am speaking to them right now--but I am not. I speak to the one who is looking through their eyes. Just as the characters in this game found their way back to the player, it is the duty of the player to find their way back to the Self. All you have to do is ask the right question, and look.\" \nThe cloaked figure ";
+	private static String credits = "Wabewalker\nA game by Benjamin Sisk\n\nPlaytesting and feedback:\nKevin Vo\nTod Beckwith\nGeoff Bruskin\nzoviet_frances\nKel\nJessie Kuzma\nFrogge\n\nSpecial thanks:\nChi Hund Tang (Japanese translation)\nNick Zak (Creative consultation)\nSengo Muramasa (Shingon consultation)\nJustin Palange (Philosophy consultation)";
 	
 	public static void setScrollbar() {
+		Wabewalker.body.setCaretPosition(Wabewalker.body.getDocument().getLength());
+		
+		/** Use this if stopping scroll, and delete above command
 		if (stopScroll) {
-			Bunraku.body.setCaretPosition(Bunraku.body.getDocument().getLength() - scrollStop);
+			Wabewalker.body.setCaretPosition(Wabewalker.body.getDocument().getLength() - scrollStop);
 			stopScroll = false;
 		} else {
-			Bunraku.body.setCaretPosition(Bunraku.body.getDocument().getLength());
+			Wabewalker.body.setCaretPosition(Wabewalker.body.getDocument().getLength());
 		}
-		// System.out.println("body length " + Bunraku.body.getDocument().getLength());
+		*/
+		// System.out.println("body length " + Wabewalker.body.getDocument().getLength());
 	}
 	
-	public static void setScrollStop(int i) {
-		stopScroll = true;
+	// public static void setScrollStop(int i) {
+		// stopScroll = true;
 		
-		scrollStop = i;
+		// scrollStop = i;
+	// }
+	
+	public static void brief(boolean b) {
+		if (b) {
+			brief = true;
+			print("[Brief is now on.]");
+		} else {
+			brief = false;
+			print("[Verbose is now on.]");
+		}
 	}
 	
 	public static void invalid() {
@@ -169,7 +183,7 @@ public class Story {
 	}
 	
 	public static void printInput() {
-		print(">" + Bunraku.inputBox.getText());
+		print(">" + Wabewalker.inputBox.getText());
 		newParagraph();
 	}
 	
@@ -194,7 +208,7 @@ public class Story {
 	}
 	
 	public static void print(String s) {
-		Bunraku.body.append(s);
+		Wabewalker.body.append(s);
 	}
 	
 	public static void printDesc() {
@@ -204,9 +218,19 @@ public class Story {
 	public static void printDesc2() {
 		switch (Player.getLocation().title) {
 			case "Hallway":
-				if (!World.raDropped) {
+				if (!World.raDropped) 
 					print(hallwayDescRaNotDropped);
+				break;
+			case "Landing":
+				if (Player.getPreviousLocation().equals("Hallway")) {
+					print(" down ");
+				} else if (Player.getPreviousLocation().equals("Courtyard")) {
+					print(" up ");
+				} else {
+					print(" up ");
+					System.out.println("Story.printDesc2() error");
 				}
+					print(Room.landingDesc2);
 				break;
 			case "Island":
 				if (World.islandOpen) {
@@ -257,8 +281,32 @@ public class Story {
 		print("You pick up the " + t + ".");
 	}
 	
+	public static void printMoreSpecific() {
+		print("You'll have to be more specific.");
+	}
+	
+	public static void printNoUse() {
+		print("You have no use for that kind of thing.");
+	}
+	
 	public static void printCantTake() {
 		print("You can't take that.");
+	}
+	
+	public static void printDropped() {
+		print("Dropped.");
+	}
+	
+	public static void printWall() {
+		print("There's a wall there.");
+	}
+	
+	public static void printLost() {
+		print("You wander in between the trees for quite some time, only to end up right back where you were.");
+	}
+	
+	public static void printRailing() {
+		print("There's a railing there.");
 	}
 	
 	public static void printNotInInventory() {
@@ -274,7 +322,7 @@ public class Story {
 		
 		for (int i = 0; i < Player.inventory.size(); i++) {
 			newLine();
-			print("   a " + Player.inventory.get(i).title);
+			print("   a " + Player.inventory.get(i));
 		}
 	}
 	
@@ -315,14 +363,9 @@ public class Story {
 	}
 	
 	public static void printObjects() {
-		if ((Player.getLocation().equals(Room.teaRoom.title)) && !Player.tookACBook) { 
-			// normal Story.printDesc handles this exception
-		} else {
-			// print all objects in room
-			for (int i = 0; i < Room.getObjects().size(); i++) {
-				newLine();
-				print("There is " + Item.getTitleOfObjectInList(i) + " here.");
-			}
+		for (int i = 0; i < Room.getObjects().size(); i++) {
+			newLine();
+			print("There is " + Room.getTitleOfObjectInList(i) + " here.");
 		}
 	}
 	
@@ -336,7 +379,11 @@ public class Story {
 	}
 	
 	public static void printReaperEncounter2() {
-		print(reaperEncounter2);
+		print(reaperEncounter3);
+	}
+	
+	public static void printReaperEncounter3() {
+		print(reaperEncounter3);
 	}
 	
 	public static void printReaperWrong() {
@@ -382,50 +429,50 @@ public class Story {
 		Player.die();
 	}
 	
-	public static void printPlaque() {
-		print(plaqueDesc);
+	public static void printPanel() {
+		print(panelDesc);
 		printSpace();
 		
 		switch (Player.getLocation().title) {
 			case "Sand Exhibit":
-				print(plaqueSandExhibit);
+				print(panelSandExhibit);
 				break;
 			case "Lounge":
-				print(plaqueLounge);
+				print(panelLounge);
 				break;
-			case "Shrine Room 1":
-				print(plaqueShrineRoom1);
+			case "Avalokitesvara Shrine":
+				print(panelShrineRoom1);
 				break;
 			case "Assembly Room":
-				print(plaqueAssemblyRoom);
+				print(panelAssemblyRoom);
 				break;
-			case "Shrine Room 2":
-				print(plaqueShrineRoom2);
+			case "Altar of Samantabhadra":
+				print(panelShrineRoom2);
 				break;
 			case "Courtyard":
-				print(plaqueCourtyard);
+				print(panelCourtyard);
 				break;
 			case "Hallway":
-				print(plaqueHallway);
+				print(panelHallway);
 				break;
 			case "Study":
-				print(plaquestudy);
+				print(panelStudy);
 				break;
 			case "Hamlet":
-				print(plaqueHondo);
+				print(panelHamlet);
 				
-				if (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)) 
-					print(" " + plaqueTrinketShop);
+				if (Player.inventory.contains(Item.JewelledCase.getTitle()) || Room.getObjects().contains(Item.JewelledCase.getTitle())) 
+					print(" " + panelJewelledCase);
 				break;
 			case "Creaky Deck":
-				print(plaqueCreakyDeck);
+				print(panelCreakyDeck);
 				
-				if (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)) 
-					print(" " + plaqueTrinketShop);
+				if (Player.inventory.contains(Item.JewelledCase.getTitle()) || Room.getObjects().contains(Item.JewelledCase.getTitle())) 
+					print(" " + panelJewelledCase);
 				break;
 			default:
-				if (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)) {
-					print(plaqueTrinketShop);
+				if (Player.inventory.contains(Item.JewelledCase.getTitle()) || Room.getObjects().contains(Item.JewelledCase.getTitle())) {
+					print(panelJewelledCase);
 				} else {
 					Story.printNotHere();
 				}
@@ -449,7 +496,7 @@ public class Story {
 		} else if (World.XOX) {
 			print(XOX);
 		} else {
-			System.out.println("Story.printPlaque() error");
+			System.out.println("Story.printPanel() error");
 		}
 	}
 	
@@ -461,8 +508,8 @@ public class Story {
 		print("The tape is already at the beginning.");
 	}
 	
-	public static void printTapePlaying() {
-		print("The tape is already playing.");
+	public static void printAlreadyPlaying() {
+		print("You push the play button, but nothing happens. It looks like the tape is already playing.");
 	}
 	
 	public static void printDance() {
@@ -481,39 +528,44 @@ public class Story {
 	}
 	
 	public static void printRewind(String c) {
+		print("The television screen becomes distorted with static. As the tape rewinds, ");
+		
 		switch (c) {
 			case "orange":
-				print("The image on the screen becomes distorted. The pool of blood reenters monk. Monk rises. Walks backwards toward camera. Walks off left side of screen.");
+				print("a cloaked figure glides in reverse across the screen. The pool of blood shrinks, and the body on the ground flies to their feet. The cloaked figure glides off screen as its victim walks backward into the cafe, and exits the scene to the left.");
 				break;
 			case "green":
-				print("The image on the screen becomes distorted. The pool of blood reenters monk. Figure enters scene. Monk rises. Figure leaves backwards. Monk leaves.");
+				print("a cloaked figure glides in reverse across the screen. The pool of blood shrinks, and the body on the floor flies to their feet. Both of them exit the living room.");
 				break;
 			case "purple":
-				print("The image on the screen becomes distorted. The figure enters the scene. Purple monk rises up and spins around. Colorful oragami birds cover the screen.");
+				print("a cloaked figure glides in reverse across the screen. The pool of blood shrinks, and the body on the ground flies to their feet. A colorful array of oragami birds rise across the screen, obscuring everything behind it.");
 				break;
 			case "theater":
-				print("The image on the screen becomes distorted. A monk enters and exits the scene.");
+				print("a monk walks backward onto the screen, says something inaudible, and leaves.");
 				break;
 			default:
 				System.out.println("Story.printRewind() error");
 				break;
 		}
 		
+		print("\n\nThe static on the television screen dissipates.");
 	}
 	
 	public static void printFastforward(String c) {
+		print("The television screen becomes distorted with static. As the tape fastforwards, ");
+		
 		switch (c) {
 			case "orange":
-				print("The screen becomes static. Figure kills monk and walks away.");
+				print("someone enters the cafe from the left, and heads off north. A cloaked figure appears, and swiftly cuts them down with a sword. The figure glides out of sight as the pool of blood spreads across the ground.");
 				break;
 			case "green":
-				print("The screen becomes static. Figure kills monk and walks away.");
+				print("someone enters the living room from the left. A cloaked figure appears, and swiftly cuts them down with a sword. The figure glides out of sight as the pool of blood spreads across the floor.");
 				break;
 			case "purple":
-				print("The screen becomes static. Figure kills monk and walks away.");
+				print("the curtain of oragami birds falls to the ground, revealing someone wearing a purple samue. A cloaked figure appears, and swiftly cuts them down with a sword. The figure glides out of sight as the pool of blood spreads across the deck.");
 				break;
 			case "theater":
-				print("The screen becomes static. A monk enters and exits the scene.");
+				print("a monk walks onto the scene, says something inaudible, and leaves.");
 				break;
 			default:
 				System.out.println("Story.printRewind() error");
@@ -528,11 +580,12 @@ public class Story {
 	}
 	
 	public static void printMoveBirds() {
-		print("The birds move to the side, revealing a masked woman in a blue kimono.");
+		print("As you take an oragami bird into your hand, the entire curtain falls to the ground. Standing before you, with an unwavering stare, is a masked woman dressed in a blue kimono.");
 	}
 	
 	public static void printGameOver() {
-		print("There is no ningyo to recieve your spirit.\n\n***GAME OVER***\n\nDo you want to play again?");
+		print("There is no ningyo alive who can recieve your spirit.\n\n***GAME OVER***\n\n");
+		askQuestion();
 	}
 	
 	public static void printYesOrNo() {
@@ -550,7 +603,7 @@ public class Story {
 	}
 	
 	public static void printReadKnot() {
-		print("The sign has a knot on it.");
+		print("The wooden sign is detailed with the sacred symbol of the Endless Knot.");
 	}
 	
 	public static void printMemorizeSymbol() {
@@ -603,13 +656,6 @@ public class Story {
 	
 	public static void printKimiWisdom() {
 		print(kimiWisdom);
-		
-		if (!Player.heardKimiWisdom) {
-			Player.heardKimiWisdom = true;
-			Data.updateScore(5);
-		}
-		
-		// setScrollStop(scrollStopKimi);
 	}
 	
 	public static void printKimiWrong() {
@@ -636,10 +682,6 @@ public class Story {
 		print(pullTassel);
 	}
 	
-	public static void printExamineGate() {
-		print(gate);
-	}
-	
 	public static void printBait() {
 		print(cornOnRod);
 	}
@@ -651,9 +693,17 @@ public class Story {
 	public static void printCast() {
 		print(cast);
 	}
+
+	public static void printGlassObstructs() {
+		print("The glass obstructs you from doing that.");
+	}
 	
 	public static void printPassTime() {
 		print("Time passes...");
+	}
+	
+	public static void printNotAChance() {
+		print("Not a chance!");
 	}
 	
 	public static void printBite() {
@@ -661,9 +711,9 @@ public class Story {
 	}
 	
 	public static void printCatch() {
-		print(" You caught a koi fish! There is a marking on the fish. It is the sacred symbol of fish! ");
+		print(" You caught a koi fish! You notice there is a marking on its side... It is the sacred symbol of the Golden Fish! ");
 		
-		if (!Player.memory.contains("Fish"))
+		if (!Player.memory.contains("fish"))
 			printMemorizeSymbol();
 		
 		print(" The fish wiggles out of your hands back into the pond with a splash.");
@@ -675,17 +725,17 @@ public class Story {
 		} else {
 			print("You have memorized:");
 			
-			if (Player.memory.contains("Fish")) {
+			if (Player.memory.contains("fish")) {
 				newLine();
 				print("   The sacred symbol: Golden Fish");
 			}
 			
-			if (Player.memory.contains("Lotus")) {
+			if (Player.memory.contains("lotus")) {
 				newLine();
 				print("   The sacred symbol: Lotus Flower");
 			}
 			
-			if (Player.memory.contains("Knot")) {
+			if (Player.memory.contains("knot")) {
 				newLine();
 				print("   The sacred symbol: Endless Knot");
 			}
@@ -735,29 +785,14 @@ public class Story {
 		print("The sacred symbol is already memorized.");
 	}
 	
-	public static void printOpenBox() {
-		if (World.boxOpen) {
-			printAlreadyOpen();
-		} else {
-			if (World.OOO) {
-				print("The box opens with a satisfying click.");
-				World.boxOpen = true;
-				
-				if (World.yuInBox) {
-					print(" There's a crumpled scroll inside.");
-				} else {
-					print(" It's empty.");
-				}
-			} else {
-				printLocked();
-			}
-		}
+	public static void printTooHeavy() {
+		print("It's too heavy to move.");
 	}
 	
-	public static void printShutBox() {
-		if (World.boxOpen) {
-			print("The jewelled box shuts with a satisfying snap.");
-			World.boxOpen = false;
+	public static void printShutCase() {
+		if (World.caseOpen) {
+			print("The jewelled case shuts with a satisfying snap.");
+			World.caseOpen = false;
 		} else {
 			printAlreadyShut();
 		}
@@ -770,7 +805,7 @@ public class Story {
 			if (World.XXO) {
 				print("The case opens with a creak.");
 				
-				if (World.goInCase) {
+				if (World.goInBox) {
 					print(" There's a frosty scroll inside.");
 				} else {
 					print(" It's empty.");
@@ -791,7 +826,6 @@ public class Story {
 	}
 	
 	public static void printTrance(int t) {
-		print("(scroll down)");
 		newParagraph();
 		print("Everything goes quiet.\n\nYou hear distant voices...");
 		newParagraph();
@@ -821,21 +855,261 @@ public class Story {
 	public static void printSamadhi1() {
 		print(samadhi1);
 		
-		switch (Player.getLocation().title) {
-			case "Outside Gallery":
+		switch (Player.getArea()) {
+			case "garden":
 				print(samadhi2);
+				NPC.reaperMoved = true;
 				break;
-			case "Living Room":
+			case "house":
 				print(samadhi3);
+				
+				// this opens Altar of Samantabhadra door
+				Player.orangeAlive = true;
+				Player.purpleAlive = false;
+				World.resetBulbs();
+				World.shrineRoom2DoorOpen = true;
+				NPC.reaperMoved = true;
 				break;
-			case "Overlook":
+			case "temple":
 				print(samadhi4);
+				printSamadhiFinal();
 				break;
 			default:
 				System.out.println("Story.printSamadhi1 error");
 				break;
 		}
+	}
+	
+	public static void printSamadhiFinal() {
+		newLine();
 		
+		switch (Player.getArea()) {
+			case "garden":
+			print(samadhi5);
+				print("golden chest.");
+				newLine();
+				break;
+			case "house":
+				print(samadhi5);
+				print("television.");
+				newLine();
+				break;
+			default:
+				System.out.println("Story.printSamadhiFinal() error");
+				break;
+		}
+
+		print(samadhi6);
+		
+		switch (Player.getArea()) {
+			case "garden":
+				print("orange samue standing in an assembly room");
+				break;
+			case "house":
+				print("green samue standing in a theater");
+				break;
+			case "temple":
+				print("purple samue standing on the overlook of Kegon-ji temple");
+				break;
+			default:
+				System.out.println("Story.printSamadhiFinal() error");
+				break;
+		}
+
+		print(samadhi7);
+		
+		switch (Player.getArea()) {
+			case "garden":
+				print("opens the golden chest.");
+				break;
+			case "house":
+				print("presses play on the television.");
+				break;
+			case "temple":
+				print("removes the mask of the woman in the blue kimono.");
+				break;
+			default:
+				System.out.println("Story.printSamadhiFinal() error");
+				break;
+		}
+		
+		newLine();
+		pressKey("end");
+	}
+	
+	public static void pressKey(String s) {
+		print("[press any key to continue...]");
+		mustPressKey = true;
+		key = s;
+		Wabewalker.deleteInputBox();
+		Wabewalker.changeFocus("bigPanel");
+	}
+	
+	public static void pressedKey() {
+		switch (key) {
+			case "start":
+				Data.startGame();
+				break;
+			case "end":
+				Story.printEnd();
+				break;
+			default:
+				System.out.println("Story.pressKey() error");
+				break;
+		}
+		
+		Wabewalker.setInputBox();
+		Parser.resetInput();
+		Wabewalker.changeFocus("inputBox");
+		Story.mustPressKey = false;
+	}
+	
+	public static void wipeStory() {
+		Wabewalker.body.setText("");
+	}
+	
+	public static void askQuestion() {
+		print("Would you like to restart the game, restore a save file, or quit?");
+		restartRestoreOrQuit = true;
+	}
+	
+	public static void handleQuestion(String s) {
+		switch (s) {
+			case "RESTART":
+				restartRestoreOrQuit = false;
+				Data.newGame();
+				break;
+			case "RESTORE":
+				Data.attemptToRestoreGame();
+				break;
+			case "QUIT":
+				System.exit(0);
+				break;
+			default:
+				invalid();
+				newLine();
+				askQuestion();
+				break;
+		}
+	}
+	
+	public static void printEnd() {
 		Data.updateScore(10);
+		newParagraph();
+		print("*THE END*\n\nCongradulations! You completed Wabewalker in " + Data.moves + " moves, " + Data.deaths + " deaths, and a ");
+		
+		if (Data.score == Data.maxScore)
+			print("perfect ");
+		
+		print("score of " + Data.score + " out of " + Data.maxScore + ".");
+		
+		newParagraph();
+		printCredits();
+		newParagraph();
+		print("Thank you for playing Wabewalker");
+		newParagraph();
+		askQuestion();
+	}
+	
+	public static void printCredits() {
+		print(credits);
+	}
+	
+	public static void printHint(String s) {
+		if (!s.equals("")) {
+			try {
+				Data.hint = Integer.parseInt(s);
+			} catch (Exception e) {
+				System.out.println("Story.printHint() User typed HINT X where X was not a valid integer.");
+			}
+		}
+		
+		print("[Hint " + Data.hint + "/24]");
+		newLine();
+		
+		switch (Data.hint) {
+			case 1:
+				print("There are no hints for this game! You have nothing to rely on but your own wit!");
+				break;
+			case 2:
+				print("Okay, there may be some hints. But imagine the spine-tingling thrill of solving the puzzles on your own!");
+				break;
+			case 3:
+				print("You really need a hint, huh? Okay!");
+				break;
+			case 4:
+				print("Did you notice the metal panels scattered around the world? They aren't directly interactable.");
+				break;
+			case 5:
+				print("Did you notice that sometimes the bulbs are glowing, and sometimes they aren't?");
+				break;
+			case 6:
+				print("What changed in the world that affected the state of the glow?");
+				break;
+			case 7:
+				print("Do the colors of the bulbs have any significance?");
+				break;
+			case 8:
+				print("I've given you a million hints already!");
+				break;
+			case 9:
+				print("Have you noticed that your reflection in the mirrors changes depending on where you are?");
+				break;
+			case 10:
+				print("The color of each bulb corresponds to something in the world.");
+				break;
+			case 11:
+				print("The color of each bulb corresponds to the color of your samue. The bulb will stop glowing when you die in that color samue.");
+				break;
+			case 12:
+				print("Did you notice what happens when the glowing bulbs align with the arrows? It unlocks whatever is near the panel.");
+				break;
+			case 13:
+				print("Have you examined the hokura on the Island more closely?");
+				break;
+			case 14:
+				print("Have you mastered control of the televisions? You can rewind death, and travel to that world by \"playing\" it.");
+				break;
+			case 15:
+				print("I'm out of breath giving out all these hints! What I say next will contain spoilers that do not pertain to the bulbs on the metal panels!");
+				break;
+			case 16:
+				print("Did you know that fish like to eat tasty snacks?");
+				break;
+			case 17:
+				print("Have you read the sign halfway up the mountain?");
+				break;
+			case 18:
+				print("Have you examined the mannequins more closely? The item they hold may need to be examined in the proper light.");
+				break;
+			case 19:
+				print("Have you found a phone number to call on the landline in the sitting room yet? Someone may have written it on their business card.");
+				break;
+			case 20:
+				print("On the phone, Kimi gives you vital information needed to finish the game. Did you take notes?");
+				break;
+			case 21:
+				print("Did you find the hidden theater? When you do, take notes.");
+				break;
+			case 22:
+				print("Check your memory by typing MEMORY. Once you found all three sacred symbols and all seven sacred words, you can meditate at the three shrines.");
+				break;
+			case 23:
+				print("Combine the wisdom of Kimi and Kiyoshi with the aid of the cryptogram to learn what year the Wabewalker wrote Bunraku.");
+				break;
+			case 24:
+				print("Good luck!");
+				break;
+			default:
+				System.out.println("Story.printHint error");
+				break;
+		}
+		
+		newLine();
+		print("For another hint, type HINT.");
+		Data.hint++;
+		
+		if (Data.hint > 24)
+			Data.hint = 1;
 	}
 }

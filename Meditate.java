@@ -13,10 +13,10 @@ public class Meditate {
 	public static int houseTrance = 0;
 	public static int templeTrance = 0;
 	
-	public static ArrayList<String> chantInputs = new ArrayList();
-	public static ArrayList<String> gChant = new ArrayList();
-	public static ArrayList<String> hChant = new ArrayList();
-	public static ArrayList<String> tChant = new ArrayList();
+	public static ArrayList<String> chantInputs = new ArrayList<String>();
+	public static ArrayList<String> gChant = new ArrayList<String>();
+	public static ArrayList<String> hChant = new ArrayList<String>();
+	public static ArrayList<String> tChant = new ArrayList<String>();
 	
 	public static void setShrines() {
 		gChant.add("ni");
@@ -112,11 +112,16 @@ public class Meditate {
 			case "SHI":
 				chant("SHI");
 				break;
+			case "MEDITATE":
+				Story.print("You are meditating.");
+				break;
 			default:
 				stopMeditating();
 				Parser.handleInput(v);
 				break;
 		}
+		
+		checkShrine();
 	}
 	
 	private static void stopMeditating() {
@@ -135,12 +140,12 @@ public class Meditate {
 				Story.print("What do you want to visualize?");
 				break;
 			case "LOTUS":
-				if (Player.memory.contains("Lotus")) {
+				if (Player.memory.contains("lotus")) {
 					if (!visualizingLotus) {
 						visualizingFish = false;						
 						visualizingKnot = false;						
 						visualizingLotus = true;	
-						Story.printVisualize("lotus");
+						Story.printVisualize("Lotus Flower");
 					} else {
 						Story.printAlreadyVisualizing();
 					}
@@ -149,12 +154,12 @@ public class Meditate {
 				}
 				break;
 			case "FISH":
-				if (Player.memory.contains("Fish")) {
+				if (Player.memory.contains("fish")) {
 					if (!visualizingFish) {
 						visualizingLotus = false;						
 						visualizingKnot = false;						
 						visualizingFish = true;	
-						Story.printVisualize("fish");						
+						Story.printVisualize("Golden Fish");						
 					} else {
 						Story.printAlreadyVisualizing();
 					}
@@ -163,12 +168,12 @@ public class Meditate {
 				}
 				break;
 			case "KNOT":
-				if (Player.memory.contains("Knot")) {
+				if (Player.memory.contains("knot")) {
 					if (!visualizingKnot) {
 						visualizingLotus = false;						
 						visualizingFish = false;						
 						visualizingKnot = true;
-						Story.printVisualize("knot");
+						Story.printVisualize("Endless Knot");
 					} else {
 						Story.printAlreadyVisualizing();
 					}
@@ -259,43 +264,21 @@ public class Meditate {
 			chantInputs.remove(chantInputs.size() - 1);
 		}
 		
-		if (visualizingKnot) {
-			System.out.println("Player is visualizing knot");
-		} else if (visualizingFish) {
-			System.out.println("Player is visualizing fish");
-		} else if (visualizingLotus) {
-			System.out.println("Player is visualizing lotus");
-		} else {
-			System.out.println("Player is NOT visualizing");
-		}
-		
-		if (chantInputs.equals(gChant) || chantInputs.equals(hChant) || chantInputs.equals(tChant)) {
-			System.out.println("chant is correct");
-		} else {
-			System.out.println("chant is NOT correct");
-		}
-		
-		System.out.println("pChant " + chantInputs);
-		
-		if ((Player.getLocation().title.equals("Shrine Room 1")
+		if ((Player.getLocation().title.equals("Avalokitesvara Shrine")
 			&& chantInputs.equals(gChant)
 			&& visualizingKnot) 
-		||	(Player.getLocation().title.equals("Shrine Room 2")
+		||	(Player.getLocation().title.equals("Altar of Samantabhadra")
 			&& chantInputs.equals(hChant)
 			&& visualizingLotus) 
-		||	(Player.getLocation().title.equals("Shrine Room 3")
+		||	(Player.getLocation().title.equals("Butsudan of Kannon")
 			&& chantInputs.equals(tChant)
 			&& visualizingFish)) {
 				trance();
-		} else {
-			System.out.println("still meditating");
 		}
 	}
 	
 	public static void trance() {
-		System.out.println("Trance baby, Trance.");
-		
-		if (Player.getLocation().title.equals("Shrine Room 1")) {
+		if (Player.getLocation().title.equals("Avalokitesvara Shrine")) {
 			if (trancedGarden) {
 				Story.printTrance(gardenTrance);
 			} else {
@@ -307,7 +290,7 @@ public class Meditate {
 			}
 		}
 		
-		if (Player.getLocation().title.equals("Shrine Room 2")) {
+		if (Player.getLocation().title.equals("Altar of Samantabhadra")) {
 			if (trancedHouse) {
 				Story.printTrance(houseTrance);
 			} else {
@@ -319,7 +302,7 @@ public class Meditate {
 			}
 		}
 		
-		if (Player.getLocation().title.equals("Shrine Room 3")) {
+		if (Player.getLocation().title.equals("Butsudan of Kannon")) {
 			if (trancedTemple) {
 				Story.printTrance(templeTrance);
 			} else {

@@ -1,13 +1,14 @@
 public class NPC {
 	public static boolean scheduled;
+	public static boolean reaperMoved;
 	
 	public static String kimiState = "";
 	public static String todState = "content";
 	
 	public static void handleReaper(String a) {
-		if (Parser.sentence.contains(Integer.toString(Data.year)) && Meditate.trancesTranced == 3) {
+		if (Parser.sentence.contains(Integer.toString(Data.year))) {
 			// correct answer
-			World.disableReaper = true;
+			World.reaperDisabled = true;
 			Player.facingReaper = false;
 			Story.printSamadhi1();
 		} else {
@@ -15,10 +16,11 @@ public class NPC {
 			Story.printReaperWrong();
 			Player.facingReaper = false;
 			
-			if (!Player.answers.contains(a))
-				Player.answers.add(a);
+			if (!Player.guesses.contains(a))
+				Player.guesses.add(a);
 			
-			Data.checkAnswers();
+			Data.checkGuesses();
+			Data.deaths++;
 		}
 	}
 	
@@ -135,17 +137,34 @@ public class NPC {
 		return kimiState;
 	}
 	
+	public static void removeDuplicateHisachis() {
+		int count = 0;
+		
+		for (String s : Parser.sentence) {
+			if (s.equals("HISACHI"))
+				count++;
+		}
+		
+		for (int i = 0; i < count - 1; i++) {
+			Parser.sentence.remove("HISACHI");
+		}
+	}
+	
 	public static void handleTod(String w) {
+		removeDuplicateHisachis();
+		
 		switch (getTod()) {
 			case "content":
 				if (w.equals("ASK")) {
 					askTod();
 				} else if (w.equals("HI")) {
 					Story.print("He smiles.");
-				} else if (w.equals("ICHIRO")) {
+				} else if (w.equals("HISACHI")) {
 					Story.print(Story.tod2);
 				} else if (w.equals("POWER")) {
 					Story.print(Story.tod3);
+				} else if (w.equals("TEMPLE")) {
+					Story.print(Story.tod2);
 				} else if (w.equals("SCROLL")) {
 					askTodAboutScroll();
 				} else if (w.equals("TEA")) {
@@ -153,14 +172,24 @@ public class NPC {
 				} else if (w.equals("DRINK")) {
 					Story.print("You sip the tea. It's quite good.");
 					Player.sipped = true;
+				} else if (w.equals("GIVE")) {
+					if (Parser.sentence.contains("SCROLL")) {
+						askTodAboutScroll();
+					} else {
+						Story.print(Story.tod8); // tod's confused
+					}
 				} else if (w.equals("HYPNOTIZE")) {
 					hypnotize();
+				} else if (w.equals("TAKE")) {
+					Action.take(Parser.sentence.get(1));
+				} else if (w.equals("EXAMINE")) {
+					Action.examine(Parser.sentence.get(1));
 				} else {
-					Story.print(Story.tod8);
+					Story.print(Story.tod8); // tod's confused
 				}
 				break;
 			case "proposing":
-				if (w.equals("YES")) {
+				if (w.equals("YES") || (w.equals("SAY") && Parser.sentence.get(1).equals("YES"))) {
 					hypnotize();
 				} else {
 					Story.print(Story.tod6);
@@ -177,16 +206,20 @@ public class NPC {
 	private static void askTod() {
 		if (Parser.sentence.get(1).equals("")) {
 			Story.printMissingNoun();
-		} else if (Parser.sentence.get(1).equals("ICHIRO") && Parser.sentence.get(1).equals("")) {
+		} else if (Parser.sentence.get(1).equals("HISACHI") && Parser.sentence.get(2).equals("")) {
 			Story.print(Story.tod2); // ask ichiro about himself			
-		} else if (Parser.sentence.get(1).equals("ICHIRO") && Parser.sentence.get(2).equals("POWER")) {
-			Story.print(Story.tod3);			
-		} else if (Parser.sentence.get(1).equals("ICHIRO") && Parser.sentence.get(2).equals("SCROLL")) {
+		} else if (Parser.sentence.get(1).equals("HISACHI") && Parser.sentence.get(2).equals("POWER")) {
+			Story.print(Story.tod3);
+		} else if (Parser.sentence.get(1).equals("HISACHI") && Parser.sentence.get(2).equals("TEMPLE")) {
+			Story.print(Story.tod2);			
+		} else if (Parser.sentence.get(1).equals("HISACHI") && Parser.sentence.get(2).equals("SCROLL")) {
 			askTodAboutScroll();			
-		} else if (Parser.sentence.get(1).equals("ICHIRO") && (Parser.sentence.get(2).equals("TEA") || Parser.sentence.get(2).equals("DRINK"))) {
+		} else if (Parser.sentence.get(1).equals("HISACHI") && (Parser.sentence.get(2).equals("TEA") || Parser.sentence.get(2).equals("DRINK"))) {
 			Story.print("\"It should be cooled off by now,\" he says, taking a sip of his own.");			
 		} else if (Parser.sentence.get(1).equals("POWER")) {
-			Story.print(Story.tod3);			
+			Story.print(Story.tod3);	
+		} else if (Parser.sentence.get(1).equals("TEMPLE")) {
+			Story.print(Story.tod2);
 		} else if (Parser.sentence.get(1).equals("SCROLL")) {
 			askTodAboutScroll();			
 		} else if (Parser.sentence.get(1).equals("TEA") || Parser.sentence.get(2).equals("DRINK")) {
@@ -220,6 +253,7 @@ public class NPC {
 	private static void hypnotize() {
 		Story.print(Story.tod5);
 		Player.savePurpleInventory();
+		Player.inventory.clear();
 		Player.updateLocation(Room.gardenPatio);
 		Player.dreaming = true;
 		World.XOO = false;

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Action {
 	public static void look() {
 		Story.printDesc();
@@ -18,11 +20,11 @@ public class Action {
 			case "Thatched Hut":
 				Player.updateLocation(Room.cobbleSquare);
 				break;
-			case "Shrine Room 1":
+			case "Avalokitesvara Shrine":
 				Player.updateLocation(Room.sandExhibit);
 				break;
 			case "Cafe":
-				Player.updateLocation(Room.outsideGallery);
+				Player.updateLocation(Room.wabe);
 				
 				if (!Player.dreaming) {
 					Player.facingReaper = true;
@@ -31,18 +33,12 @@ public class Action {
 				}
 				break;
 			case "Assembly Room":
-				Player.updateLocation(Room.insideGallery);
-				
-				if (Player.dreaming) {
-					Story.print("\nTo the west, you see a monk in a faded orange robe. You hear yourself whisper, \"What year did the wabewalker write Bunraku?\" The monk says something that you cannot make out, and you black out. You find yourself sitting in Hisachi Ichiro's House.\n");
-
-					Player.returnToIsachi();
-				}
+				Player.updateLocation(Room.gallery);
 				break;
 			case "Living Room":
 				Player.updateLocation(Room.shrineRoom2);
 				
-				if (!World.disableReaper)
+				if (!World.reaperDisabled)
 					World.tripwire = true;
 				break;
 			case "Pond":
@@ -52,9 +48,9 @@ public class Action {
 				Player.fishing = false;
 				break;
 			case "Sitting Room":
-				if (Player.inventory.contains(Item.phone)) {
-					Player.inventory.remove(Item.phone);
-					Room.getObjects().add(Item.phone);
+				if (Player.inventory.contains(Item.Phone.getTitle())) {
+					Player.inventory.remove(Item.Phone.getTitle());
+					Room.getObjects().add(Item.Phone.getTitle());
 					Story.print("You can't take the corded phone with you, so you leave it.");
 					Story.newParagraph();
 				}
@@ -108,19 +104,23 @@ public class Action {
 					Story.printDoorBlocking();
 				}
 				break;
-			case "Outside Gallery":
+			case "Wabe":
 				Player.updateLocation(Room.cafe);
 				break;
-			case "Inside Gallery":
+			case "Gallery":
 				Player.updateLocation(Room.assemblyRoom);
 				
-				if (!Player.spokeToClan) {
+				if (Player.dreaming && !Player.spokeToClan) {
+					Story.newLine();
 					Story.print(Story.tod9);
 					Player.spokeToClan = true;
-					Player.inventory.add(Item.sword);
+					Player.inventory.add(Item.Sword.getTitle());
 				}
+				
+				if (NPC.reaperMoved)
+					Story.printSamadhiFinal();
 				break;
-			case "Shrine Room 2":
+			case "Altar of Samantabhadra":
 				Player.updateLocation(Room.livingRoom);
 				World.shrineRoom2DoorOpen = false;
 
@@ -128,7 +128,7 @@ public class Action {
 					World.tripwire = false;
 					Story.newLine();
 					Player.facingReaper = true;
-					Story.printReaperEncounter1();
+					Story.printReaperEncounter2();
 				}
 				break;
 			case "Courtyard":
@@ -156,7 +156,7 @@ public class Action {
 			case "Hondo":
 				Player.updateLocation(Room.topOfMountain);
 				break;
-			case "Shrine Room 3":
+			case "Butsudan of Kannon":
 				Player.updateLocation(Room.hondo);
 				break;
 			case "Creaky Deck":
@@ -182,13 +182,13 @@ public class Action {
 			case "Garden Overlook":
 				Player.updateLocation(Room.cafe);
 				
-				if (!Player.dreaming && !Player.sawReaper1 && !World.disableReaper) {
+				if (!Player.dreaming && !Player.sawReaper1 && !World.reaperDisabled) {
 					Player.sawReaper1 = true;
 					Story.printSeeReaper1();
 				}
 				break;
-			case "Outside Gallery":
-				Player.updateLocation(Room.insideGallery);
+			case "Wabe":
+				Player.updateLocation(Room.gallery);
 				break;
 			case "Living Room":
 				Player.updateLocation(Room.pond);
@@ -201,9 +201,9 @@ public class Action {
 				}
 				break;
 			case "Sitting Room":
-				if (Player.inventory.contains(Item.phone)) {
-					Player.inventory.remove(Item.phone);
-					Room.getObjects().add(Item.phone);
+				if (Player.inventory.contains(Item.Phone.getTitle())) {
+					Player.inventory.remove(Item.Phone.getTitle());
+					Room.getObjects().add(Item.Phone.getTitle());
 					Story.print("You can't take the corded phone with you, so you leave it.");
 					Story.newParagraph();
 				}
@@ -222,8 +222,11 @@ public class Action {
 				break;
 			case "Mannequin Room":
 				Player.updateLocation(Room.theater);
+				
+				if (NPC.reaperMoved)
+					Story.printSamadhiFinal();
 				break;
-			case "Gate":
+			case "Bottom of Mountain":
 				Player.updateLocation(Room.island);
 				break;
 			case "Hamlet":
@@ -253,10 +256,16 @@ public class Action {
 			case "Cafe":
 				Player.updateLocation(Room.gardenOverlook);
 				break;
-			case "Inside Gallery":
-				Player.updateLocation(Room.outsideGallery);
+			case "Gallery":
+				Player.updateLocation(Room.wabe);
+				
+				if (Player.dreaming) {
+					Story.print("\nSomeone in a faded orange samue is standing here. You hear yourself whisper, \"What year did the Wabewalker write Bunraku?\" The person says something inaudible. Everything goes black, and you find yourself sitting in Hisachi Ichiro's House.\n");
+
+					Player.returnToIsachi();
+				}
 				break;
-			case "Shrine Room 2":
+			case "Altar of Samantabhadra":
 				if (World.shrineRoom2DoorOpen) {
 					Player.updateLocation(Room.darkPassageway);
 					World.dark = true;
@@ -276,9 +285,9 @@ public class Action {
 				}
 				break;
 			case "Sitting Room":
-				if (Player.inventory.contains(Item.phone)) {
-					Player.inventory.remove(Item.phone);
-					Room.getObjects().add(Item.phone);
+				if (Player.inventory.contains(Item.Phone.getTitle())) {
+					Player.inventory.remove(Item.Phone.getTitle());
+					Room.getObjects().add(Item.Phone.getTitle());
 					Story.print("You can't take the corded phone with you, so you leave it.");
 					Story.newParagraph();
 				}
@@ -291,8 +300,10 @@ public class Action {
 				Player.updateLocation(Room.mannequinRoom);
 				break;
 			case "Island":
-				Story.print("You hear the wooden gate slam shut behind you\n");
-				Player.updateLocation(Room.gate);
+				if (World.islandOpen)
+					Story.print("You hear the lattice barrier behind you drop back down.\n\n");
+				
+				Player.updateLocation(Room.bottomOfMountain);
 				World.islandOpen = false;
 				break;
 			case "Top of Mountain":
@@ -302,8 +313,8 @@ public class Action {
 					Story.newLine();
 					Story.print(Story.tod1);
 					Story.newLine();
-					Player.updateLocation(Room.todsHouse);
-					
+					Player.updateLocation(Room.hisachiIchirosHouse);
+					Story.print("\"The tea should have cooled off by now,\" he says. \"It's nice to have some company over every now and then. My name is Hisachi Ichiro, by the way.\"");
 					if (!Player.gotTodPoints) {
 						Player.gotTodPoints = true;
 						Data.updateScore(5);
@@ -408,6 +419,9 @@ public class Action {
 	
 	public static void goDown() {
 		switch (Player.getLocation().title) {
+			case "Wabe":
+				Player.updateLocation(Room.gallery);
+				break;
 			case "Landing":
 				Player.updateLocation(Room.courtyard);
 				break;
@@ -431,32 +445,35 @@ public class Action {
 			case "":
 				Story.printMissingNoun();
 				break;
+			case "IN":
+				enter(Parser.sentence.get(2));
+				break;
 			case "NORTH":
 				if (Room.getExits().contains("N")) {
 					goNorth();
 				} else {
-					Story.printNoExit();
+					Room.noExit("NORTH");
 				}
 				break;
 			case "SOUTH":
 				if (Room.getExits().contains("S")) {
 					goSouth();
 				} else {
-					Story.printNoExit();
+					Room.noExit("SOUTH");
 				}
 				break;
 			case "EAST":
 				if (Room.getExits().contains("E")) {
 					goEast();
 				} else {
-					Story.printNoExit();
+					Room.noExit("EAST");
 				}	
 				break;
 			case "WEST":
 				if (Room.getExits().contains("W")) {
 					goWest();
 				} else {
-					Story.printNoExit();
+					Room.noExit("WEST");
 				}
 				break;
 			case "NORTHEAST":
@@ -505,11 +522,115 @@ public class Action {
 				Room.checkPreviousLocation();
 				break;
 			case "ROD": // (go fishing)
-				if (Player.inventory.contains(Item.rod)) {
+				if (Player.inventory.contains(Item.Rod.getTitle())) {
 					goFishing();
 				} else {
 					Story.printHow();
 				}
+				break;
+			default:
+				Story.print("Try using a direction instead. For example, you can type GO NORTH.");
+				break;
+		}
+	}
+	
+	public static void enter(String r) {
+		switch (r) {
+			case "":
+				Story.printMoreSpecific();
+				break;
+			case "MUSEUM":
+				if (Player.getLocation().title.equals("Garden Patio")) {
+					goSouth();
+				} else {
+					if (Player.getArea().equals("garden")) {
+						Story.print("You are currently in the Adachi Museum of Art.");
+					} else {
+						Story.printNotHere();
+					}
+				}
+				break;
+			case "TEMPLE":
+				if (Player.getArea().equals("temple")) {
+					enterTemple();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "ROOM":
+			case "DOOR":
+				Room.enterRoom();
+				break;
+			default:
+				Story.invalid();
+				break;
+		}
+	}
+	
+	public static void enterTemple() {
+		switch (Player.getLocation().title) {
+			case "Forest":
+			case "Gate":
+			case "Bottom of Mountain":
+			case "Island":
+			case "Halfway up Mountain":
+			case "Hamlet":
+			case "Hisachi Ichiro's House":
+				Story.printNotHere();
+				break;
+			case "Top of Mountain":
+				goNorth();
+				break;
+			case "Hondo":
+			case "Butsudan of Kannon":
+			case "Trinket Shop":
+			case "Creaky Deck":
+			case "Balcony":
+			case "Overlook":
+				Story.print("You are currently in the Kegon-ji Temple.");
+				break;
+			default:
+				Story.invalid();
+				System.out.println("Action.enterTemple() error");
+				break;
+		}
+	}
+	
+	public static void exit(String s) {
+		switch (s) {
+			case "":
+			case "ROOM":
+				Room.checkPreviousLocation();
+				break;
+			case "MUSEUM":
+				if (Player.getArea().equals("garden")) {
+					if (Player.getLocation().title.equals("Cobble Square")) {
+						goNorth();
+					} else {
+						Story.print("You are not standing near an exit.");
+					}
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "HOUSE":
+				if (Player.getArea().equals("house")) {
+					Story.print("You are not standing near an exit.");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "TEMPLE":
+				if (Player.getArea().equals("temple")) {
+					if (Player.getLocation().title.equals("Hondo")) {
+						goSouth();
+					} else {
+						Story.print("You are not standing near an exit.");
+					}
+				} else {
+					Story.printNotHere();
+				}
+				break;
 			default:
 				Story.invalid();
 				break;
@@ -542,19 +663,19 @@ public class Action {
 			case "Cafe":
 				Player.updateLocation(Room.cafe);
 				break;
-			case "Outside Gallery":
-				Player.updateLocation(Room.outsideGallery);
+			case "Wabe":
+				Player.updateLocation(Room.wabe);
 				break;
-			case "Shrine Room 1":
+			case "Avalokitesvara Shrine":
 				Player.updateLocation(Room.shrineRoom1);
 				break;
-			case "Inside Gallery":
-				Player.updateLocation(Room.insideGallery);
+			case "Gallery":
+				Player.updateLocation(Room.gallery);
 				break;
 			case "Assembly Room":
 				Player.updateLocation(Room.assemblyRoom);
 				break;
-			case "Shrine Room 2":
+			case "Altar of Samantabhadra":
 				Player.updateLocation(Room.shrineRoom2);
 				break;
 			case "Living Room":
@@ -617,7 +738,7 @@ public class Action {
 			case "Balcony":
 				Player.updateLocation(Room.balcony);
 				break;
-			case "Shrine Room 3":
+			case "Butsudan of Kannon":
 				Player.updateLocation(Room.shrineRoom3);
 				break;
 			case "Trinket Shop":
@@ -635,13 +756,757 @@ public class Action {
 		}
 	}
 	
+	public static void attemptToExamine(String w) {
+		if (w.equals("INVENTORY")) {
+			checkInventory();
+		} else if (World.dark) {
+			switch (Player.getLocation().title) {
+				case "Dark Passageway":
+					if (w.equals("HOLE")) {
+						Item.Hole.hole.examine();
+					} else if (w.equals("WOMAN")) {
+						Item.woman.examine();
+					} else if (w.equals("FIGURE")) {
+						Story.printNotHere();
+					} else if (w.equals("")) {
+						Action.examine(w);
+					} else {
+						Story.printTooDark();
+					}
+					break;
+				case "Mannequin Room":
+					if (w.equals("MANNEQUIN")) {
+						Item.mannequin.examine();
+					} else if (w.equals("")) {
+						Action.examine(w);
+					} else {
+						Story.printTooDark();
+					}
+					break;
+				case "Theater":
+					if (w.equals("TV")) {
+						Item.TV.tv.examine();
+					} else if (w.equals("")) {
+						Action.examine(w);
+					} else {
+						Story.printTooDark();
+					}
+					break;
+				default:
+					System.out.println("Action.attemptToExamine error");
+					break;
+			}
+		} else {
+			Action.examine(w);
+		}
+	}
+	
+	public static void examine(String w) {
+		switch (w) {
+			case "":
+				look();
+				break;
+			case "COLOR":
+				if (Parser.sentence.get(2).equals("")) {
+					Story.printMissingNoun();
+				} else {
+					examine(Parser.sentence.get(2));
+				}
+				break;
+			case "ORANGE":
+				examineOrange(Parser.sentence.get(2));
+				break;
+			case "GREEN":
+				examineGreen(Parser.sentence.get(2));
+				break;
+			case "PURPLE":
+				examinePurple(Parser.sentence.get(2));
+				break;
+			case "BULB":
+				if (Room.hasPanel()) {
+					Item.panel.examine();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "AROUND":
+			case "ROOM":
+				look();
+				break;
+			case "JUNK":
+				Item.junk.examine();
+				break;
+			case "INVENTORY":
+				checkInventory();
+				break;
+			case "BOOK":
+				Item.book.examine();
+				break;
+			case "CRYPTOGRAM":
+				Item.cryptogram.examine();
+				break;
+			case "OM":
+				Item.om.examine();
+				break;
+			case "NI":
+				Item.ni.examine();
+				break;
+			case "GO":
+				Item.go.examine();				
+				break;
+			case "YU":
+				Item.yu.examine();				
+				break;
+			case "JI":
+				Item.ji.examine();			
+				break;
+			case "RA":
+				Item.ra.examine();				
+				break;
+			case "SHI":
+				Item.shi.examine();				
+				break;
+			case "SCROLL":
+				Item.scroll.attemptToExamineScroll();
+				break;
+			case "ROD":
+				Item.rod.examine();
+				break;
+			case "CORN":
+				Item.corn.examine();
+				break;
+			case "COMPARTMENT":
+				Item.compartment.examine();
+				break;
+			case "SHOP":
+				Item.shop.examine();
+				break;
+			case "PARCHMENT":
+				Item.parchment.examine();
+				break;
+			case "CARD":
+				Item.card.examine();
+				break;
+			case "STONE":
+				if (Parser.sentence.get(2).equals("")) {
+					Item.stone.examine();
+				} else {
+					examine(Parser.sentence.get(2));
+				}
+				break;
+			case "MIRROR":
+				Item.mirror.examine();
+				break;
+			case "PATH":
+				Item.path.examine();
+				break;
+			case "PANEL":
+				Item.panel.examine();
+				break;
+			case "MOUNTAIN":
+				Item.mountain.examine();
+				break;
+			case "PICTURE":
+				Item.picture.examine();
+				break;
+			case "TEMPLE":
+				Item.temple.examine();
+				break;
+			case "HUT":
+				Item.hut.examine();
+				break;
+			case "STAIRS":
+				Item.stairs.examine();
+				break;
+			case "WOMAN":
+				Item.woman.examine();
+				break;
+			case "MASK":
+				Item.mask.examine();
+				break;
+			case "SIGN":
+				Item.sign.examine();
+				break;
+			case "WALL":
+				Item.wall.examine();
+				break;
+			case "CLOAK":
+				Item.cloak.examine();
+				break;
+			case "BASIN":
+				Item.basin.examine();
+				break;
+			case "SAMUE":
+				Item.samue.examine(); 
+				break;
+			case "POND":
+				Item.pond.examine();
+				break;
+			case "FISH":
+				Item.fish.examine();
+				break;
+			case "BRIDGE":
+				Item.bridge.examine();
+				break;
+			case "TV":
+				Item.tv.examine();
+				break;
+			case "PHONE":
+				Item.phone.examine();
+				break;
+			case "DOOR":
+				Item.door.examine();
+				break;
+			case "BLOOD":
+				Item.blood.examine();
+				break;
+			case "SAFE":
+				Item.safe.examine();
+				break;
+			case "GATE":
+				Item.gate.examine();
+				break;
+			case "BOX":
+				Item.box.examine();
+				break;
+			case "BIRDS":
+				Item.birds.examine();
+				break;
+			case "MEMORY":
+				Item.memory.examine();
+				break;
+			case "SHRINE":
+				Item.shrine.examine();
+				break;
+			case "TASSEL":
+				Item.tassel.examine();
+				break;
+			case "TEA":
+				Item.tea.examine();
+				break;
+			case "TREE":
+				Item.tree.examine();
+				break;
+			case "CHEST":
+				Item.chest.examine();
+				break;
+			case "FIGURE":
+				Item.figure.examine();
+				break;
+			case "CASE":
+				Item.jewelledCase.examine();
+				break;
+			case "BUTTON":
+				Item.button.examine();
+				break;
+			case "HOLE":
+				Item.hole.examine();
+				break;
+			case "WINDOW":
+				Item.window.examine();
+				break;
+			case "CHUTE":
+				Item.chute.examine();
+				break;
+			case "SOFA":
+				Item.sofa.examine();
+				break;
+			case "EXHIBIT":
+				Item.exhibit.examine();
+				break;
+			case "LEVER":
+				Item.lever.examine();
+				break;
+			case "BED":
+				Item.bed.examine();
+				break;
+			case "MANNEQUIN":
+				Item.mannequin.examine();
+				break;
+			case "LATTICE":
+				Item.lattice.examine();
+				break;
+			case "SNOW":
+				Item.snow.examine();
+				break;
+			case "SANDALS":
+				Item.sandals.examine();
+				break;
+			case "HOUSE":
+				Item.house.examine();
+				break;
+			case "ROOF":
+				Item.roof.examine();
+				break;
+			case "HISACHI":
+				Item.hisachi.examine();
+				break;
+			case "DECK":
+				Item.deck.examine();
+				break;
+			case "PAINTING":
+				Item.painting.examine();
+				break;
+			case "HALLWAY":
+				Item.hallway.examine();
+				break;
+			case "SWORD":
+				Item.sword.examine();
+				break;
+			case "MUSEUM":
+				Item.museum.examine();
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void take(String w) {
+		switch (w) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "ALL":
+				takeAll();
+				break;
+			case "COLOR":
+				if (Parser.sentence.get(2).equals("")) {
+					Story.printMissingNoun();
+				} else {
+					take(Parser.sentence.get(2));
+				}
+				break;
+			case "ORANGE":
+				takeOrange(Parser.sentence.get(2));
+				break;
+			case "GREEN":
+				takeGreen(Parser.sentence.get(2));
+				break;
+			case "PURPLE":
+				takePurple(Parser.sentence.get(2));
+				break;
+			case "BULB":
+				if (Room.hasPanel()) {
+					Story.print("The bulbs are securely fastened on the panel.");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "OFF":
+				takeOff(Parser.sentence.get(2));
+				break;
+			case "JUNK":
+				Item.junk.take();
+				break;
+			case "BOOK":
+				Item.book.take();
+				break;
+			case "CRYPTOGRAM":
+				Item.cryptogram.take();
+				break;
+			case "OM":
+				Item.om.take();
+				break;
+			case "NI":
+				Item.ni.take();
+				break;
+			case "GO":
+				Item.go.take();				
+				break;
+			case "YU":
+				Item.yu.take();				
+				break;
+			case "JI":
+				Item.ji.take();			
+				break;
+			case "RA":
+				Item.ra.take();				
+				break;
+			case "SHI":
+				Item.shi.take();				
+				break;
+			case "SCROLL":
+				Item.scroll.take();
+				break;
+			case "ROD":
+				Item.rod.take();
+				break;
+			case "CORN":
+				Item.corn.take();
+				break;
+			case "PARCHMENT":
+				Item.parchment.take();
+				break;
+			case "CARD":
+				Item.card.take();
+				break;
+			case "MIRROR":
+				Item.mirror.take();
+				break;
+			case "PANEL":
+				Item.panel.take();
+				break;
+			case "CLOAK":
+				Item.cloak.take();
+				break;
+			case "STAIRS":
+				Item.stairs.take();
+				break;
+			case "PATH":
+				Item.path.take();
+				break;
+			case "COMPARTMENT":
+				Item.compartment.take();
+				break;
+			case "SHOP":
+				Item.shop.take();
+				break;
+			case "STONE":
+				Item.stone.take();
+				break;
+			case "MOUNTAIN":
+				Item.mountain.take();
+				break;
+			case "TEMPLE":
+				Item.temple.take();
+				break;
+			case "HUT":
+				Item.hut.take();
+				break;
+			case "WALL":
+				Item.wall.take();
+				break;
+			case "WOMAN":
+				Item.woman.take();
+				break;
+			case "MASK":
+				Item.mask.take();
+				break;
+			case "SIGN":
+				Item.sign.take();
+				break;
+			case "BASIN":
+				Item.basin.take();
+				break;
+			case "SAMUE":
+				Item.samue.take();
+				break;
+			case "PICTURE":
+				Item.picture.take();
+				break;
+			case "POND":
+				Item.pond.take();
+				break;
+			case "FISH":
+				Item.fish.take();
+				break;
+			case "BRIDGE":
+				Item.bridge.take();
+				break;
+			case "TV":
+				Item.tv.take();
+				break;
+			case "BLOOD":
+				Item.blood.take();
+				break;
+			case "SWORD":
+				Item.sword.take();
+				break;
+			case "PHONE":
+				Item.phone.take();
+				break;
+			case "DOOR":
+				Item.door.take();
+				break;
+			case "SAFE":
+				Item.safe.take();
+				break;
+			case "GATE":
+				Item.gate.take();
+				break;
+			case "BOX":
+				Item.box.take();
+				break;
+			case "BIRDS":
+				Item.birds.take();
+				break;
+			case "MEMORY":
+				Item.memory.take();
+				break;
+			case "SHRINE":
+				Item.shrine.take();
+				break;
+			case "TASSEL":
+				Item.tassel.take();
+				break;
+			case "TEA":
+				Item.tea.take();
+				break;
+			case "TREE":
+				Item.tree.take();
+				break;
+			case "CHEST":
+				Item.chest.take();
+				break;
+			case "FIGURE":
+				Item.figure.take();
+				break;
+			case "CASE":
+				Item.jewelledCase.take();
+				break;
+			case "BUTTON":
+				Item.button.take();
+				break;
+			case "HOLE":
+				Item.hole.take();
+				break;
+			case "WINDOW":
+				Item.window.take();
+				break;
+			case "CHUTE":
+				Item.chute.take();
+				break;
+			case "SOFA":
+				Item.sofa.take();
+				break;
+			case "EXHIBIT":
+				Item.exhibit.take();
+				break;
+			case "LEVER":
+				Item.lever.take();
+				break;
+			case "BED":
+				getInBed();
+				break;
+			case "MANNEQUIN":
+				Item.mannequin.take();
+				break;
+			case "LATTICE":
+				Item.lattice.take();
+				break;
+			case "SNOW":
+				Item.snow.take();
+				break;
+			case "SANDALS":
+				Item.sandals.take();
+				break;
+			case "HOUSE":
+				Item.house.take();
+				break;
+			case "ROOF":
+				Item.roof.take();
+				break;
+			case "HISACHI":
+				Item.hisachi.take();
+				break;
+			case "DECK":
+				Item.deck.take();
+				break;
+			case "PAINTING":
+				Item.painting.take();
+				break;
+			case "HALLWAY":
+				Item.hallway.take();
+				break;
+			case "MUSEUM":
+				Item.museum.take();
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void takeAll() {
+		int numOfItems = Room.getObjects().size();
+		ArrayList<String> items = Room.getObjects();
+		
+		if (numOfItems == 0) {
+			Story.print("There's nothing here you can take.");
+		} else {
+			for (int i = 0; i < numOfItems; i++) {
+				String item = items.get(i);
+				Story.printTake(item);
+				Player.inventory.add(item);
+				
+				if (i < numOfItems - 1)
+					Story.newLine();
+			}
+			
+			Room.getObjects().clear();
+		}
+	}
+	
+	public static void examineOrange(String object) {
+		switch (object) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "BULB":
+				if (Room.hasPanel()) {
+					if (Player.orangeAlive) {
+						Story.print("The orange bulb is glowing.");
+					} else {
+						Story.print("The orange bulb is not glowing.");
+					}
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "SAMUE":
+				if (Player.getArea().equals("garden")) {
+					Story.printNothingSpecial();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void examineGreen(String object) {
+		switch (object) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "BULB":
+				if (Room.hasPanel()) {
+					if (Player.greenAlive) {
+						Story.print("The green bulb is glowing.");
+					} else {
+						Story.print("The green bulb is not glowing.");
+					}
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "SAMUE":
+				if (Player.getArea().equals("house")) {
+					Story.printNothingSpecial();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void examinePurple(String object) {
+		switch (object) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "BULB":
+				if (Room.hasPanel()) {
+					if (Player.purpleAlive) {
+						Story.print("The purple bulb is glowing.");
+					} else {
+						Story.print("The purple bulb is not glowing.");
+					}
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "SAMUE":
+				if (Player.getArea().equals("temple")) {
+					Story.printNothingSpecial();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void takeOrange(String object) {
+		switch (object) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "BULB":
+				if (Room.hasPanel()) {
+					Story.print("The bulbs are securely fastened on the panel.");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "SAMUE":
+				if (Player.getArea().equals("garden")) {
+					Story.printAlreadyHave();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void takeGreen(String object) {
+		switch (object) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "BULB":
+				if (Room.hasPanel()) {
+					Story.print("The bulbs are securely fastened on the panel.");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "SAMUE":
+				if (Player.getArea().equals("house")) {
+					Story.printAlreadyHave();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
+	public static void takePurple(String object) {
+		switch (object) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			case "BULB":
+				if (Room.hasPanel()) {
+					Story.print("The bulbs are securely fastened on the panel.");
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			case "SAMUE":
+				if (Player.getArea().equals("temple")) {
+					Story.printAlreadyHave();
+				} else {
+					Story.printNotHere();
+				}
+				break;
+			default:
+				Story.printNotHere();
+				break;
+		}
+	}
+	
 	public static void cast(String n) {
 		switch (n) {
 			case "":
 				Story.printMissingNoun();
 				break;
 			case "ROD":
-				if (Player.inventory.contains(Item.rod)) {
+				if (Player.inventory.contains(Item.Rod.getTitle())) {
 					goFishing();
 				} else {
 					Story.printHow();
@@ -665,21 +1530,20 @@ public class Action {
 	
 	public static void passTime() {
 		Story.printPassTime();
-		
-		World.checkRod();
 	}
 	
-	private static void reelIn() {
+	public static void reelIn() {
 		if (Player.fishing) {
 			Story.print("You reel in the line.");
 			
 			if (World.bite) {
 				catchFish();
 			} else {
-				Story.print(" You didn't catch anything.");
+				Story.print(" But you didn't catch anything.");
 			}
 			
 			Player.startedFishing = 0;
+			Player.fishing = false;
 			World.bite = false;
 		} else {
 			Story.printHow();
@@ -700,201 +1564,48 @@ public class Action {
 		}
 	}
 	
-	public static void take(String n) {
+	public static void takeOff(String n) {
 		switch (n) {
-			case "":
-				Story.printMissingNoun();
+			case "SANDALS":
+				Story.print("That's all you have on!");
 				break;
-			case "BOOK":
-				if (Room.getObjects().contains(Item.book)) {
-					Item.getBook();
-					Player.tookACBook = true;
-				} else if (Player.inventory.contains(Item.book)) {
-					Story.printAlreadyHave();
+			case "SAMUE":
+				if (!Player.dreaming) {
+					Story.print("That's all you have on!");
 				} else {
 					Story.printNotHere();
 				}
 				break;
-			case "OM":
-				if (Room.getObjects().contains(Item.om) || (Player.getLocation().title.equals("Lounge") && World.loungeSafeOpen && World.omInSafe)) {
-					Item.getOm();
-				} else if (Player.inventory.contains(Item.om)) {
-					Story.printAlreadyHave();
+			case "CLOAK":
+				if (Player.dreaming) {
+					Story.print("That's all you have on!");
 				} else {
 					Story.printNotHere();
 				}
-				break;
-			case "NI":
-				if (Room.getObjects().contains(Item.ni) || (Player.getLocation().title.equals("Study") && World.studySafeOpen && World.niInSafe)) {
-					Item.getNi();
-				} else if (Player.inventory.contains(Item.ni)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "GO":
-				if (Room.getObjects().contains(Item.go) || (Player.getLocation().title.equals("Creaky Deck") && World.creakyDeckOpen && World.goInCase)) {
-					Item.getGo();
-				} else if (Player.inventory.contains(Item.go)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "YU":
-				if (Room.getObjects().contains(Item.yu) || (World.yuInBox && World.boxOpen && (Player.inventory.contains(Item.box) || Room.getObjects().contains(Item.box)))){
-					Item.getYu();
-				} else if (Player.inventory.contains(Item.yu)) {
-					Story.printAlreadyHave();
-				} else{
-					Story.printNotHere();
-				}
-				break;
-			case "JI":
-				if (Room.getObjects().contains(Item.ji) || (World.jiInSafe && World.shrineRoom1SafeOpen && Player.getLocation().title.equals("Shrine Room 1"))) {
-					Item.getJi();
-				} else if (Player.inventory.contains(Item.ji)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "RA":
-				if (Room.getObjects().contains(Item.ra)) {
-					Item.getRa();
-				} else if (Player.inventory.contains(Item.ra)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "SHI":
-				if (Room.getObjects().contains(Item.shi)) {
-					Item.getShi();
-				} else if (Player.inventory.contains(Item.shi)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "SCROLL":
-				if (Player.getLocation().equals(Room.hallway)) {
-					if (World.getScrollCount() == 0) {
-						Story.print("The glass panel prevents you from getting to the scroll.");
-					} else {
-						Story.print("Which one?");
-					}
-				} else {
-					if (World.getScrollCount() > 1) {
-						Story.print("Which one?");
-					} else if (World.getScrollCount() == 1) {
-						Item.getScroll();
-					} else {
-						Story.printNotHere();
-					}
-				}
-				break;
-			case "ROD":
-				if (Room.getObjects().contains(Item.rod)) {
-					Item.getRod();
-				} else if (Player.inventory.contains(Item.rod)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "BOOKLET":
-				/**
-				if (Room.getObjects().contains(Item.booklet)) {
-					Item.getBooklet();
-				} else if (Player.inventory.contains(Item.booklet)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-				*/
-			case "HANDBOOK":
-				/**
-				if (Room.getObjects().contains(Item.handbook)) {
-					Item.getHandbook();
-				} else if (Player.inventory.contains(Item.handbook)) {
-					Story.printAlreadyHave();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-				*/
-			case "CRYPTOGRAM":
-				Item.getCryptogram();
-				break;
-			case "CORN":
-				Item.getCorn();
-				break;
-			case "PARCHMENT":
-				Item.getParchment();
-				break;
-			case "CARD":
-				Item.getCard();
-				break;
-			case "FISH":
-				if (Player.fishing && Player.getLocation().title.equals("Pond")) {
-					reelIn();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "PHONE":
-				Item.getPhone();
-				break;
-			case "BOX":
-				Item.getBox();
-				break;
-			case "MIRROR":
-				Item.getMirror();
-				break;
-			case "SWORD":
-				Item.getSword();
-				break;
-			case "WOMAN":
-				Story.printCantTake();
-				break;
-			case "MANNEQUIN":
-				Story.printCantTake();
-				break;
-			case "TV":
-				Story.printCantTake();
-				break;
-			case "BIRDS":
-				moveBirds();
-				break;
-			case "SIGN":
-				Item.takeSign();
-				break;
-			case "SOFA":
-				Item.takeSofa();
-				break;
-			case "PLAQUE":
-				Item.takePlaque();
-				break;
-			case "DOOR":
-				Item.takeDoor();
-				break;
-			case "SAFE":
-				Item.takeSafe();
-				break;
-			case "WINDOW":
-				Item.takeWindow();
-				break;
-			case "TASSEL":
-				pullTassel();
 				break;
 			default:
-				Story.printNotHere();
+				Story.invalid();
 				break;
 		}
-		
+	}
+	
+	public static void getIn(String n) {
+		switch (n) {
+			case "BED":
+				getInBed();
+				break;
+			default:
+				Story.printInteresting();
+				break;
+		}
+	}
+	
+	private static void getInBed() {
+		if (Player.getLocation().title.equals("Master Bedroom")) {
+			Story.print("You are now lying in the four-poster bed. It's quite comfortable.");
+		} else {
+			Story.printNotHere();
+		}
 	}
 	
 	public static void put(String n) {
@@ -903,7 +1614,7 @@ public class Action {
 				Story.printMissingNoun();
 				break;
 			case "CORN":
-				Item.putCorn();
+				Item.corn.put();
 				break;
 			default:
 				Story.invalid();
@@ -918,7 +1629,7 @@ public class Action {
 				break;
 			case "FIGURE":
 				if (Player.getLocation().title.equals("Assembly Room")) {
-					Story.print("\nThe figures draw their swords, and before you can say \"Bunraku,\" you black out. You find yourself sitting in Hisachi Ichiro's House.\n");
+					Story.print("\nThe figures draw their swords, and before you can say \"Bunraku,\" you black out. You find yourself sitting on a cushion in Hisachi Ichiro's House.\n");
 					Player.returnToIsachi();
 				} else {
 					Story.printNotHere();
@@ -926,7 +1637,7 @@ public class Action {
 				break;
 			case "WOMAN":
 				if (Player.getLocation().title.equals("Cafe") || Player.getLocation().title.equals("Living Room")) {
-					Story.print("The woman is on the other side of the glass.");
+					Story.printGlassObstructs();
 				} else {
 					Story.printNotHere();
 				}
@@ -937,86 +1648,112 @@ public class Action {
 		}
 	}
 	
+	public static void eat(String s) {
+		switch (s) {
+			case "CORN":
+				Item.corn.eat();
+				break;
+			default:
+				Story.printHow();
+				break;
+		}
+	}
+	
+	public static void say() {
+		switch (Player.getLocation().title) {
+			case "Cafe":
+			case "Living Room":
+				Story.print("The woman has no reaction to you whatsoever.");
+				break;
+			default:
+				Story.print("It doesn't seem like anyone is listening to you.");
+				break;
+		}
+	}
+	
 	public static void drop(String n) {
 		switch (n) {
 			case "":
 				Story.printMissingNoun();
 				break;
+			case "ALL":
+				dropAll();
+				break;
 			case "BOOK":
-				if (Player.inventory.contains(Item.book)) {
-					Player.inventory.remove(Item.book);
-					Room.getObjects().add(Item.book);
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Book.getTitle())) {
+					Player.inventory.remove(Item.Book.getTitle());
+					Room.getObjects().add(Item.Book.getTitle());
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "OM":
-				if (Player.inventory.contains(Item.om)) {
-					Player.inventory.remove(Item.om);
-					Room.getObjects().add(Item.om);
-					Room.addScroll();
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Om.getTitle())) {
+					Player.inventory.remove(Item.Om.getTitle());
+					Room.getObjects().add(Item.Om.getTitle());
+					
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "NI":
-				if (Player.inventory.contains(Item.ni)) {
-					Player.inventory.remove(Item.ni);
-					Room.getObjects().add(Item.ni);
-					Room.addScroll();
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Ni.getTitle())) {
+					Player.inventory.remove(Item.Ni.getTitle());
+					Room.getObjects().add(Item.Ni.getTitle());
+					
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "GO":
-				if (Player.inventory.contains(Item.go)) {
-					Player.inventory.remove(Item.go);
-					Room.getObjects().add(Item.go);
-					Room.addScroll();
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Go.getTitle())) {
+					Player.inventory.remove(Item.Go.getTitle());
+					Room.getObjects().add(Item.Go.getTitle());
+					
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "YU":
-				if (Player.inventory.contains(Item.yu)) {
-					Player.inventory.remove(Item.yu);
-					Room.getObjects().add(Item.yu);
-					Room.addScroll();
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Yu.getTitle())) {
+					Player.inventory.remove(Item.Yu.getTitle());
+					Room.getObjects().add(Item.Yu.getTitle());
+					
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "JI":
-				if (Player.inventory.contains(Item.ji)) {
-					Player.inventory.remove(Item.ji);
-					Room.getObjects().add(Item.ji);
-					Room.addScroll();
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Ji.getTitle())) {
+					Player.inventory.remove(Item.Ji.getTitle());
+					Room.getObjects().add(Item.Ji.getTitle());
+					
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "RA":
-				if (Player.inventory.contains(Item.ra)) {
-					Player.inventory.remove(Item.ra);
-					Room.getObjects().add(Item.ra);
-					Room.addScroll();
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Ra.getTitle())) {
+					Player.inventory.remove(Item.Ra.getTitle());
+					Room.getObjects().add(Item.Ra.getTitle());
+					
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "SHI":
-				if (Player.inventory.contains(Item.shi)) {
-					Player.inventory.remove(Item.shi);
-					Room.getObjects().add(Item.shi);
-					Room.addScroll();
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Shi.getTitle())) {
+					Player.inventory.remove(Item.Shi.getTitle());
+					Room.getObjects().add(Item.Shi.getTitle());
+					
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
@@ -1025,102 +1762,84 @@ public class Action {
 				if (Player.getInventoryScrollCount() > 1) {
 					Story.print("Which one?");
 				} else if (Player.getInventoryScrollCount() == 1) {
-					Item.dropScroll();
+					Item.scroll.dropScroll();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "ROD":
-				if (Player.inventory.contains(Item.rod)) {
-					Player.inventory.remove(Item.rod);
-					Room.getObjects().add(Item.rod);
+				if (Player.inventory.contains(Item.Rod.getTitle())) {
+					Player.inventory.remove(Item.Rod.getTitle());
+					Room.getObjects().add(Item.Rod.getTitle());
 					Player.fishing = false;
 					World.bite = false;
 					Player.startedFishing = 0;
-					Story.print("Dropped.");
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
-			case "BOOKLET":
-				/**
-				if (Player.inventory.contains(Item.booklet)) {
-					Player.inventory.remove(Item.booklet);
-					Room.getObjects().add(Item.booklet);
-					Story.print("Dropped.");
-				} else {
-					Story.printNotInInventory();
-				}
-				break;
-				*/
-			case "HANDBOOK":
-				/**
-				if (Player.inventory.contains(Item.handbook)) {
-					Player.inventory.remove(Item.handbook);
-					Room.getObjects().add(Item.handbook);
-					Story.print("Dropped.");
-				} else {
-					Story.printNotInInventory();
-				}
-				break;
-				*/
 			case "CRYPTOGRAM":
-				if (Player.inventory.contains(Item.cryptogram)) {
-					Player.inventory.remove(Item.cryptogram);
-					Room.getObjects().add(Item.cryptogram);
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Cryptogram.getTitle())) {
+					Player.inventory.remove(Item.Cryptogram.getTitle());
+					Room.getObjects().add(Item.Cryptogram.getTitle());
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "CORN":
-				if (Player.inventory.contains(Item.corn)) {
-					Player.inventory.remove(Item.corn);
-					Room.getObjects().add(Item.corn);
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Corn.getTitle())) {
+					Player.inventory.remove(Item.Corn.getTitle());
+					Room.getObjects().add(Item.Corn.getTitle());
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "PARCHMENT":
-				if (Player.inventory.contains(Item.parchment)) {
-					Player.inventory.remove(Item.parchment);
-					Room.getObjects().add(Item.parchment);
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Parchment.getTitle())) {
+					Player.inventory.remove(Item.Parchment.getTitle());
+					Room.getObjects().add(Item.Parchment.getTitle());
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "CARD":
-				if (Player.inventory.contains(Item.card)) {
-					Player.inventory.remove(Item.card);
-					Room.getObjects().add(Item.card);
-					Story.print("Dropped.");
+				if (Player.inventory.contains(Item.Card.getTitle())) {
+					Player.inventory.remove(Item.Card.getTitle());
+					Room.getObjects().add(Item.Card.getTitle());
+					Story.printDropped();
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "PHONE":
-				if (Player.inventory.contains(Item.phone)) {
-					Player.inventory.remove(Item.phone);
-					Room.getObjects().add(Item.phone);
+				if (Player.inventory.contains(Item.Phone.getTitle())) {
+					Player.inventory.remove(Item.Phone.getTitle());
+					Room.getObjects().add(Item.Phone.getTitle());
 					Story.print("You hang up the phone.");
 				} else {
 					Story.printNotInInventory();
 				}
 				break;
 			case "SWORD":
-				if (Player.inventory.contains(Item.sword)) {
-					Player.inventory.remove(Item.sword);
-					Room.getObjects().add(Item.sword);
-					Story.print("Dropped.");
-				} else {
-					Story.printNotInInventory();
-				}
+				Item.sword.drop();
+				break;
 			default:
 				Story.printNotInInventory();
 				break;
 		}
+	}
+	
+	public static void dropAll() {
+		for (String item : Player.inventory) {
+			Room.getObjects().add(item);
+		}
+		
+		Story.printDropped();
+		Player.inventory.clear();
 	}
 	
 	public static void hang(String n) {
@@ -1129,9 +1848,9 @@ public class Action {
 				Story.printMissingNoun();
 				break;
 			case "UP":
-				if (Player.inventory.contains(Item.phone)) {
-					Player.inventory.remove(Item.phone);
-					Room.getObjects().add(Item.phone);
+				if (Player.inventory.contains(Item.Phone.getTitle())) {
+					Player.inventory.remove(Item.Phone.getTitle());
+					Room.getObjects().add(Item.Phone.getTitle());
 					Story.print("You hang up the phone.");
 				} else {
 					Story.print("You're not even holding the phone.");
@@ -1143,308 +1862,80 @@ public class Action {
 		}
 	}
 	
-	public static void examine(String w) {
-		switch (w) {
-			case "":
-				look();
-				break;
-			case "AROUND":
-				look();
-				break;
-			case "BOOK":
-				Item.examineBook();
-				break;
-			case "BOOKLET":
-				//Item.examineBooklet();
-				break;
-			case "HANDBOOK":
-				//Item.examineHandbook();
-				break;
-			case "CRYPTOGRAM":
-				Item.examineCryptogram();
-				break;
-			case "OM":
-				Item.examineOm();
-				break;
-			case "NI":
-				Item.examineNi();
-				break;
-			case "GO":
-				Item.examineGo();				
-				break;
-			case "YU":
-				Item.examineYu();				
-				break;
-			case "JI":
-				Item.examineJi();			
-				break;
-			case "RA":
-				Item.examineRa();				
-				break;
-			case "SHI":
-				Item.examineShi();				
-				break;
-			case "SCROLL":
-				Item.attemptToExamineScroll();
-				break;
-			case "ROD":
-				Item.examineRod();
-				break;
-			case "CORN":
-				Item.examineCorn();
-				break;
-			case "PARCHMENT":
-				Item.examineParchment();
-				break;
-			case "CARD":
-				Item.examineCard();
-				break;
-			case "MIRROR":
-				Item.examineMirror();
-				break;
-			case "PLAQUE":
-				Story.printPlaque();
-				break;
-			case "WOMAN":
-				if (Player.getLocation().title.equals("Cafe") || Player.getLocation().title.equals("Living Room")) {
-					Story.printWoman();
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "SIGN":
-				Item.examineSign();
-				break;
-			case "BASIN":
-				Item.examineBasin();
-				break;
-			case "ROBE":
-				Story.print("It's a loosely-fit faded " + Player.getRobe() + " robe."); 
-				break;
-			case "POND":
-				if (Player.getLocation().title.equals("Pond")) {
-					Story.print("Small ripples roll across the pond. You can see a red koi fish exploring idly underwater.");
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "FISH":
-				if (Player.getLocation().title.equals("Pond")) {
-					Story.print("The red koi fish is exploring idly underwater, just out of reach.");
-				} else {
-					Story.printNotHere();
-				}
-				break;
-			case "TV":
-				Item.examineTV();
-				break;
-			case "PHONE":
-				Item.examinePhone();
-				break;
-			case "DOOR":
-				Item.examineDoor();
-				break;
-			case "SAFE":
-				Item.examineSafe();
-				break;
-			case "GATE":
-				Story.printExamineGate();
-				break;
-			case "BOX":
-				Item.examineBox();
-				break;
-			case "BIRDS":
-				Item.examineBirds();
-				break;
-			case "MEMORY":
-				Story.printMemory();
-				break;
-			case "SHRINE":
-				Item.examineShrine();
-				break;
-			case "TASSEL":
-				Story.print("The tassel is hanging from the gate.");
-				break;
-			case "TEA":
-				Story.printNothingSpecial();
-				break;
-			case "CHEST":
-				Item.examineChest();
-				break;
-			case "FIGURE":
-				Item.examineFigure();
-				break;
-			case "CASE":
-				Item.examineCase();
-				break;
-			case "BUTTON":
-				Story.print("It's a tiny silver button.");
-				break;
-			case "HOLE":
-				examineHole();
-				break;
-			case "WINDOW":
-				Item.examineWindow();
-				break;
-			case "CHUTE":
-				Item.examineChute();
-				break;
-			case "SOFA":
-				Item.examineSofa();
-				break;
-			case "EXHIBIT":
-				Item.examineExhibit();
-				break;
-			case "LEVER":
-				Item.examineLever();
-				break;
-			case "BED":
-				Item.examineBed();
-				break;
-			case "MANNEQUIN":
-				Item.examineMannequin();
-				break;
-			case "LATTICE":
-				Item.examineLattice();
-				break;
-			case "SNOW":
-				Item.examineSnow();
-				break;
-			default:
-				Story.printNotHere();
-				break;
-		}
-	}
-	
-	public static void tryToWalk(String w) {
-		if (Player.sittingOnGround || Player.sittingOnSofa) {
-			Story.print("You would have to stand up first to do that.");
-		} else {
-			
-		}
-	}
-	
-	public static void tryToSit(String w) {
-		if (Player.sittingOnGround) {
-			if (w.equals("") || w.equals("DOWN") || w.equals("GROUND")) {
-				Story.printAlreadyDoing();
-			} else if (w.equals("SOFA")) {
-				if (Player.getLocation().title.equals("Lounge")) {
-					Story.print("You would have to stand up first to do that.");
-				} else {
-					Story.printNotHere();
-				}
-			} else {
-				Story.invalid();
-			}
-		} else if (Player.sittingOnSofa) {
-			if (w.equals("") || w.equals("DOWN")) {
-				Story.printAlreadyDoing();
-			} else if (w.equals("GROUND")) {
-				Story.print("You would have to stand up first to do that.");
-			} else {
-				Story.invalid();
-			}
-		} else {
-			sit(w);
-		}
-	}
-	
 	public static void sit(String w) {
 		switch (w) {
 			case "":
 				if (Player.getLocation().title.equals("Lounge")) {
-					Player.sittingOnSofa = true;
 					Story.print("You sit on the sofa. It's quite comfortable.");
 				} else {
-					Player.sittingOnGround = true;
 					Story.print("You find a comfortable position to sit on the ground.");
 				}
 				break;
 			case "DOWN":
 				if (Player.getLocation().title.equals("Lounge")) {
-					Player.sittingOnSofa = true;
 					Story.print("You sit on the sofa. It's quite comfortable.");
+				} else if (Player.getLocation().title.equals("Master Bedroom")) {
+					Story.print("You sit on the bed. It's quite comfortable.");
 				} else {
-					Player.sittingOnGround = true;
 					Story.print("You find a comfortable position to sit on the ground.");
 				}
 				break;
 			case "GROUND":
-				Player.sittingOnGround = true;
 				Story.print("You find a comfortable position to sit on the ground.");
 				break;
 			case "SOFA":
 				if (Player.getLocation().title.equals("Lounge")) {
-					Player.sittingOnSofa = true;
 					Story.print("You sit on the sofa. It's quite comfortable.");
 				} else {
 					Story.printNotHere();
 				}
 				break;
+			case "BED":
+				if (Player.getLocation().title.equals("Master Bedroom")) {
+					Story.print("You sit on the bed. It's quite comfortable.");
+				} else {
+					Story.printNotHere();
+				}
+				break;
 			default:
-				
+				Story.invalid();
 				break;
 		}
 			
-	}
-	
-	public static void examineHole() {
-		if (Player.getLocation().title.equals("Dark Passageway")) {
-			Story.print("Through the hole you can see the woman.");
-			
-			if (!Player.sawReaper2) {
-				Story.print(" Lurking behind the woman, you see a hooded figure. Seemingly unsatisfied, it leaves the area.");
-			}
-			
-			Player.sawReaper2 = true;
-		} else if (Player.getLocation().title.equals("Closet")) {
-			Story.printNothingSpecial();
-		} else {
-			Story.printNotHere();
-		}
 	}
 	
 	public static void open(String n) {
 		switch (n) {
 			case "":
-				Story.print("What do you want to open?");
+				Story.printMissingNoun();
 				break;
 			case "DOOR":
-				openDoor();
+				Item.door.open();
 				break;
 			case "SAFE":
-				openSafe();
+				Item.safe.open();
 				break;
 			case "BOX":
-				openBox();
+				Item.box.open();
 				break;
 			case "CASE":
-				openCase();
+				Item.jewelledCase.open();
 				break;
 			case "CHEST":
-				openChest();
+				Item.chest.open();
 				break;
 			case "BOOK":
-				Item.examineBook();
+				Item.book.examine();
 				break;
 			case "WINDOW":
-				Item.openWindow();
+				Item.window.open();
 				break;
 			case "Lattice":
-				Item.openLattice();
+				Item.lattice.open();
 				break;
 			default:
 				Story.printCantOpen();
 				break;
-		}
-	}
-	
-	private static void openChest() {
-		if (Player.getLocation().title.equals("Assembly Room")) {
-			Story.print(Story.tod10);
-		} else {
-			Story.printNotHere();
 		}
 	}
 	
@@ -1457,16 +1948,16 @@ public class Action {
 				meditate();
 				break;
 			case "DOOR":
-				shutDoor();
+				Item.Door.door.shut();
 				break;
 			case "SAFE":
-				shutSafe();
+				Item.Safe.safe.shut();
 				break;
 			case "BOX":
-				shutBox();
+				Item.Box.box.shut();
 				break;
 			case "CASE":
-				shutCase();
+				Item.JewelledCase.jewelledCase.shut();
 				break;
 			case "BOOK":
 				Story.print("It's closed.");
@@ -1474,244 +1965,6 @@ public class Action {
 			default:
 				Story.print("That is not something you can shut.");
 				break;
-		}
-	}
-	
-	public static void openDoor() {
-		switch (Player.getLocation().title) {
-			case "Sand Exhibit":
-				if (World.sandExhibitDoorOpen) {
-					Story.printAlreadyOpen();
-				} else {
-					if (World.OOX) {
-						Story.print("The door opens, revealing a shrine room.");
-						World.sandExhibitDoorOpen = true;
-						
-						if (!Player.openedSandExhibitDoor) {
-							Player.openedSandExhibitDoor = true;
-							Data.updateScore(5);
-						}
-					} else {
-						Story.printLocked();
-					}
-				}
-				break;
-			case "Shrine Room 1":
-				if (World.sandExhibitDoorOpen) {
-					Story.printAlreadyOpen();
-				} else {
-					Story.print("The door opens, revealing a sand exhibit.");
-					World.sandExhibitDoorOpen = true;
-				}
-				break;
-			case "Shrine Room 2":
-				if (World.shrineRoom2DoorOpen) {
-					Story.printAlreadyOpen();
-				} else {
-					if (World.OOX) {
-						Story.print("With some effort, the door slides opens, revealing a dark passageway.");
-						World.shrineRoom2DoorOpen = true;
-						
-						if (!Player.openedShrineRoom2Door) {
-							Player.openedShrineRoom2Door = true;
-							Data.updateScore(5);
-						}
-					} else {
-						Story.printLocked();
-					}
-				}
-				break;
-			case "Dark Passageway":
-				if (World.shrineRoom2DoorOpen) {
-					Story.printAlreadyOpen();
-				} else {
-					Story.print("The door opens, revealing a shrine room.");
-					World.shrineRoom2DoorOpen = true;
-				}
-				break;
-			case "Courtyard":
-				if (World.courtyardDoorOpen) {
-					Story.printAlreadyOpen();
-				} else {
-					if (World.XOO) {
-						Story.print("The door opens, revealing a small closet.");
-						World.courtyardDoorOpen = true;
-						
-						if (!Player.openedCloset) {
-							Player.openedCloset = true;
-							Data.updateScore(5);
-						}
-					} else {
-						Story.printLocked();
-					}
-				}
-				break;
-			case "Closet":
-				if (World.courtyardDoorOpen) {
-					Story.printAlreadyOpen();
-				} else {
-					Story.print("The door opens, revealing a courtyard.");
-					World.courtyardDoorOpen = true;
-				}
-				break;
-			default:
-				Story.printNotHere();
-				break;
-		}
-	}
-	
-	public static void shutDoor() {
-		switch (Player.getLocation().title) {
-			case "Sand Exhibit":
-				if (!World.sandExhibitDoorOpen) {
-					Story.printAlreadyShut();
-				} else {
-					Story.printShutDoor();
-					World.sandExhibitDoorOpen = false;
-				}
-				break;
-			case "Shrine Room 1":
-				if (!World.sandExhibitDoorOpen) {
-					Story.printAlreadyShut();
-				} else {
-					Story.printShutDoor();
-					World.sandExhibitDoorOpen = false;
-				}
-				break;
-			case "Shrine Room 2":
-				if (!World.shrineRoom2DoorOpen) {
-					Story.printAlreadyShut();
-				} else {
-					Story.printShutDoor();
-					World.shrineRoom2DoorOpen = false;
-				}
-				break;
-			case "Dark Passageway":
-				if (!World.shrineRoom2DoorOpen) {
-					Story.printAlreadyShut();
-				} else {
-					Story.printShutDoor();
-					World.shrineRoom2DoorOpen = false;
-				}
-				break;
-			case "Courtyard":
-				if (!World.courtyardDoorOpen) {
-					Story.printAlreadyShut();
-				} else {
-					Story.printShutDoor();
-					World.courtyardDoorOpen = false;
-				}
-				break;
-			case "Closet":
-				if (!World.courtyardDoorOpen) {
-					Story.printAlreadyShut();
-				} else {
-					Story.printShutDoor();
-					World.courtyardDoorOpen = false;
-				}
-				break;
-			default:
-				Story.printNotHere();
-				break;
-		}
-	}
-	
-	public static void openSafe() {
-		switch (Player.getLocation().title) {
-			case "Lounge":
-				if (World.loungeSafeOpen) {
-					Story.printAlreadyOpen();
-				} else {
-					if (World.OOX) {
-						Story.print("The safe swings open, revealing a faded scroll.");
-						World.loungeSafeOpen = true;
-					} else {
-						Story.printLocked();
-					}
-				}
-				break;
-			case "Shrine Room 1":
-				if (World.shrineRoom1SafeOpen) {
-					Story.printAlreadyOpen();
-				} else {
-					if (World.OXO) {
-						Story.print("The safe swings open, revealing a smooth scroll.");
-						World.shrineRoom1SafeOpen = true;
-					} else {
-						Story.printLocked();
-					}
-				}
-				break;
-			case "Study":
-				if (World.studySafeOpen) {
-					Story.printAlreadyOpen();
-				} else {
-					if (World.XOX) {
-						Story.print("The safe swings open, revealing a fancy scroll.");
-						World.studySafeOpen = true;
-					} else {
-						Story.printLocked();
-					}
-				}
-				break;
-			default:
-				Story.printNotHere();
-				break;
-		}
-	}
-	
-	public static void shutSafe() {
-		switch (Player.getLocation().title) {
-			case "Lounge":
-				if (World.loungeSafeOpen) {
-					Story.print("The safe slams shut.");
-					World.loungeSafeOpen = false;
-					
-				} else {
-					Story.printAlreadyOpen();
-				}
-				break;
-			case "Shrine Room 1":
-				if (World.shrineRoom1SafeOpen) {
-					Story.print("The safe slams shut.");
-					World.shrineRoom1SafeOpen = false;
-				} else {
-					Story.printAlreadyOpen();
-				}
-				break;
-			case "Study":
-				if (World.studySafeOpen) {
-					Story.print("The safe slams shut.");
-					World.studySafeOpen = false;
-				} else {
-					Story.printAlreadyOpen();
-				}
-				break;
-			default:
-				Story.printNotHere();
-				break;
-		}
-	}
-	
-	public static void openBox() {
-		Story.printOpenBox();
-		World.boxOpen = true;
-	}
-	
-	public static void shutBox() {
-		Story.printShutBox();
-		World.boxOpen = false;
-	}
-	
-	public static void openCase() {
-		Story.print("There's no discernable way to open the case by hand.");
-	}
-	
-	public static void shutCase() {
-		if (World.creakyDeckOpen) {
-			Story.print("There's no way to shut it.");
-		} else {
-			Story.printAlreadyShut();
 		}
 	}
 	
@@ -1730,38 +1983,17 @@ public class Action {
 				pressPlay();
 				break;
 			case "BUTTON":
-				pressButton();
+				Item.Button.button.press();
+				break;
+			case "STOP":
+			case "PAUSE":
+				Story.print("That button isn't here.");
+				break;
+			case "LEVER":
+				Item.lever.push();
 				break;
 			default:
-				Story.printNothingHappens();
-				break;
-		}
-	}
-	
-	public static void pressButton() {
-		switch (Player.getLocation().title) {
-			case "Shrine Room 1":
-				Story.print("Which button?");
-				break;
-			case "Master Bedroom":
-				Story.print("Which button?");
-				break;
-			case "Island":
-				Story.print("Which button?");
-				break;
-			case "Theater":
-				Story.print("Which button?");
-				break;
-			case "Creaky Deck":
-				if (World.XXO && !World.creakyDeckOpen) {
-					Story.printActivateCreakyDeck();
-					World.creakyDeckOpen = true;
-				} else {
-					Story.print("You push the button, but nothing happens.");
-				}
-				break;
-			default:
-				Story.printNotHere();
+				Story.invalid();
 				break;
 		}
 	}
@@ -1769,22 +2001,25 @@ public class Action {
 	public static void pull(String n) {
 		switch (n) {
 			case "":
-				Story.printMissingNoun();
+				if (Player.fishing) {
+					reelIn();
+				} else {
+					Story.printMissingNoun();
+				}
 				break;
 			case "TASSEL":
-				pullTassel();
+				Item.Tassel.tassel.pull();
 				break;
 			case "BIRDS":
 				moveBirds();
 				break;
 			case "IN":
-				reelIn();
-				break;
 			case "ROD":
+			case "FISH":
 				reelIn();
 				break;
 			case "LEVER":
-				pullLever();
+				Item.Lever.lever.pull();
 				break;
 			default:
 				Story.printNotHere();
@@ -1792,45 +2027,20 @@ public class Action {
 		}
 	}
 	
-	private static void pullLever() {
-		if (Player.getLocation().title.equals("Hallway")) {
-			if (World.OOO && !World.raDropped) {
-				Story.printActivateHallway();
-				World.raDropped = true;
-				Room.closetObjects.add(Item.ra);
-				Room.closet.scrollCount++;
-				
-				if (!Player.pulledHallwayLever) {
-					Player.pulledHallwayLever = true;
-					Data.updateScore(5);
-				}
-			} else {
-				Story.print("You pull the lever, but nothing happens.");
-			}
-		}
-	}
-	
-	private static void pullTassel() {
-		if (Player.getLocation().title.equals("Island")) {
-			if (World.islandOpen) {
-				Story.print("You pull the tassel, but nothing happens. The barrier is already open.");
-			} else {
-				World.islandOpen = true;
-				Story.printTassel();
-				
-				if (!Player.openedHokura) {
-					Player.openedHokura = true;
-					Data.updateScore(5);
-				}
-			}
-		} else {
-			Story.printNotHere();
+	public static void destroy(String n) {
+		switch (n) {
+			case "":
+				Story.printMissingNoun();
+				break;
+			default:
+				Story.print("Even with your best effort, it is futile.");
+				break;
 		}
 	}
 	
 	public static void pressRewind() {
 		switch (Player.getLocation().title) {
-			case "Shrine Room 1":
+			case "Avalokitesvara Shrine":
 				if (Player.purpleAlive) {
 					Story.printTapeAtBeginning();
 				} else {
@@ -1858,7 +2068,7 @@ public class Action {
 						World.resetBulbs();
 					}
 				} else {
-					Story.print("You can't reach the TV behind the gate.");
+					Story.print("The lattice barrier obstructs you from reaching the television.");
 				}
 				break;
 			case "Theater":
@@ -1877,7 +2087,7 @@ public class Action {
 	
 	public static void pressFastforward() {
 		switch (Player.getLocation().title) {
-			case "Shrine Room 1":
+			case "Avalokitesvara Shrine":
 				if (Player.purpleAlive) {
 					Story.printFastforward("purple");
 					Player.purpleAlive = false;
@@ -1905,11 +2115,11 @@ public class Action {
 						Story.printNothingHappens();
 					}
 				} else {
-					Story.print("You can't reach the TV behind the gate.");
+					Story.print("The lattice barrier obstructs you from reaching the television.");
 				}
 				break;
 			case "Theater":
-				if (!World.theaterTVAtBeginning) {
+				if (World.theaterTVAtBeginning) {
 					Story.printFastforward("theater");
 					World.theaterTVAtBeginning = false;
 				} else {
@@ -1924,7 +2134,7 @@ public class Action {
 	
 	public static void pressPlay() {
 		switch (Player.getLocation().title) {
-			case "Shrine Room 1":
+			case "Avalokitesvara Shrine":
 				Player.playPurple();
 				break;
 			case "Master Bedroom":
@@ -1934,7 +2144,7 @@ public class Action {
 				Player.playGreen();
 				break;
 			case "Theater":
-				World.playTheater();
+				Item.TV.playTheater();
 				break;
 			default:
 				Story.printNotHere();
@@ -1961,6 +2171,15 @@ public class Action {
 			case "BIRDS":
 				moveBirds();
 				break;
+			case "MIRROR":
+				moveMirror();
+				break;
+			case "LEVER":
+				Item.lever.pull();
+				break;
+			case "TASSEL":
+				Item.tassel.pull();
+				break;
 			default:
 				Story.invalid();
 				break;
@@ -1972,9 +2191,22 @@ public class Action {
 			Story.printMoveBirds();
 			Story.newLine();
 			Player.facingReaper = true;
-			Story.printReaperEncounter2();		
+			Story.printReaperEncounter3();		
 		} else {
 			Story.printNotHere();
+		}
+	}
+	
+	public static void moveMirror() {
+		switch (Player.getLocation().title) {
+			case "Thatched Hut":
+			case "Study":
+			case "Trinket Shop":
+				Story.printTooHeavy();
+				break;
+			default:
+				Story.printNotHere();
+				break;
 		}
 	}
 	
@@ -1984,6 +2216,11 @@ public class Action {
 				Player.onPhone = true;
 				NPC.setKimi("moshi");
 				Story.printKimiMoshi();
+				
+				if (!Player.gotKimiPoints) {
+					Player.gotKimiPoints = true;
+					Data.updateScore(5);
+				}
 				break;
 			default:
 				Story.printPhoneWrong();

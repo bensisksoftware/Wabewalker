@@ -10,9 +10,12 @@ public class Thesaurus {
 		extraWords.add("AT");
 		extraWords.add("OUT");
 		extraWords.add("OLD");
+		extraWords.add("MY");
 		extraWords.add("THROUGH");
+		extraWords.add("UNDER");
+		extraWords.add("IN");
 		extraWords.add("SOME");
-		extraWords.add("ALL");
+		extraWords.add("CORDED");
 		extraWords.add("TO");
 		extraWords.add("ON");
 		extraWords.add("WITH");
@@ -21,6 +24,11 @@ public class Thesaurus {
 		extraWords.add("HAVE");
 		extraWords.add("FOR");
 		extraWords.add("IT");
+		extraWords.add("LARGE");
+		extraWords.add("SMALL");
+		extraWords.add("BIG");
+		extraWords.add("HOODED");
+		extraWords.add("COLORFUL");
 		extraWords.add("ABOUT");
 		extraWords.add("DOZEN");
 		extraWords.add("SAY");
@@ -29,23 +37,42 @@ public class Thesaurus {
 	}
 	
 	public static String translate(String w) {
+		// Player doesn't need to do this to beat this game
 		if (w.equals("LICK")
 		|| w.equals("TASTE")
 		|| w.equals("FEEL")
-		|| w.equals("BREAK")
-		|| w.equals("CUT")
-		|| w.equals("SMASH")
-		|| w.equals("CRUSH")
-		|| w.equals("DESTROY")
 		|| w.equals("RUB")
-		|| w.equals("JUNK")
-		|| w.equals("COBWEBS")
-		|| w.equals("COBWEB")
-		|| w.equals("WEBS")
-		|| w.equals("WEB")
 		|| w.equals("KISS")
+		|| w.equals("SHRED")
+		|| w.equals("RUIN")
 		|| w.equals("TOUCH")) {
 			w = "UNUSED";
+		}
+		
+		if (w.equals("COBWEBS")
+		|| w.equals("COBWEB")
+		|| w.equals("CANDLE")
+		|| w.equals("CANDLES")
+		|| w.equals("CLOTH")
+		|| w.equals("VELVET")
+		|| w.equals("WEBS")
+		|| w.equals("WEB")) {
+			w ="JUNK";
+		}
+		
+		if (w.equals("RED")
+		|| w.equals("YELLOW")
+		|| w.equals("BLUE")
+		|| w.equals("WHITE")
+		|| w.equals("BROWN")
+		|| w.equals("BURGUNDY")
+		|| w.equals("BLACK")) {
+			w ="COLOR";
+		}
+		
+		if (w.equals("STAIR")
+		|| w.equals("STAIRCASE")) {
+			w ="STAIRS";
 		}
 		
 		if (w.equals("N")) {
@@ -108,63 +135,138 @@ public class Thesaurus {
 			w = "SHI";
 		}
 		
-		if (w.equals("BULBS")
-			|| w.equals("BULB")
-			|| w.equals("PLAQUES")
+		if (w.equals("ARROW")
+			|| w.equals("ARROWS")
+			|| w.equals("METAL")
+			|| w.equals("METAL")
+			|| w.equals("METAL")
+			|| w.equals("PANELS")
 			|| (w.equals("POST") && Player.getLocation().title.equals("Hamlet"))) {
-			w = "PLAQUE";
+			w = "PANEL";
+		}
+		
+		if (w.equals("BULBS")) {
+			w = "BULB";
 		}
 		
 		if (w.equals("BIRD")
-			|| w.equals("ORAGAMI")) {
+			|| w.equals("PAPER")
+			|| w.equals("ORAGAMI")
+			|| w.equals("CURTAIN")) {
 			w = "BIRDS";
 		}
 		
 		if (w.equals("CARVING")
 			|| w.equals("BANNER")
 			|| w.equals("SLATE")
+			|| w.equals("PLAQUE")
 			|| w.equals("MEMORIAL")
-			|| w.equals("INSCRIPTION")
-			|| w.equals("STONE")) {
+			|| w.equals("INSCRIPTION")) {
 			w = "SIGN";
 		}
 		
+		if (w.equals("COBBLE")
+		|| w.equals("SQUARE")) {
+			w = "STONE";
+		}
+		
+		if (w.equals("KEGON-JI")
+		|| w.equals("KEGONJI")
+		|| w.equals("KEGON JI")) {
+			w = "TEMPLE";
+		}
+		
 		if (w.equals("CEDAR")
-			|| w.equals("BARRIER")) {
+		|| w.equals("BARRIER")) {
 			w = "LATTICE";
 		}
 		
-		if (w.equals("CHIPPENDALE")) {
+		if (w.equals("SNOWFLAKE")
+		|| w.equals("SNOWFLAKES")
+		|| w.equals("SNOWFALL")) {
+			w = "SNOW";
+		}
+		
+		if (w.equals("CHIPPENDALE")
+		|| w.equals("REFLECTION")
+		|| w.equals("HAIR")) {
 			w = "MIRROR";
 		}
 		
-		if (w.equals("WATER")) {
+		if (w.equals("WATER")
+		|| w.equals("RIPPLE")
+		|| w.equals("RIPPLES")
+		|| w.equals("WAVE")
+		|| w.equals("WAVES")) {
 			w = "POND";
+		}
+		
+		if (w.equals("SECRET")) {
+			w = "COMPARTMENT";
+		}
+		
+		if (w.equals("INSIDE")) {
+			w = "IN";
+		}
+		
+		if (w.equals("PORCELAIN")) {
+			w = "MASK";
+		}
+		
+		if (w.equals("KOI")) {
+			w = "FISH";
 		}
 
 		if (w.equals("KERNEL")
-			|| w.equals("BAIT")) {
+		|| w.equals("BAIT")) {
 			w = "CORN";
 		}
 		
 		if (w.equals("POLE")
-			|| w.equals("FISHING")
-			|| w.equals("HOOK")
-			|| w.equals("LINE")) {
+		|| w.equals("FISHING")
+		|| w.equals("HOOK")
+		|| w.equals("LINE")) {
 			w = "ROD";
 		}
 		
+		if (w.equals("SHOE")
+		|| w.equals("SHOES")
+		|| w.equals("FEET")
+		|| w.equals("FOOT")
+		|| w.equals("poop")
+		|| w.equals("SANDAL")) {
+			w = "SANDALS";
+		}		
+		
 		if (w.equals("ME")
-			|| w.equals("SELF")) {
-			w = "ROBE";
+		|| w.equals("SELF")
+		|| w.equals("SAMUES")
+		|| w.equals("CLOTHING")
+		|| w.equals("CLOTHES")) {
+			w = "SAMUE";
 		}
 		
 		if (w.equals("LANDLINE")) {
 			w = "PHONE";
 		}
 		
-		if (w.equals("SAND")) {
+		if (w.equals("SAND")
+		|| w.equals("GRAVEL")) {
 			w = "EXHIBIT";
+		}
+		
+		if (w.equals("CRYPTO")) {
+			w = "CRYPTOGRAM";
+		}
+		
+		if (w.equals("TREES")
+		|| w.equals("GARDEN")
+		|| w.equals("GARDENS")
+		|| w.equals("PRUNED")
+		|| w.equals("FOREST")
+		|| w.equals("BAMBOO")
+		|| w.equals("PINE")) {
+			w = "TREE";
 		}
 		
 		if (w.equals("FIGURES")) {
@@ -175,7 +277,13 @@ public class Thesaurus {
 			w = "CHEST";
 		}
 		
-		if (w.equals("COUCH")) {
+		if (w.equals("ROOFTOP")) {
+			w = "ROOF";
+		}
+		
+		if (w.equals("COUCH")
+			|| w.equals("CUSHION") 
+			|| w.equals("CUSHIONS")) {
 			w = "SOFA";
 		}
 		
@@ -183,12 +291,23 @@ public class Thesaurus {
 			w = "GROUND";
 		}
 		
-		if (w.equals("PLAQUES")) {
-			w = "PLAQUE";
+		if (w.equals("PANELS")) {
+			w = "PANEL";
 		}
 		
-		if (w.equals("JEWELED")) {
-			w = "BOX";
+		if (w.equals("IRON")) {
+			w = "SAFE";
+		}
+		
+		if (w.equals("JEWELLED")
+		|| w.equals("JEWEL")	
+		|| w.equals("JEWELS")	
+		|| w.equals("RUBY")	
+		|| w.equals("RUBIES")	
+		|| w.equals("EMERALD")	
+		|| w.equals("EMERALDS")	
+		|| w.equals("SAPPHIRE")	) {
+			w = "CASE";
 		}
 		
 		if (w.equals("WALK")
@@ -249,22 +368,25 @@ public class Thesaurus {
 			w = "FASTFORWARD";
 		}
 		
-		if (w.equals("I")) {
+		if (w.equals("I")
+		|| w.equals("POCKET")
+		|| w.equals("POCKETS")) {
 			w = "INVENTORY";
 		}
 		
 		if (w.equals("X")
-			|| w.equals("READ")
-			|| w.equals("INVESTIGATE")
-			|| w.equals("L")
-			|| w.equals("SEARCH")
-			|| w.equals("LOOK")
-			|| w.equals("CHECK")){
+		|| w.equals("READ")
+		|| w.equals("INVESTIGATE")
+		|| w.equals("L")
+		|| w.equals("SEARCH")
+		|| w.equals("LOOK")
+		|| w.equals("CHECK")){
 			w = "EXAMINE";
 		}
 		
 		if (w.equals("KILL")
 			|| w.equals("COMBAT")
+			|| w.equals("ATTACK")
 			|| w.equals("HIT")){
 			w = "FIGHT";
 		}
@@ -281,11 +403,23 @@ public class Thesaurus {
 			w = "DIAL";
 		}
 		
+		if (w.equals("RAILING")
+		|| w.equals("BALCONY")){
+			w = "DECK";
+		}
+		
 		if (w.equals("GET")
 		|| w.equals("OBTAIN")
 		|| w.equals("CATCH")
 		|| w.equals("GRAB")) {
 			w = "TAKE";
+		}
+		
+		if (w.equals("STORE")
+		|| w.equals("STOREFRONT")
+		|| w.equals("TRINKET")
+		|| w.equals("SHOP")) {
+			w = "SHOP";
 		}
 		
 		if (w.equals("THROW")
@@ -370,8 +504,14 @@ public class Thesaurus {
 			w = "NO";
 		}
 		
-		if (w.equals("BIZ")) {
-			w = "BUSINESS";
+		if (Player.getLocation().title.equals("Sitting Room")) {
+			if (w.equals("BIZ")) {
+				w = "BUSINESS";
+			}
+		} else {
+			if (w.equals("BUSINESS")) {
+				w = "CARD";
+			}
 		}
 		
 		if (w.equals("APPOINTMENT")
@@ -379,8 +519,19 @@ public class Thesaurus {
 		|| w.equals("APPT")
 		|| w.equals("LESSON")
 		|| w.equals("FORMER")
+		|| w.equals("IN-DEPTH")
 		|| w.equals("INDEPTH")) {
 			w = "SCHEDULE";
+		}
+		
+		if (w.equals("EYE")
+		|| w.equals("MOUTH")
+		|| w.equals("EAR")
+		|| w.equals("HEART")
+		|| w.equals("FOOT")
+		|| w.equals("HAND")
+		|| w.equals("NOSE")) {
+			w = "PICTURE";
 		}
 		
 		if (w.equals("FREE")
@@ -396,18 +547,39 @@ public class Thesaurus {
 		|| w.equals("SEEYA")
 		|| w.equals("SAYONARA")
 		|| w.equals("LATER")
-		|| w.equals("LEAVE")
 		|| w.equals("STOP")
 		|| w.equals("END")
-		|| w.equals("EXIT")
 		|| w.equals("FINISHED")
 		|| w.equals("DONE")
 		|| w.equals("FINISH")) {
 			w = "BYE";
 		}
 		
+		if (w.equals("LEAVE")) {
+			w = "EXIT";
+		}
+		
+		if (w.equals("RESIDENTS")
+		|| w.equals("RESIDENT'S")
+		|| w.equals("RESIDENTS'")
+		|| w.equals("QUARTERS")) {
+			w = "HOUSE";
+		}
+		
 		if (w.equals("CUP")) {
 			w = "TEA";
+		}
+		
+		if (w.equals("DOORWAY")) {
+			w = "DOOR";
+		}
+		
+		if (w.equals("RAILING")) {
+			w = "WALL";
+		}
+		
+		if (w.equals("LOAD")) {
+			w = "RESTORE";
 		}
 		
 		if (w.equals("SIP")
@@ -421,13 +593,15 @@ public class Thesaurus {
 			|| w.equals("SUP")
 			|| w.equals("WHADDUP")
 			|| w.equals("OGENKIDESUKA")
-			|| w.equals("HISACHI")
+			|| w.equals("ICHIRO")
 			|| w.equals("YOURSELF")
 			|| w.equals("U")
 			|| w.equals("HIM")
+			|| w.equals("GLASSES")
+			|| w.equals("ROBE")
 			|| w.equals("MAN")
 			|| w.equals("TOD")) {
-				w = "ICHIRO";
+				w = "HISACHI";
 			}
 			
 			
@@ -442,8 +616,8 @@ public class Thesaurus {
 			|| w.equals("BULB")
 			|| w.equals("BULBS")
 			|| w.equals("LIGHT")
-			|| w.equals("PLAQUE")
-			|| w.equals("PLAQUES")
+			|| w.equals("PANEL")
+			|| w.equals("PANELS")
 			|| w.equals("POST")
 			|| w.equals("SLATE")
 			|| w.equals("METAL")) {
@@ -463,10 +637,29 @@ public class Thesaurus {
 			w = "SCROLL";
 		}
 		
+		if (w.equals("SIT")) {
+			w = "LAY";
+		}
+		
+		if (w.equals("KIMONO")) {
+			w = "WOMAN";
+		}
+		
 		if (w.equals("YANK")
-			|| w.equals("REEL")
-			|| w.equals("TUG")) {
+		|| w.equals("REEL")
+		|| w.equals("TUG")) {
 			w = "PULL";
+		}
+		
+		if (w.equals("PAINTINGS")
+		|| w.equals("ART")
+		|| w.equals("GALLERY")
+		|| w.equals("ARTWORK")) {
+			w = "PAINTING";
+		}
+		
+		if (w.equals("ADACHI")) {
+			w = "MUSEUM";
 		}
 		
 		if (w.equals("FOUR-POSTER")
@@ -497,15 +690,19 @@ public class Thesaurus {
 		}
 		
 		if (w.equals("GLASS")
-		|| w.equals("PANE")) {
+		|| w.equals("PANE")
+		|| w.equals("OUTSIDE")) {
 			w = "WINDOW";
 		}
 		
-		if (w.equals("LAUNDRY")) {
+		if (w.equals("LAUNDRY")
+		|| w.equals("SHELF")) {
 			w = "CHUTE";
 		}
 		
 		if (w.equals("TELEVISION")
+		|| w.equals("DISPLAY")
+		|| w.equals("SCREEN")
 		|| w.equals("SET")) {
 			w = "TV";
 		}
@@ -517,17 +714,18 @@ public class Thesaurus {
 		}
 		
 		if (w.equals("HERE")
+		|| w.equals("CLOSET")
+		|| w.equals("ISLAND")
+		|| w.equals("WABE")
 		|| w.equals("PLACE")
 		|| w.equals("LOCATION")
-		|| w.equals("WHERE")
-		|| w.equals("PATH")
-		|| w.equals("PATHS")
-		|| w.equals("CLUE")
-		|| w.equals("HINT")
-		|| w.equals("MAP")
-		|| w.equals("WORLD")
-		|| w.equals("HONDO")) {
-			w = "TEMPLE";
+		|| w.equals("WORLD")) {
+			w = "ROOM";
+		}
+		
+		if (w.equals("WALKWAY")
+		|| w.equals("WALKWAYS")) {
+			w = "PATH";
 		}
 		
 		if (w.equals("YELL")
@@ -543,18 +741,27 @@ public class Thesaurus {
 		|| w.equals("ANSWER")
 		|| w.equals("REPLY")
 		|| w.equals("SCREAM")
-		|| w.equals("STATE")
-		|| w.equals("STATE")
-		|| w.equals("STATE")
-		|| w.equals("STATE")
-		|| w.equals("STATE")
+		|| w.equals("TALK")
 		|| w.equals("STATE")
 		|| w.equals("EXCLAIM")) {
 			w = "SAY";
 		}
 		
+		if (w.equals("CUT")
+		|| w.equals("SMASH")
+		|| w.equals("CRUSH")
+		|| w.equals("BREAK")) {
+			w = "DESTROY";
+		}
+		
 		if (w.equals("PUSH")){
 			w = "PRESS";
+		}
+		
+		if (w.equals("THATCHED")
+		|| w.equals("STRAW")
+		|| w.equals("CEILING")){
+			w = "HUT";
 		}
 		
 		return w;

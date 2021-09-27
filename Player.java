@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Player {
 	public static boolean meditating;
 	public static boolean dreaming;
-	public static boolean tookACBook;
 	public static boolean sawReaper1;
 	public static boolean sawReaper2;
 	public static boolean facingReaper;
@@ -25,7 +24,7 @@ public class Player {
 	public static boolean baitedRod;
 	public static boolean openedHokura;
 	public static boolean examinedCard;
-	public static boolean heardKimiWisdom;
+	public static boolean gotKimiPoints;
 	public static boolean openedSandExhibitDoor;
 	public static boolean gotTodPoints;
 	public static boolean readBook;
@@ -33,8 +32,6 @@ public class Player {
 	public static boolean pulledHallwayLever;
 	public static boolean openedCloset;
 	public static boolean openedShrineRoom2Door;
-	public static boolean sittingOnGround;
-	public static boolean sittingOnSofa;
 	public static boolean tookParchment;
 	public static boolean examinedMannequin;
 	
@@ -43,11 +40,11 @@ public class Player {
 	public static String previousLocation = "";
 	
 	public static ArrayList<String> memory = new ArrayList<String>();
-	public static ArrayList<String> answers = new ArrayList<>();
-	public static ArrayList<Item> inventory = new ArrayList<Item>();
-	public static ArrayList<Item> orangeSavedInventory = new ArrayList<Item>();
-	public static ArrayList<Item> greenSavedInventory = new ArrayList<Item>();
-	public static ArrayList<Item> purpleSavedInventory = new ArrayList<Item>();
+	public static ArrayList<String> guesses = new ArrayList<String>();
+	public static ArrayList<String> inventory = new ArrayList<String>();
+	public static ArrayList<String> orangeSavedInventory = new ArrayList<String>();
+	public static ArrayList<String> greenSavedInventory = new ArrayList<String>();
+	public static ArrayList<String> purpleSavedInventory = new ArrayList<String>();
 	
 	public static Room getLocation() {
 		return Room.location.get(0);
@@ -65,10 +62,14 @@ public class Player {
 		updatePreviousLocation(getLocation().title);
 		Room.location.clear();
 		Room.location.add(r);
-		Bunraku.header1.setText(Player.getLocation().title);
+		Wabewalker.locationHolder.setText(Player.getLocation().title);
 		Story.printLocation();
 		
-		if (!Room.visited.contains(Player.getLocation())) {
+		if (!Story.brief) {
+			Story.newLine();
+			Story.printDesc();
+			Story.printDesc2();
+		} else if (!Room.visited.contains(Player.getLocation())) {
 			Story.newLine();
 			Story.printDesc();
 			Story.printDesc2();
@@ -78,6 +79,13 @@ public class Player {
 		Story.printObjects();
 	}
 	
+	public static void restoreSavedLocation(Room r) {
+		Room.location.clear();
+		Room.location.add(r);
+		Wabewalker.locationHolder.setText(Player.getLocation().title);
+		Story.printLocation();
+	}
+	
 	public static void addVisited() {
 		if (!Room.visited.contains(getLocation()))
 			Room.visited.add(getLocation());
@@ -85,7 +93,7 @@ public class Player {
 	
 	public static void die() {
 		switch (getLocation().title) {
-			case "Outside Gallery":
+			case "Wabe":
 				if (greenAlive) {
 					wipeOrange();
 					World.resetBulbs();
@@ -99,7 +107,6 @@ public class Player {
 					Story.printBlackOut();
 					Player.updateLocation(Room.masterBedroom);
 				} else {
-					// no ningyo
 					Story.printGameOver();
 				}
 				break;
@@ -118,7 +125,6 @@ public class Player {
 						Player.updateLocation(Room.forest);
 					}
 				} else {
-					// no ningyo
 					Story.printGameOver();
 				}
 				break;
@@ -137,8 +143,6 @@ public class Player {
 						Player.updateLocation(Room.gardenPatio);
 					}
 				} else {
-					// no ningyo
-					Data.gameOver = true;
 					Story.printGameOver();
 				}
 				break;
@@ -167,9 +171,9 @@ public class Player {
 		Room.gardenOverlookObjects.clear(); 
 		Room.loungeObjects.clear(); 
 		Room.cafeObjects.clear(); 
-		Room.outsideGalleryObjects.clear(); 
+		Room.wabeObjects.clear(); 
 		Room.shrineRoom1Objects.clear(); 
-		Room.insideGalleryObjects.clear(); 
+		Room.galleryObjects.clear(); 
 		Room.assemblyRoomObjects.clear(); 
 		
 		Room.setGardenObjects(); 
@@ -215,10 +219,10 @@ public class Player {
 		sipped = false;
 		spokeToClan = false;
 		metIsachi = false;
-		World.boxOpen = false;
+		World.caseOpen = false;
 		World.creakyDeckOpen = false;
-		World.yuInBox = true;
-		World.goInCase = true;
+		World.yuInCase = true;
+		World.goInBox = true;
 			
 		if (!getLocation().equals(Room.shrineRoom1))
 			inventory.clear();
@@ -229,6 +233,7 @@ public class Player {
 		Room.gateObjects.clear(); 
 		Room.islandObjects.clear(); 
 		Room.bottomOfMountainObjects.clear(); 
+		Room.halfwayUpMountainObjects.clear(); 
 		Room.topOfMountainObjects.clear(); 
 		Room.hamletObjects.clear(); 
 		Room.hondoObjects.clear(); 
@@ -303,7 +308,7 @@ public class Player {
 				updateLocation(Room.gardenPatio);
 			}
 		} else {
-			Story.printTapePlaying();
+			Story.printAlreadyPlaying();
 		}
 	}
 	
@@ -320,10 +325,10 @@ public class Player {
 					restoreGreenInventory();
 				
 			} else {
-				Story.printTapePlaying();
+				Story.printAlreadyPlaying();
 			}
 		} else {
-			Story.print("You can't reach the TV behind the gate.");
+			Story.print("The lattice barrier obstructs you from reaching the television.");
 		}
 	}
 	
@@ -341,11 +346,11 @@ public class Player {
 				updateLocation(Room.forest);
 			}
 		} else {
-			Story.printTapePlaying();
+			Story.printAlreadyPlaying();
 		}
 	}
 	
-	public static String getRobe() {
+	public static String getSamue() {
 		switch (Player.getLocation().title) {
 			case "Garden Patio":
 				if (Player.dreaming) {
@@ -395,19 +400,19 @@ public class Player {
 				} else {
 					return "orange";
 				}
-			case "Outside Gallery":
+			case "Wabe":
 				if (Player.dreaming) {
 					return "black";
 				} else {
 					return "orange";
 				}
-			case "Shrine Room 1":
+			case "Avalokitesvara Shrine":
 				if (Player.dreaming) {
 					return "black";
 				} else {
 					return "orange";
 				}
-			case "Inside Gallery":
+			case "Gallery":
 				if (Player.dreaming) {
 					return "black";
 				} else {
@@ -419,7 +424,7 @@ public class Player {
 				} else {
 					return "orange";
 				}
-			case "Shrine Room 2":
+			case "Altar of Samantabhadra":
 				return "green";
 			case "Living Room":
 				return "green";
@@ -453,6 +458,8 @@ public class Player {
 				return "purple";
 			case "Bottom of Mountain":
 				return "purple";
+			case "Halfway up Mountain":
+				return "purple";
 			case "Top of Mountain":
 				return "purple";
 			case "Hamlet":
@@ -463,7 +470,7 @@ public class Player {
 				return "purple";
 			case "Balcony":
 				return "purple";
-			case "Shrine Room 3":
+			case "Butsudan of Kannon":
 				return "purple";
 			case "Trinket Shop":
 				return "purple";
@@ -472,14 +479,14 @@ public class Player {
 			case "Overlook":
 				return "purple";
 			default:
-				System.out.println("Player.getRobe() error");
+				System.out.println("Player.getSamue() error");
 				return null;
 		}
 	}
 	
 	public static void memorizeFish() {
-		if (!memory.contains("Fish")) {
-			memory.add("Fish");
+		if (!memory.contains("fish")) {
+			memory.add("fish");
 			Data.updateScore(10);
 		}
 	}
@@ -488,7 +495,7 @@ public class Player {
 		dreaming = false;
 		restorePurpleInventory();
 		Story.print(Story.tod11);
-		inventory.add(Item.shi);
+		inventory.add(Item.Shi.getTitle());
 		NPC.setTod("content");
 		Story.newLine();
 		updateLocation(Room.hamlet);
@@ -500,25 +507,25 @@ public class Player {
 	public static int getInventoryScrollCount() {
 		int c = 0;
 		
-		if (inventory.contains(Item.om))
+		if (inventory.contains(Item.Om.getTitle()))
 			c++;
 		
-		if (inventory.contains(Item.ni))
+		if (inventory.contains(Item.Ni.getTitle()))
 			c++;
 		
-		if (inventory.contains(Item.go))
+		if (inventory.contains(Item.Go.getTitle()))
 			c++;
 		
-		if (inventory.contains(Item.yu))
+		if (inventory.contains(Item.Yu.getTitle()))
 			c++;
 		
-		if (inventory.contains(Item.ji))
+		if (inventory.contains(Item.Ji.getTitle()))
 			c++;
 		
-		if (inventory.contains(Item.ra))
+		if (inventory.contains(Item.Ra.getTitle()))
 			c++;
 		
-		if (inventory.contains(Item.shi))
+		if (inventory.contains(Item.Shi.getTitle()))
 			c++;
 		
 		return c;
@@ -542,15 +549,15 @@ public class Player {
 				return "garden";
 			case "Cafe":
 				return "garden";
-			case "Outside Gallery":
+			case "Wabe":
 				return "garden";
-			case "Shrine Room 1":
+			case "Avalokitesvara Shrine":
 				return "garden";
-			case "Inside Gallery":
+			case "Gallery":
 				return "garden";
 			case "Assembly Room":
 				return "garden";
-			case "Shrine Room 2":
+			case "Altar of Samantabhadra":
 				return "house";
 			case "Living Room":
 				return "house";
@@ -596,7 +603,7 @@ public class Player {
 				return "temple";
 			case "Balcony":
 				return "temple";
-			case "Shrine Room 3":
+			case "Butsudan of Kannon":
 				return "temple";
 			case "Trinket Shop":
 				return "temple";
@@ -607,6 +614,20 @@ public class Player {
 			default:
 				System.out.println("Player.getArea() error");
 				return null;
+		}
+	}
+	
+	public static boolean hasScroll() {
+		if (inventory.contains(Item.om.getTitle())
+		|| inventory.contains(Item.ni.getTitle())
+		|| inventory.contains(Item.go.getTitle())
+		|| inventory.contains(Item.yu.getTitle())
+		|| inventory.contains(Item.ji.getTitle())
+		|| inventory.contains(Item.ra.getTitle())
+		|| inventory.contains(Item.shi.getTitle())) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }
